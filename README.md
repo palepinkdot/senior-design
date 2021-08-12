@@ -1,2 +1,2 @@
-# senior-design
-Senior Design repo for group 6
+# Find-a-Pet
+Senior Design repo for group 9
