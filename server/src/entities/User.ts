@@ -1,0 +1,53 @@
+import { Field, ObjectType } from "type-graphql";
+import {
+  BaseEntity,
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from "typeorm";
+import { Cart } from "./Cart";
+@ObjectType()
+@Entity()
+export class User extends BaseEntity {
+  @Field()
+  @PrimaryGeneratedColumn("uuid")
+  id!: string;
+
+  @Field()
+  @Column({ unique: true })
+  username!: string;
+
+  @Field()
+  @Column()
+  firstname!: string;
+
+  @Field()
+  @Column()
+  lastname!: string;
+
+  @Field()
+  @Column()
+  avatarUrl: string;
+
+  @Field()
+  @Column({ unique: true })
+  email!: string;
+
+  @Column()
+  password!: string;
+
+  @Field(() => String)
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @Field(() => String)
+  @UpdateDateColumn()
+  updatedAt: Date;
+
+  @Field(() => Cart)
+  @OneToOne(() => Cart, (cart) => cart.id)
+  cart?: Cart;
+}

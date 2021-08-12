@@ -1,0 +1,10 @@
+query Products {
+  products {
+    id
+    sku
+    name
+    price
+    createdAt
+    imageUrl
+  }
+}

@@ -1,0 +1,12 @@
+mutation CreateCart {
+  createCart {
+    cart {
+      id
+      createdAt
+    }
+    errors {
+      field
+      message
+    }
+  }
+}

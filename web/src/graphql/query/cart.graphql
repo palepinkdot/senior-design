@@ -1,0 +1,6 @@
+query Cart {
+  cart {
+    id
+    createdAt
+  }
+}
