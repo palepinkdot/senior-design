@@ -1,0 +1,4 @@
+fragment RegularCart on Cart {
+  id
+  createdAt
+}

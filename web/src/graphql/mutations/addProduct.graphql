@@ -1,0 +1,14 @@
+mutation AddProduct($options: AddProductInput!) {
+  addProduct(options: $options) {
+    errors {
+      field
+      message
+    }
+    product {
+      sku
+      name
+      price
+      imageUrl
+    }
+  }
+}

@@ -1,0 +1,5 @@
+mutation UpdateUserInfo($options: UpdateUserInfoInput!) {
+  updateUserInfo(options: $options) {
+    ...RegularUserResponse
+  }
+}
