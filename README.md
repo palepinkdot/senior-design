@@ -13,8 +13,8 @@ Name (@github / UC 6+2)
 
 ## Prerequisites
 
-- ![Redis](https://redis.io/topics/quickstart).
-- ![Node.js](https://nodejs.org/en/download/).
+- [Redis](https://redis.io/topics/quickstart).
+- [Node.js](https://nodejs.org/en/download/).
 
 After cloning the repo, go ahead and enter the `server` and `web` directories in separate terminal windows in VSCode. Open two terminal windows in the server directory. This makes sense later.
 
