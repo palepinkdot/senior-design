@@ -42,7 +42,7 @@ export default function LoginCard() {
             setErrors(toErrorMap(response.data.login.errors));
           } else if (response.data?.login.user) {
             // worked
-            router.push("/");
+            router.push("/app");
           }
         }}
       >

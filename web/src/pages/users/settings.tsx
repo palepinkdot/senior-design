@@ -8,8 +8,6 @@ const Settings: React.FC<{}> = ({}) => {
       <h1>User settings slug</h1>
     </Layout>
   );
-
-  return null;
 };
 
 export default withApollo({ ssr: false })(Settings);

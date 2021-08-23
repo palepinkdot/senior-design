@@ -30,8 +30,9 @@ import {
   IoSettingsOutline,
   IoSunnyOutline,
 } from "react-icons/io5";
-import router from "next/router";
+import router, { useRouter } from "next/router";
 import { UserSettingsModal } from "./user/UserSettingsModal";
+import { ApolloClient, useApolloClient } from "@apollo/client";
 
 interface NavBarProps {}
 
@@ -83,8 +84,10 @@ const Logo = (props: any) => {
 };
 
 export const NavBar: React.FC<NavBarProps> = ({}) => {
+  const router = useRouter();
   const { colorMode, toggleColorMode } = useColorMode();
   const [logout, { loading: logoutFetching }] = useLogoutMutation();
+  const apolloClient = useApolloClient();
   const { data, loading } = useMeQuery({
     skip: isServer(),
   });
@@ -185,8 +188,9 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
             </MenuItem>
             <MenuDivider />
             <MenuItem
-              onClick={() => {
-                logout();
+              onClick={async () => {
+                await logout();
+                await apolloClient.resetStore();
                 router.push("/");
               }}
               isLoading={logoutFetching}
