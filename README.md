@@ -2,7 +2,7 @@
 
 Senior Design repo for group 9
 
-## Getting Started
+# Getting Started
 
 After cloning the repo, go ahead and enter the `server` and `web` directories in separate terminal windows in VSCode. Open two terminal windows in the server directory. This makes sense later.
 
@@ -12,21 +12,21 @@ In first the `server` window, run `yarn watch`, in the second run `yarn dev`, an
 
 Running `yarn watch` listens for changes to the server files and compiles them to the `server/dist` folder so the changes are live.
 
-## Writing Code
+# Development
 
-### Front End
+## Front End
 
 To make changes to the front end, edit the `web` directory.
 
-#### Adding Pages
+### Adding Pages
 
 To add a page that a user can navigate to add a `.tsx` file in the `pages` directory.
 
-#### Components
+### Components
 
 React uses components located in the `components` directory. Think of this as brinigng HTML into you TS/JS files. You reference components in the `page.tsx` file to load them. This simplifies the way we can use statis components. Examples being the Footer, NavBar, and whatever else we would need to reference on multiple pages or to declutter the page file itself.
 
-#### Communicating with the backend
+### Communicating with the backend
 
 To communicate with the backend of the app we use GraphQL. You can see examples of what this looks like in the `graphql` directory.
 
