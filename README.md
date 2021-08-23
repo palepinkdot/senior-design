@@ -11,6 +11,11 @@ Name (@github / UC 6+2)
 
 # Getting Started
 
+## Prerequisites
+
+- ![Redis](https://redis.io/topics/quickstart).
+- ![Node.js](https://nodejs.org/en/download/).
+
 After cloning the repo, go ahead and enter the `server` and `web` directories in separate terminal windows in VSCode. Open two terminal windows in the server directory. This makes sense later.
 
 In either one of the `server` windows, run `yarn install` and the in the `web` window, also run `yarn install`.
