@@ -22,8 +22,8 @@ const main = async () => {
   console.log("Starting MC Panel.");
   const conn = await createConnection({
     type: "postgres",
-    host: "postgresql.local.maxg.xyz",
-    database: "cincyc-dev",
+    host: "postgres.maxg.xyz",
+    database: "sd-dev",
     username: "postgres",
     password: "mesutozil",
     logging: true,
