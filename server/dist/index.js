@@ -25,10 +25,6 @@ const connect_redis_1 = __importDefault(require("connect-redis"));
 const cors_1 = __importDefault(require("cors"));
 const typeorm_1 = require("typeorm");
 const User_1 = require("./entities/User");
-const Cart_1 = require("./entities/Cart");
-const cart_1 = require("./resolvers/cart");
-const Product_1 = require("./entities/Product");
-const product_1 = require("./resolvers/product");
 const graphql_upload_1 = require("graphql-upload");
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
     console.log("🐾 Starting find-a-pet backend...");
@@ -40,7 +36,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
         password: "mesutozil",
         logging: true,
         synchronize: true,
-        entities: [User_1.User, Cart_1.Cart, Product_1.Product],
+        entities: [User_1.User],
     });
     const app = express_1.default();
     const RedisStore = connect_redis_1.default(express_session_1.default);
@@ -64,7 +60,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
     }));
     const apolloServer = new apollo_server_express_1.ApolloServer({
         schema: yield type_graphql_1.buildSchema({
-            resolvers: [hello_1.HelloResolver, user_1.UserResolver, cart_1.CartResolver, product_1.ProductResolver],
+            resolvers: [hello_1.HelloResolver, user_1.UserResolver],
             validate: false,
         }),
         context: ({ req, res }) => ({ req, res, redis }),
