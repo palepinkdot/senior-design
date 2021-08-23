@@ -48,4 +48,4 @@ Using GraphQL with TypeORM can be confusing. Don't worry once you get the hang o
 
 ### Resolvers
 
-Resolvers are what happens when we hit an endpoint. Each file in the resolvers directory is essentailly an endpoint.
+Resolvers are what happens when we hit an endpoint. Each file in the resolvers directory is essentally an endpoint.
