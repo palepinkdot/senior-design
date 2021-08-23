@@ -19,7 +19,7 @@ import { ProductResolver } from "./resolvers/product";
 import { graphqlUploadExpress } from "graphql-upload";
 
 const main = async () => {
-  console.log("Starting MC Panel.");
+  console.log("🐾 Starting find-a-pet backend...");
   const conn = await createConnection({
     type: "postgres",
     host: "postgres.maxg.xyz",

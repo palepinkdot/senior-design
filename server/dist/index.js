@@ -30,18 +30,17 @@ const cart_1 = require("./resolvers/cart");
 const Product_1 = require("./entities/Product");
 const product_1 = require("./resolvers/product");
 const graphql_upload_1 = require("graphql-upload");
-const CartItem_1 = require("./entities/CartItem");
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
-    console.log("Starting MC Panel.");
+    console.log("🐾 Starting find-a-pet backend...");
     const conn = yield typeorm_1.createConnection({
         type: "postgres",
-        host: "postgresql.local.maxg.xyz",
-        database: "cincyc-dev",
+        host: "postgres.maxg.xyz",
+        database: "sd-dev",
         username: "postgres",
         password: "mesutozil",
         logging: true,
         synchronize: true,
-        entities: [User_1.User, Cart_1.Cart, Product_1.Product, CartItem_1.CartItem],
+        entities: [User_1.User, Cart_1.Cart, Product_1.Product],
     });
     const app = express_1.default();
     const RedisStore = connect_redis_1.default(express_session_1.default);

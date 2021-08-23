@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Cart = void 0;
 const type_graphql_1 = require("type-graphql");
 const typeorm_1 = require("typeorm");
-const CartItem_1 = require("./CartItem");
 const User_1 = require("./User");
 let Cart = class Cart extends typeorm_1.BaseEntity {
 };
@@ -27,15 +26,10 @@ __decorate([
     __metadata("design:type", Date)
 ], Cart.prototype, "createdAt", void 0);
 __decorate([
-    type_graphql_1.Field(() => User_1.User, { nullable: true }),
+    type_graphql_1.Field(() => User_1.User),
     typeorm_1.OneToOne(() => User_1.User, (user) => user.id),
     __metadata("design:type", User_1.User)
 ], Cart.prototype, "user", void 0);
-__decorate([
-    type_graphql_1.Field(() => CartItem_1.CartItem, { nullable: true }),
-    typeorm_1.ManyToOne(() => CartItem_1.CartItem, (cartItem) => cartItem.cartId),
-    __metadata("design:type", Array)
-], Cart.prototype, "cartItems", void 0);
 Cart = __decorate([
     type_graphql_1.ObjectType(),
     typeorm_1.Entity()

@@ -26,7 +26,6 @@ const Cart_1 = require("../entities/Cart");
 const isAuth_1 = require("../middleware/isAuth");
 const type_graphql_1 = require("type-graphql");
 const typeorm_1 = require("typeorm");
-const CartItem_1 = require("../entities/CartItem");
 let CartError = class CartError {
 };
 __decorate([
@@ -88,24 +87,6 @@ class CartResolver {
             return { cart };
         });
     }
-    addToCart(pid, sku, price, { req }) {
-        return __awaiter(this, void 0, void 0, function* () {
-            yield typeorm_1.getConnection()
-                .createQueryBuilder()
-                .insert()
-                .into(CartItem_1.CartItem)
-                .values({
-                productId: pid,
-                cartId: req.session.userId,
-                productSku: sku,
-                unitCost: price,
-                quantity: 1,
-            })
-                .returning("*")
-                .execute();
-            return Cart_1.Cart.findOne(req.session.userId);
-        });
-    }
 }
 __decorate([
     type_graphql_1.Query(() => Cart_1.Cart, { nullable: true }),
@@ -123,16 +104,5 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], CartResolver.prototype, "createCart", null);
-__decorate([
-    type_graphql_1.Mutation(() => Cart_1.Cart),
-    type_graphql_1.UseMiddleware(isAuth_1.isAuth),
-    __param(0, type_graphql_1.Arg("productId")),
-    __param(1, type_graphql_1.Arg("productSku")),
-    __param(2, type_graphql_1.Arg("unitCost")),
-    __param(3, type_graphql_1.Ctx()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String, Number, Object]),
-    __metadata("design:returntype", Promise)
-], CartResolver.prototype, "addToCart", null);
 exports.CartResolver = CartResolver;
 //# sourceMappingURL=cart.js.map
