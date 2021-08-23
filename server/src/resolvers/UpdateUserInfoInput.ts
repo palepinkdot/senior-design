@@ -12,7 +12,4 @@ export class UpdateUserInfoInput {
   avatarUrl: string;
   @Field()
   email: string;
-
-  // @Field()
-  // imageurl: string;
 }

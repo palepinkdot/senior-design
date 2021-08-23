@@ -1,8 +1,0 @@
-fragment RegularCartResponse on CartResponse {
-  errors {
-    ...CartError
-  }
-  cart {
-    ...RegularCart
-  }
-}

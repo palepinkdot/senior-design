@@ -12,10 +12,6 @@ import { MyContext } from "./types";
 import cors from "cors";
 import { createConnection } from "typeorm";
 import { User } from "./entities/User";
-import { Cart } from "./entities/Cart";
-import { CartResolver } from "./resolvers/cart";
-import { Product } from "./entities/Product";
-import { ProductResolver } from "./resolvers/product";
 import { graphqlUploadExpress } from "graphql-upload";
 
 const main = async () => {
@@ -28,7 +24,7 @@ const main = async () => {
     password: "mesutozil",
     logging: true,
     synchronize: true,
-    entities: [User, Cart, Product],
+    entities: [User],
   });
 
   const app = express();
@@ -60,7 +56,7 @@ const main = async () => {
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [HelloResolver, UserResolver, CartResolver, ProductResolver],
+      resolvers: [HelloResolver, UserResolver],
       validate: false,
     }),
     context: ({ req, res }): MyContext => ({ req, res, redis }),

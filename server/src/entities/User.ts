@@ -4,11 +4,9 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
-import { Cart } from "./Cart";
 @ObjectType()
 @Entity()
 export class User extends BaseEntity {
@@ -46,8 +44,4 @@ export class User extends BaseEntity {
   @Field(() => String)
   @UpdateDateColumn()
   updatedAt: Date;
-
-  @Field(() => Cart)
-  @OneToOne(() => Cart, (cart) => cart.id)
-  cart?: Cart;
 }
