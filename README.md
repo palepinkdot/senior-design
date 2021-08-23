@@ -1,6 +1,13 @@
 # :paw_prints: Find-a-Pet
 
-Senior Design repo for group 9
+Senior Design repo for Group 9 @ University of Cincinnati
+
+Name (@github / UC 6+2)
+
+- Max Graman (@palepinkdot / gramanma)
+- Kyle Marler (@DrSlugger / marlerkw)
+- Torcato Vaz (@torserver / vaztb)
+- Paramjyot Sandhu (@sandhups / sandhups)
 
 # Getting Started
 
