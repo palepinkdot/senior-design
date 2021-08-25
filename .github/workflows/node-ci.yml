@@ -4,6 +4,7 @@ on: [push]
 
 jobs:
   api:
+    name: Build API
     runs-on: ubuntu-latest
     defaults:
       run:
