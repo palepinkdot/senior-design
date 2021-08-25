@@ -54,17 +54,15 @@ jobs:
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Set Environmental Variables
-        env:
+      - name: Build API
+        run: yarn build
+
+      - name: Set Environmental Variables & Run API
+        run: yarn dev
+         env:
           PORT: 4000
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres
           REDIS_URL: localhost:6379
           CORS_ORIGIN: http://localhost:3000
           CORS_DOMAIN: localhost
           SESSION_SECRET: secrets
-
-      - name: Build API
-        run: yarn build
-
-      - name: Run API
-        run: yarn dev
