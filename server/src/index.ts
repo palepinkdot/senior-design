@@ -14,6 +14,7 @@ import cors from "cors";
 import { createConnection } from "typeorm";
 import { User } from "./entities/User";
 import { graphqlUploadExpress } from "graphql-upload";
+import path from "path";
 
 const main = async () => {
   console.log("🐾 Starting GetaPet backend...");
@@ -23,8 +24,10 @@ const main = async () => {
     url: process.env.DATABASE_URL,
     logging: true,
     synchronize: __prod__ ? false : true,
+    migrations: [path.join(__dirname, "./migrations/*")],
     entities: [User],
   });
+  await conn.runMigrations();
 
   const app = express();
 
