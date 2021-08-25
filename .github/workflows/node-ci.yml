@@ -50,6 +50,8 @@ jobs:
 
       - name: Test PSQL Database Connection
         run: psql -h localhost -d postgres -U postgres -c 'SELECT 1;'
+        env:
+          PGPASSWORD: postgres
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
