@@ -17,11 +17,12 @@ import { graphqlUploadExpress } from "graphql-upload";
 
 const main = async () => {
   console.log("🐾 Starting GetaPet backend...");
+
   const conn = await createConnection({
     type: "postgres",
     url: process.env.DATABASE_URL,
     logging: true,
-    synchronize: true,
+    synchronize: __prod__ ? false : true,
     entities: [User],
   });
 
