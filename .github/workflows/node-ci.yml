@@ -50,6 +50,11 @@ jobs:
 
       - name: Test PSQL Database Connection
         run: psql -h postgres -d postgres -U postgres -c 'SELECT 1;'
+        env:
+          # The hostname used to communicate with the PostgreSQL service container
+          POSTGRES_HOST: postgres
+          # The default PostgreSQL port
+          POSTGRES_PORT: 5432
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
