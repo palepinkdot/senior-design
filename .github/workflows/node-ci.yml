@@ -59,7 +59,7 @@ jobs:
 
       - name: Set Environmental Variables & Run API
         run: yarn dev
-         env:
+        env:
           PORT: 4000
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres
           REDIS_URL: localhost:6379
