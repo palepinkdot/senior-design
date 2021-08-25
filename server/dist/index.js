@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 require("reflect-metadata");
+require("dotenv-safe/config");
 const constants_1 = require("./constants");
 const express_1 = __importDefault(require("express"));
 const apollo_server_express_1 = require("apollo-server-express");
@@ -27,22 +28,19 @@ const typeorm_1 = require("typeorm");
 const User_1 = require("./entities/User");
 const graphql_upload_1 = require("graphql-upload");
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
-    console.log("🐾 Starting find-a-pet backend...");
+    console.log("🐾 Starting GetaPet backend...");
     const conn = yield typeorm_1.createConnection({
         type: "postgres",
-        host: "postgres.maxg.xyz",
-        database: "sd-dev",
-        username: "postgres",
-        password: "mesutozil",
+        url: process.env.DATABASE_URL,
         logging: true,
         synchronize: true,
         entities: [User_1.User],
     });
     const app = express_1.default();
     const RedisStore = connect_redis_1.default(express_session_1.default);
-    const redis = new ioredis_1.default();
+    const redis = new ioredis_1.default(process.env.REDIS_URL);
     app.use(cors_1.default({
-        origin: "http://localhost:3000",
+        origin: process.env.CORS_ORIGIN,
         credentials: true,
     }));
     app.use(express_session_1.default({
@@ -55,7 +53,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
             secure: constants_1.__prod__,
         },
         saveUninitialized: false,
-        secret: "845688fb29145b48a8bb110f32b88f133dd6a8a5e731768cfd91c0fda09a26e7",
+        secret: process.env.SESSION_SECRET,
         resave: false,
     }));
     const apolloServer = new apollo_server_express_1.ApolloServer({
@@ -68,8 +66,11 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
     });
     app.use(graphql_upload_1.graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }));
     apolloServer.applyMiddleware({ app, cors: false });
-    app.listen(4000, () => {
-        console.log("🚀 server started on localhost:4000");
+    app.listen(parseInt(process.env.PORT), () => {
+        console.log("🚀 GetaPet server started on " +
+            process.env.CORS_DOMAIN +
+            ":" +
+            process.env.PORT);
     });
 });
 main().catch((err) => {
