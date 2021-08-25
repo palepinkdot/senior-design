@@ -44,7 +44,7 @@ const main = async () => {
         httpOnly: true,
         sameSite: "lax",
         secure: __prod__,
-        domain: __prod__ ? process.env.CORS_DOMAIN : undefined,
+        domain: __prod__ ? "." + process.env.CORS_DOMAIN : undefined,
       },
       saveUninitialized: false,
       secret: process.env.SESSION_SECRET,
@@ -65,7 +65,7 @@ const main = async () => {
   apolloServer.applyMiddleware({ app, cors: false });
   app.listen(parseInt(process.env.PORT), () => {
     console.log(
-      "🚀 GetaPet server started on " +
+      "🚀 GetaPet backend started on " +
         process.env.CORS_DOMAIN +
         ":" +
         process.env.PORT
