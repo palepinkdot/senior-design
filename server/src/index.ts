@@ -44,6 +44,7 @@ const main = async () => {
         httpOnly: true,
         sameSite: "lax",
         secure: __prod__,
+        domain: __prod__ ? process.env.CORS_DOMAIN : undefined,
       },
       saveUninitialized: false,
       secret: process.env.SESSION_SECRET,
