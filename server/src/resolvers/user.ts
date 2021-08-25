@@ -17,6 +17,7 @@ import { sendEmail } from "../utils/sendEmail";
 import { v4 } from "uuid";
 import { getConnection } from "typeorm";
 import { UpdateUserInfoInput } from "./UpdateUserInfoInput";
+import { promises } from "stream";
 
 @ObjectType()
 class FieldError {
@@ -151,6 +152,7 @@ export class UserResolver {
     }
 
     const token = v4();
+    const corsOrigin = process.env.CORS_ORIGIN;
 
     await redis.set(
       FORGET_PASSWORD_PREFIX + token,
@@ -161,7 +163,7 @@ export class UserResolver {
 
     await sendEmail(
       email,
-      `<a href="http://localhost:3000/change-password/${token}">reset password</a>`
+      `<a href="${corsOrigin}/change-password/${token}">reset password</a>`
     );
 
     return true;

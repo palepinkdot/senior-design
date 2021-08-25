@@ -1,4 +1,5 @@
 import "reflect-metadata";
+import "dotenv-safe/config";
 import { COOKIE_NAME, __prod__ } from "./constants";
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
@@ -13,27 +14,28 @@ import cors from "cors";
 import { createConnection } from "typeorm";
 import { User } from "./entities/User";
 import { graphqlUploadExpress } from "graphql-upload";
+import path from "path";
 
 const main = async () => {
-  console.log("🐾 Starting find-a-pet backend...");
+  console.log("🐾 Starting GetaPet backend...");
+
   const conn = await createConnection({
     type: "postgres",
-    host: "postgres.maxg.xyz",
-    database: "sd-dev",
-    username: "postgres",
-    password: "mesutozil",
+    url: process.env.DATABASE_URL,
     logging: true,
-    synchronize: true,
+    synchronize: __prod__ ? false : true,
+    migrations: [path.join(__dirname, "./migrations/*")],
     entities: [User],
   });
+  await conn.runMigrations();
 
   const app = express();
 
   const RedisStore = connectRedis(session);
-  const redis = new Redis();
+  const redis = new Redis(process.env.REDIS_URL);
   app.use(
     cors({
-      origin: "http://localhost:3000",
+      origin: process.env.CORS_ORIGIN,
       credentials: true,
     })
   );
@@ -46,10 +48,10 @@ const main = async () => {
         httpOnly: true,
         sameSite: "lax",
         secure: __prod__,
+        domain: __prod__ ? "." + process.env.CORS_DOMAIN : undefined,
       },
       saveUninitialized: false,
-      secret:
-        "845688fb29145b48a8bb110f32b88f133dd6a8a5e731768cfd91c0fda09a26e7",
+      secret: process.env.SESSION_SECRET,
       resave: false,
     })
   );
@@ -65,8 +67,13 @@ const main = async () => {
 
   app.use(graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }));
   apolloServer.applyMiddleware({ app, cors: false });
-  app.listen(4000, () => {
-    console.log("🚀 server started on localhost:4000");
+  app.listen(parseInt(process.env.PORT), () => {
+    console.log(
+      "🚀 GetaPet backend started on " +
+        process.env.CORS_DOMAIN +
+        ":" +
+        process.env.PORT
+    );
   });
 };
 
