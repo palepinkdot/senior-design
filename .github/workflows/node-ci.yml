@@ -48,11 +48,6 @@ jobs:
         with:
           node-version: "16.x"
 
-      - name: Use Python 3
-        uses: actions/setup-python@v2
-        with:
-          python-version: "3.x"
-
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
 
@@ -68,4 +63,3 @@ jobs:
           CORS_ORIGIN: http://localhost:3000
           CORS_DOMAIN: localhost
           SESSION_SECRET: secrets
-        run: timeout 10 python ./sleep.py || code=$?; if [[ $code -ne 124 && $code -ne 0 ]]; then exit $code; fi
