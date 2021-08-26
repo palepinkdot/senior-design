@@ -74,8 +74,8 @@ jobs:
           file: ./dockerfiles/dev-ci.Dockerfile
   deploy-dev-api:
     needs: build-docker-dev-api
-    runs-on: 'ubuntu-latest'
-      steps:
+    runs-on: "ubuntu-latest"
+    steps:
       - name: Checkout repo
         uses: actions/checkout@v2
 
