@@ -90,16 +90,16 @@ jobs:
         run: sed -ie "s/deploy-date-value/${{steps.date.outputs.date}}/g" ./kubernetes/dev-api.deployment.yaml
 
       - name: Make kubeconfig
-        run: mkdir -p ./.kube/ && touch ./.kube/encode_config && touch ./.kube/config
+        run: sudo mkdir -p /root/.kube/ && sudo touch /root/.kube/encode_config && sudo touch /root/.kube/config
 
       - name: Write Encoded Kubeconfig
         run: |
-          cat >> ./.kube/encode_config <<EOL
+          sudo cat >> /root/.kube/encode_config <<EOL
           ${{secrets.RANCHER_KUBE_CONFIG}}
           EOL
 
       - name: Decode Kubeconfig
-        run: base64 -d ./.kube/encode_config > ./.kube/config
+        run: sudo base64 -d /root/.kube/encode_config > /root/.kube/config
 
       - name: Deploy Docker Image
         run: kubectl apply -f ./kubernetes/dev-api.deployment.yaml
