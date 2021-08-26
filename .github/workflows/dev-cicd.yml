@@ -135,16 +135,15 @@ jobs:
     name: Deploy API to Rancher K8s
     runs-on: ubuntu-latest
     steps:
-      steps:
-        - uses: sekassel-research/actions-rancher-update@2.0.2
-          with:
-            rancher_url: https://rancher.maxg.xyz
-            rancher_token: ${{ secrets.RANCHER_BEARER_TOKEN }}
-            # cluster_id: ${{ secrets.CLUSTER_ID }}
-            # project_id: ${{ secrets.PROJECT_ID }}
-            # namespace: ${{ secrets.NAMESPACE }}
-            deployment: sd-dev-api
-            docker_image: sekassel-research/test-image:latest
+      - uses: sekassel-research/actions-rancher-update@2.0.2
+        with:
+          rancher_url: https://rancher.maxg.xyz
+          rancher_token: ${{ secrets.RANCHER_BEARER_TOKEN }}
+          # cluster_id: ${{ secrets.CLUSTER_ID }}
+          # project_id: ${{ secrets.PROJECT_ID }}
+          # namespace: ${{ secrets.NAMESPACE }}
+          deployment: sd-dev-api
+          docker_image: sekassel-research/test-image:latest
 
   # deploy-dev-front-end:
   #   needs: [build-docker-dev-front-end, build-docker-dev-api, deploy-dev-api]
