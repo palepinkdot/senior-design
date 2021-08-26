@@ -48,7 +48,7 @@ jobs:
 
       - name: Set .env.production
         run: |
-          cat >> .env.production <<EOL 
+          cat >> ./server/.env.production <<EOL 
           SESSION_SECRET=${{secrets.DEV_SESSION_SECRET}}
           CORS_DOMAIN=${{secrets.DEV_CORS_DOMAIN}} 
           CORS_ORIGIN=${{secrets.DEV_CORS_ORIGIN}} 
@@ -56,7 +56,7 @@ jobs:
           EOL
 
       - name: View
-        run: cat .env.production
+        run: cat ./server.env.production
 
       - name: Build and push Docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
