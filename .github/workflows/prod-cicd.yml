@@ -164,7 +164,7 @@ jobs:
     name: Deploy Front End to Rancher K8s
     runs-on: ubuntu-latest
     steps:
-       - name: Checkout repo
+      - name: Checkout repo
         uses: actions/checkout@v2
 
       - name: Get NPM Version
