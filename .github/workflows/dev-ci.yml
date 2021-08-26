@@ -80,7 +80,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Deploy Kubectl
-        uses: dztar/helm-kubectl@c9f43f42828853ae05cfa399a9bb305eefd1a218
+        uses: dtzar/helm-kubectl@c9f43f42828853ae05cfa399a9bb305eefd1a218
 
       - name: Get Current Date
         id: date
