@@ -130,3 +130,31 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}-frontend-latest
           labels: ${{ steps.meta.outputs.labels }}
           file: ./dockerfiles/dev-front-end-ci.Dockerfile
+  deploy-dev-api:
+    needs: [build-docker-dev-front-end, build-docker-dev-api]
+    name: Deploy Front End to K8s
+    runs-on: ubuntu-latest
+    steps:
+      - name: Rancher Deploy
+        uses: yantadeu/rancher-deploy-action@v0.0.2
+        env:
+          RANCHER_ACCESS_KEY: ${{secrets.RANCHER_ACCESS_KEY}}
+          RANCHER_SECRET_KEY: ${{secrets.RANCHER_SECRET_KEY}}
+          RANCHER_URL_API: "https://rancher.maxg.xyz/v3"
+          SERVICE_NAME: "sd-dev-frontend"
+          DOCKER_IMAGE: "mgraman:sd-dev"
+          DOCKER_IMAGE_LATEST: "sd-dev:dev-frontend-latest"
+  deploy-dev-front-end:
+    needs: [build-docker-dev-front-end, build-docker-dev-api, deploy-dev-api]
+    name: Deploy Front End to K8s
+    runs-on: ubuntu-latest
+    steps:
+      - name: Rancher Deploy
+        uses: yantadeu/rancher-deploy-action@v0.0.2
+        env:
+          RANCHER_ACCESS_KEY: ${{secrets.RANCHER_ACCESS_KEY}}
+          RANCHER_SECRET_KEY: ${{secrets.RANCHER_SECRET_KEY}}
+          RANCHER_URL_API: "https://rancher.maxg.xyz/v3"
+          SERVICE_NAME: "sd-dev-api"
+          DOCKER_IMAGE: "mgraman:sd-dev"
+          DOCKER_IMAGE_LATEST: "sd-dev:dev-api-latest"
