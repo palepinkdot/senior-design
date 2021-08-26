@@ -90,7 +90,7 @@ jobs:
         run: sed -ie "s/deploy-date-value/${{steps.date.outputs.date}}/g" ./kubernetes/deployment.yaml
 
       - name: Make kubeconfig
-        run: mkdir -p /root/.kube/ && touch /root/.kube/config
+        run: mkdir -p ./.kube/ && touch ./.kube/config
 
       - name: Decode
-        run: echo ${{secrets.RANCHER_KUBE_CONFIG}} | base64 -d > /root/.kube/config
+        run: echo ${{secrets.RANCHER_KUBE_CONFIG}} | base64 -d > ./.kube/config
