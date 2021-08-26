@@ -160,7 +160,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
             <Avatar
               name={data.me.firstname + " " + data.me.lastname}
               size={"sm"}
-              src={"placeholder"}
+              src={data.me.avatarUrl}
             />
           </MenuButton>
           <MenuList>

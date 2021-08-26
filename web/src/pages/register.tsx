@@ -10,4 +10,4 @@ const Register: React.FC<registerProps> = ({}) => {
   return <RegisterCard></RegisterCard>;
 };
 
-export default withApollo({ ssr: false })(Register);
+export default withApollo({ ssr: true })(Register);
