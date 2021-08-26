@@ -68,6 +68,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}-${{ steps.package-version.outputs.current-version}}
+          tags: ${{ steps.meta.outputs.tags }}-api-${{ steps.package-version.outputs.current-version}}
           labels: ${{ steps.meta.outputs.labels }}
           file: ./server/dev-ci.Dockerfile
