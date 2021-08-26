@@ -59,7 +59,7 @@ jobs:
         id: package-version
         uses: martinbeentjes/npm-get-version-action@master
         with:
-          path: ./server/package.json
+          path: ./server
 
       - name: Build and push Docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
