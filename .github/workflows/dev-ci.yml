@@ -93,7 +93,7 @@ jobs:
   #         labels: ${{ steps.meta.outputs.labels }}
   #         file: ./dockerfiles/dev-api-ci.Dockerfile
   build-docker-dev-front-end:
-    needs: [test-dev-api, test-dev-front-end]
+    # needs: [test-dev-api, test-dev-front-end]
     name: Build & Push Docker Container for Development Front End
     runs-on: ubuntu-latest
     steps:
