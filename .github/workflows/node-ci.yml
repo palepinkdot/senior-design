@@ -47,10 +47,11 @@ jobs:
           images: mgraman/sd-dev
 
       - name: Set .env.production
-        run: cat >> .env.production <<EOL
+        run: |
+        cat >> .env.production <<EOL 
         SESSION_SECRET=${{secrets.DEV_SESSION_SECRET}}
-        CORS_DOMAIN=${{secrets.DEV_CORS_DOMAIN}}
-        CORS_ORIGIN=${{secrets.DEV_CORS_ORIGIN}}
+        CORS_DOMAIN=${{secrets.DEV_CORS_DOMAIN}} 
+        CORS_ORIGIN=${{secrets.DEV_CORS_ORIGIN}} 
         REDIS_URL=${{secrets.DEV_REDIS_URL}}
 
       - name: Build and push Docker image
