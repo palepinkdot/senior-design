@@ -48,7 +48,7 @@ jobs:
       - name: Build API
         run: yarn build
   build-docker-dev-api:
-    needs: [test-dev-api, test-dev-front-end]
+    needs: [test-dev-api]
     name: Build & Push Docker Container for Development API
     runs-on: ubuntu-latest
     steps:
@@ -93,7 +93,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           file: ./dockerfiles/dev-api-ci.Dockerfile
   build-docker-dev-front-end:
-    needs: [test-dev-api, test-dev-front-end]
+    needs: [test-dev-front-end]
     name: Build & Push Docker Container for Development Front End
     runs-on: ubuntu-latest
     steps:
