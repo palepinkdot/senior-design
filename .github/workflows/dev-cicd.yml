@@ -156,5 +156,4 @@ jobs:
           RANCHER_SECRET_KEY: ${{secrets.RANCHER_SECRET_KEY}}
           RANCHER_URL_API: "https://rancher.maxg.xyz/v3"
           SERVICE_NAME: "sd-dev-api"
-          DOCKER_IMAGE: "mgraman/sd-dev"
-          DOCKER_IMAGE_LATEST: "sd-dev:dev-api-latest"
+          DOCKER_IMAGE: "mgraman/sd-dev:dev-api-latest"
