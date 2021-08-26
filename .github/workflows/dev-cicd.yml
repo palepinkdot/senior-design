@@ -132,7 +132,7 @@ jobs:
           file: ./dockerfiles/dev-front-end-ci.Dockerfile
   deploy-dev-api:
     needs: [build-docker-dev-front-end, build-docker-dev-api]
-    name: Deploy Front End to K8s
+    name: Deploy API to Rancher K8s
     runs-on: ubuntu-latest
     steps:
       - name: Rancher Deploy
@@ -146,7 +146,7 @@ jobs:
           DOCKER_IMAGE_LATEST: "sd-dev:dev-frontend-latest"
   deploy-dev-front-end:
     needs: [build-docker-dev-front-end, build-docker-dev-api, deploy-dev-api]
-    name: Deploy Front End to K8s
+    name: Deploy Front End to Rancher K8s
     runs-on: ubuntu-latest
     steps:
       - name: Rancher Deploy
@@ -156,5 +156,5 @@ jobs:
           RANCHER_SECRET_KEY: ${{secrets.RANCHER_SECRET_KEY}}
           RANCHER_URL_API: "https://rancher.maxg.xyz/v3"
           SERVICE_NAME: "sd-dev-api"
-          DOCKER_IMAGE: "mgraman:sd-dev"
+          DOCKER_IMAGE: "mgraman/sd-dev"
           DOCKER_IMAGE_LATEST: "sd-dev:dev-api-latest"
