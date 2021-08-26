@@ -46,15 +46,17 @@ jobs:
           images: mgraman/sd-prod
 
       - name: Create env vars
-        run: touch ./server/.env.production
+        run: touch ./server/.env
 
-      - name: Set .env.production
+      - name: Set .env
         run: |
-          cat >> ./server/.env.production <<EOL 
+          cat >> ./server/.env.production <<EOL
+          DATABASE_URL=${{secrets.PROD_DATABASE_URL}}
           SESSION_SECRET=${{secrets.PROD_SESSION_SECRET}}
           CORS_DOMAIN=${{secrets.PROD_CORS_DOMAIN}} 
           CORS_ORIGIN=${{secrets.PROD_CORS_ORIGIN}} 
           REDIS_URL=${{secrets.PROD_REDIS_URL}}
+          PORT=4000
           EOL
 
       - name: Get NPM Version
@@ -70,4 +72,4 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}-api-${{ steps.package-version.outputs.current-version}}
           labels: ${{ steps.meta.outputs.labels }}
-          file: ./server/dev-ci.Dockerfile
+          file: ./server/dockerfiles/prod-ci.Dockerfile

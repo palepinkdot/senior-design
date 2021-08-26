@@ -52,11 +52,13 @@ jobs:
 
       - name: Set .env.production
         run: |
-          cat >> ./server/.env.production <<EOL 
+          cat >> ./server/.env.production <<EOL
+          DATABASE_URL=${{secrets.DEV_DATABASE_URL}} 
           SESSION_SECRET=${{secrets.DEV_SESSION_SECRET}}
           CORS_DOMAIN=${{secrets.DEV_CORS_DOMAIN}} 
           CORS_ORIGIN=${{secrets.DEV_CORS_ORIGIN}} 
           REDIS_URL=${{secrets.DEV_REDIS_URL}}
+          PORT=4000
           EOL
 
       - name: Get NPM Version
@@ -72,4 +74,4 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}-api-latest
           labels: ${{ steps.meta.outputs.labels }}
-          file: ./server/dev-ci.Dockerfile
+          file: ./server/dockerfiles/dev-ci.Dockerfile
