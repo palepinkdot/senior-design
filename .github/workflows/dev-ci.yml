@@ -61,11 +61,8 @@ jobs:
           PORT=4000
           EOL
 
-      - name: Get NPM Version
-        id: package-version
-        uses: martinbeentjes/npm-get-version-action@master
-        with:
-          path: ./server
+      - name: Check
+        run: cat ./server/.env
 
       - name: Build and push Docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
