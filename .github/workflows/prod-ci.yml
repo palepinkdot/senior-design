@@ -5,7 +5,7 @@ on:
     branches: [prod]
 
 jobs:
-  build-prod-api:
+  test-prod-api:
     name: Test API Build
     runs-on: ubuntu-latest
     defaults:
@@ -25,9 +25,9 @@ jobs:
 
       - name: Build API
         run: yarn build
-  deploy-prod-api:
-    needs: build-prod-api
-    name: Deploy Production API
+  build-docker-prod-api:
+    needs: test-prod-api
+    name: Build & Push Docker Container for Production API
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
