@@ -142,7 +142,7 @@ jobs:
           RANCHER_SECRET_KEY: ${{secrets.RANCHER_SECRET_KEY}}
           RANCHER_URL_API: "https://rancher.maxg.xyz/v3"
           SERVICE_NAME: "sd-dev-frontend"
-          DOCKER_IMAGE: "mgraman:sd-dev"
+          DOCKER_IMAGE: "mgraman/sd-dev"
           DOCKER_IMAGE_LATEST: "sd-dev:dev-frontend-latest"
   deploy-dev-front-end:
     needs: [build-docker-dev-front-end, build-docker-dev-api, deploy-dev-api]
