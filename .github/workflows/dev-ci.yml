@@ -48,9 +48,9 @@ jobs:
           images: mgraman/sd-dev
 
       - name: Create env vars
-        run: touch ./server/.env.production
+        run: touch ./server/.env
 
-      - name: Set .env.production
+      - name: Set .env
         run: |
           cat >> ./server/.env <<EOL
           DATABASE_URL=${{secrets.DEV_DATABASE_URL}} 
