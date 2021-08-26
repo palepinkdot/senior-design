@@ -18,12 +18,10 @@ import path from "path";
 
 const main = async () => {
   console.log("🐾 Starting GetaPet backend...");
-  //test
   const conn = await createConnection({
     type: "postgres",
     url: process.env.DATABASE_URL,
     logging: true,
-    //synchronize: true,
     migrations: [path.join(__dirname, "./migrations/*")],
     entities: [User],
   });
