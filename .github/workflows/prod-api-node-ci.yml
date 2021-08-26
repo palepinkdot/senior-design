@@ -1,11 +1,11 @@
-name: Development API CI
+name: Production API CI
 
 on:
-  pull_request:
-    branches: [dev]
+  release:
+    branches: [prod]
 
 jobs:
-  build-dev-api:
+  build-prod-api:
     name: Test API Build
     runs-on: ubuntu-latest
     defaults:
@@ -25,9 +25,9 @@ jobs:
 
       - name: Build API
         run: yarn build
-  deploy-dev-api:
-    needs: build-dev-api
-    name: Deploy dev API
+  deploy-prod-api:
+    needs: build-prod-api
+    name: Deploy Production API
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
@@ -43,7 +43,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
-          images: mgraman/sd-dev
+          images: mgraman/sd-prod
 
       - name: Create env vars
         run: touch ./server/.env.production
@@ -51,10 +51,10 @@ jobs:
       - name: Set .env.production
         run: |
           cat >> ./server/.env.production <<EOL 
-          SESSION_SECRET=${{secrets.DEV_SESSION_SECRET}}
-          CORS_DOMAIN=${{secrets.DEV_CORS_DOMAIN}} 
-          CORS_ORIGIN=${{secrets.DEV_CORS_ORIGIN}} 
-          REDIS_URL=${{secrets.DEV_REDIS_URL}}
+          SESSION_SECRET=${{secrets.PROD_SESSION_SECRET}}
+          CORS_DOMAIN=${{secrets.PROD_CORS_DOMAIN}} 
+          CORS_ORIGIN=${{secrets.PROD_CORS_ORIGIN}} 
+          REDIS_URL=${{secrets.PROD_REDIS_URL}}
           EOL
 
       - name: Get NPM Version
@@ -68,6 +68,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}-latest
+          tags: ${{ steps.meta.outputs.tags }}-${{ steps.package-version.outputs.current-version}}
           labels: ${{ steps.meta.outputs.labels }}
           file: ./server/dev-ci.Dockerfile
