@@ -18,7 +18,7 @@ import path from "path";
 
 const main = async () => {
   console.log("🐾 Starting GetaPet backend...");
-
+  //test
   const conn = await createConnection({
     type: "postgres",
     url: process.env.DATABASE_URL,
