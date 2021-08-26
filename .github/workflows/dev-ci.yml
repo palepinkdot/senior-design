@@ -86,9 +86,6 @@ jobs:
         id: date
         run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
 
-      - name: Current dir
-        run: ls && pwd
-
       - name: Find Deploy Date
         run: sed -ie "s/deploy-date-value/${{steps.date.outputs.date}}/g" ./kubernetes/deployment.yaml
 
