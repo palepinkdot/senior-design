@@ -27,9 +27,6 @@ jobs:
     needs: build-dev-api
     name: Deploy dev API
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./server
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
@@ -45,6 +42,12 @@ jobs:
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
           images: mgraman/sd-dev
+
+      - name: Create env vars
+        run: touch ./server/.env.production
+
+      - name: list dir
+        run: ll
 
       - name: Set .env.production
         run: |
