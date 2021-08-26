@@ -10,7 +10,7 @@ RUN yarn install --frozen-lockfile
 # Rebuild the source code only when needed
 FROM node:alpine AS builder
 WORKDIR /app
-RUN ls
+RUN ll
 COPY web ./
 COPY --from=deps /app/node_modules ./node_modules
 RUN yarn build && yarn install --production --ignore-scripts --prefer-offline
@@ -18,7 +18,7 @@ RUN yarn build && yarn install --production --ignore-scripts --prefer-offline
 # Production image, copy all the files and run next
 FROM node:alpine AS runner
 WORKDIR /app
-RUN ls
+RUN ll
 
 ENV NODE_ENV production
 
