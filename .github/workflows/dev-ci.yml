@@ -51,7 +51,7 @@ jobs:
       - name: Build API
         run: yarn build
   build-docker-dev-api:
-    needs: test-dev-api
+    needs: test-dev-api,test-dev-front-end
     name: Build & Push Docker Container for Development API
     runs-on: ubuntu-latest
     steps:
