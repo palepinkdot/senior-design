@@ -46,9 +46,6 @@ jobs:
       - name: Create env vars
         run: touch ./server/.env.production
 
-      - name: list dir
-        run: ls
-
       - name: Set .env.production
         run: |
           cat >> ./server/.env.production <<EOL 
