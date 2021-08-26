@@ -139,11 +139,11 @@ jobs:
         with:
           rancher_url: https://rancher.maxg.xyz
           rancher_token: ${{ secrets.RANCHER_BEARER_TOKEN }}
-          # cluster_id: ${{ secrets.CLUSTER_ID }}
-          # project_id: ${{ secrets.PROJECT_ID }}
-          # namespace: ${{ secrets.NAMESPACE }}
+          cluster_id: ${{ secrets.RANCHER_CLUSTER }}
+          project_id: ${{ secrets.RANCHER_PROJECT }}
+          namespace: sd-dev
           deployment: sd-dev-api
-          docker_image: sekassel-research/test-image:latest
+          docker_image: mgraman/sd-dev:dev-api-latest
 
   # deploy-dev-front-end:
   #   needs: [build-docker-dev-front-end, build-docker-dev-api, deploy-dev-api]
