@@ -46,6 +46,13 @@ jobs:
         with:
           images: mgraman/sd-dev
 
+      - name: Set .env.production
+        run: cat >> .env.production <<EOL
+        SESSION_SECRET=${{secrets.DEV_SESSION_SECRET}}
+        CORS_DOMAIN=${{secrets.DEV_CORS_DOMAIN}}
+        CORS_ORIGIN=${{secrets.DEV_CORS_ORIGIN}}
+        REDIS_URL=${{secrets.DEV_REDIS_URL}}
+
       - name: Build and push Docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
