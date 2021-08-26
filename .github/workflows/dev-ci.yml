@@ -93,10 +93,7 @@ jobs:
         run: sudo mkdir -p /root/.kube/ && sudo touch /root/.kube/encode_config && sudo touch /root/.kube/config
 
       - name: Write Encoded Kubeconfig
-        run: |
-          sudo cat >> /root/.kube/encode_config <<EOL
-          ${{secrets.RANCHER_KUBE_CONFIG}}
-          EOL
+        run: sudo echo ${{secrets.RANCHER_KUBE_CONFIG}} > /root/.kube/encode_config
 
       - name: Decode Kubeconfig
         run: sudo base64 -d /root/.kube/encode_config > /root/.kube/config
