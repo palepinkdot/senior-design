@@ -54,7 +54,9 @@ jobs:
           CORS_ORIGIN=${{secrets.DEV_CORS_ORIGIN}} 
           REDIS_URL=${{secrets.DEV_REDIS_URL}}
           EOL
-          && cat .env.production
+
+      - name: View
+        run: cat .env.production
 
       - name: Build and push Docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
