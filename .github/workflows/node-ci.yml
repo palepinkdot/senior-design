@@ -55,11 +55,15 @@ jobs:
           REDIS_URL=${{secrets.DEV_REDIS_URL}}
           EOL
 
+      - name: Get NPM Version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@master
+
       - name: Build and push Docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }},$npm_package_version
+          tags: ${{ steps.meta.outputs.tags }},${{ steps.package-version.outputs.current-version}}
           labels: ${{ steps.meta.outputs.labels }}
           file: ./server/dev-ci.Dockerfile
