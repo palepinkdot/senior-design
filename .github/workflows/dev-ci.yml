@@ -7,6 +7,29 @@ on:
     branches: [dev]
 
 jobs:
+  test-dev-front-end:
+    name: Test Front End Build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./web
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Use Node.js 16
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16.x"
+
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build GraphQL Codegen
+        run: yarn gen
+
+      - name: Build Front End
+        run: yarn build
   test-dev-api:
     name: Test API Build
     runs-on: ubuntu-latest
@@ -71,4 +94,4 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}-api-latest
           labels: ${{ steps.meta.outputs.labels }}
-          file: ./dockerfiles/dev-ci.Dockerfile
+          file: ./dockerfiles/dev-api-ci.Dockerfile
