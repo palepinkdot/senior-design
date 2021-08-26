@@ -79,15 +79,18 @@ jobs:
           PORT=4000
           EOL
 
-      - name: Check
-        run: cat ./server/.env
+      - name: Get NPM Version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@master
+        with:
+          path: ./server
 
       - name: Build and push Docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}-api-latest
+          tags: ${{ steps.meta.outputs.tags }}-api-${{ steps.package-version.outputs.current-version}}
           labels: ${{ steps.meta.outputs.labels }}
           file: ./dockerfiles/dev-api-ci.Dockerfile
   build-docker-prod-front-end:
@@ -119,15 +122,18 @@ jobs:
           NEXT_PUBLIC_API_URL=${{secrets.PROD_API_URL}}
           EOL
 
-      - name: Check
-        run: cat ./web/.env
+      - name: Get NPM Version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@master
+        with:
+          path: ./web
 
       - name: Build and push Docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}-frontend-latest
+          tags: ${{ steps.meta.outputs.tags }}-frontend-${{ steps.package-version.outputs.current-version}}
           labels: ${{ steps.meta.outputs.labels }}
           file: ./dockerfiles/dev-front-end-ci.Dockerfile
   deploy-prod-api:
@@ -135,6 +141,15 @@ jobs:
     name: Deploy API to Rancher K8s
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Get NPM Version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@master
+        with:
+          path: ./server
+
       - uses: sekassel-research/actions-rancher-update@2.0.2
         with:
           rancher_url: https://rancher.maxg.xyz
@@ -143,12 +158,21 @@ jobs:
           project_id: ${{ secrets.RANCHER_PROJECT }}
           namespace: sd-prod
           deployment: sd-prod-api
-          docker_image: mgraman/sd-prod:prod-api-latest
+          docker_image: mgraman/sd-prod:prod-api-${{ steps.package-version.outputs.current-version}}
   deploy-prod-frontend:
     needs: [build-docker-prod-front-end, build-docker-prod-api, deploy-prod-api]
     name: Deploy Front End to Rancher K8s
     runs-on: ubuntu-latest
     steps:
+       - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Get NPM Version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@master
+        with:
+          path: ./web
+
       - uses: sekassel-research/actions-rancher-update@2.0.2
         with:
           rancher_url: https://rancher.maxg.xyz
@@ -157,4 +181,4 @@ jobs:
           project_id: ${{ secrets.RANCHER_PROJECT }}
           namespace: sd-prod
           deployment: sd-prod-frontend
-          docker_image: mgraman/sd-prod:prod-frontend-latest
+          docker_image: mgraman/sd-prod:prod-frontend-${{ steps.package-version.outputs.current-version}}
