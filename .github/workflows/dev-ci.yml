@@ -25,12 +25,6 @@ jobs:
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
 
-      - name: current dir
-        run: pwd && ls
-
-      - name: Build GraphQL Codegen
-        run: yarn gen
-
       - name: Build Front End
         run: yarn build
   test-dev-api:
