@@ -12,7 +12,7 @@ COPY server/yarn.lock ./
 RUN yarn
 
 # Bundle app source
-COPY server/* .
+COPY server/* ./
 COPY server/.env.production .env
 
 RUN yarn build
