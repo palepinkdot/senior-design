@@ -49,7 +49,7 @@ export default function RegisterCard() {
             setErrors(toErrorMap(response.data.register.errors));
           } else if (response.data?.register.user) {
             // worked
-            router.push("/");
+            router.push("/app");
           }
         }}
       >
