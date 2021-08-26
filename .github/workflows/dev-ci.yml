@@ -93,4 +93,5 @@ jobs:
         run: mkdir -p ./.kube/ && touch ./.kube/config
 
       - name: Decode
-        run: echo ${{secrets.RANCHER_KUBE_CONFIG}} | base64 -d > ./.kube/config
+        run: |
+          echo ${{secrets.RANCHER_KUBE_CONFIG}} | base64 -d > ./.kube/config
