@@ -7,4 +7,4 @@ const Login: React.FC<{}> = ({}) => {
   return <LoginCard></LoginCard>;
 };
 
-export default withApollo({ ssr: false })(Login);
+export default withApollo({ ssr: true })(Login);

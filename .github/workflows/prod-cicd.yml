@@ -1,0 +1,184 @@
+name: Production CI/CD
+
+on:
+  push:
+    branches: [prod]
+
+jobs:
+  test-prod-front-end:
+    name: Test Front End Build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./web
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Use Node.js 16
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16.x"
+
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build Front End
+        run: yarn build
+  test-prod-api:
+    name: Test API Build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./server
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Use Node.js 16
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16.x"
+
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build API
+        run: yarn build
+  build-docker-prod-api:
+    needs: [test-prod-api]
+    name: Build & Push Docker Container for Production API
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Docker Hub Authentication
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+        with:
+          images: mgraman/sd-prod
+
+      - name: Create env vars
+        run: touch ./server/.env
+
+      - name: Set .env
+        run: |
+          cat >> ./server/.env <<EOL
+          DATABASE_URL=${{secrets.PROD_DATABASE_URL}}
+          SESSION_SECRET=${{secrets.PROD_SESSION_SECRET}}
+          CORS_DOMAIN=${{secrets.PROD_CORS_DOMAIN}}
+          CORS_ORIGIN=${{secrets.PROD_CORS_ORIGIN}}
+          REDIS_URL=${{secrets.PROD_REDIS_URL}}
+          PORT=4000
+          EOL
+
+      - name: Get NPM Version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@master
+        with:
+          path: ./server
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}-api-${{ steps.package-version.outputs.current-version}}
+          labels: ${{ steps.meta.outputs.labels }}
+          file: ./dockerfiles/dev-api-ci.Dockerfile
+  build-docker-prod-front-end:
+    needs: [test-prod-front-end]
+    name: Build & Push Docker Container for Production Front End
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Docker Hub Authentication
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+        with:
+          images: mgraman/sd-prod
+
+      - name: Create env vars
+        run: touch ./web/.env
+
+      - name: Set .env
+        run: |
+          cat >> ./web/.env <<EOL
+          NEXT_PUBLIC_API_URL=${{secrets.PROD_API_URL}}
+          EOL
+
+      - name: Get NPM Version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@master
+        with:
+          path: ./web
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}-frontend-${{ steps.package-version.outputs.current-version}}
+          labels: ${{ steps.meta.outputs.labels }}
+          file: ./dockerfiles/dev-front-end-ci.Dockerfile
+  deploy-prod-api:
+    needs: [build-docker-prod-front-end, build-docker-prod-api]
+    name: Deploy API to Rancher K8s
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Get NPM Version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@master
+        with:
+          path: ./server
+
+      - uses: sekassel-research/actions-rancher-update@2.0.2
+        with:
+          rancher_url: https://rancher.maxg.xyz
+          rancher_token: ${{ secrets.RANCHER_BEARER_TOKEN }}
+          cluster_id: ${{ secrets.RANCHER_CLUSTER }}
+          project_id: ${{ secrets.RANCHER_PROJECT }}
+          namespace: sd-prod
+          deployment: sd-prod-api
+          docker_image: mgraman/sd-prod:prod-api-${{ steps.package-version.outputs.current-version}}
+  deploy-prod-frontend:
+    needs: [build-docker-prod-front-end, build-docker-prod-api, deploy-prod-api]
+    name: Deploy Front End to Rancher K8s
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Get NPM Version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@master
+        with:
+          path: ./web
+
+      - uses: sekassel-research/actions-rancher-update@2.0.2
+        with:
+          rancher_url: https://rancher.maxg.xyz
+          rancher_token: ${{ secrets.RANCHER_BEARER_TOKEN }}
+          cluster_id: ${{ secrets.RANCHER_CLUSTER }}
+          project_id: ${{ secrets.RANCHER_PROJECT }}
+          namespace: sd-prod
+          deployment: sd-prod-frontend
+          docker_image: mgraman/sd-prod:prod-frontend-${{ steps.package-version.outputs.current-version}}

@@ -14,19 +14,13 @@ import NextLink from "next/link";
 import { Formik, Form } from "formik";
 import { useRouter } from "next/router";
 import React from "react";
-import {
-  MeDocument,
-  MeQuery,
-  useCreateCartMutation,
-  useRegisterMutation,
-} from "../generated/graphql";
+import { MeDocument, MeQuery, useRegisterMutation } from "../generated/graphql";
 import { toErrorMap } from "../utils/toErrorMap";
 import { InputField } from "./InputField";
 
 export default function RegisterCard() {
   const router = useRouter();
   const [register] = useRegisterMutation();
-  const [createCart] = useCreateCartMutation();
   return (
     <>
       <Formik
@@ -55,8 +49,7 @@ export default function RegisterCard() {
             setErrors(toErrorMap(response.data.register.errors));
           } else if (response.data?.register.user) {
             // worked
-            router.push("/");
-            createCart();
+            router.push("/app");
           }
         }}
       >

@@ -14,32 +14,6 @@ export type Scalars = {
   Float: number;
 };
 
-export type AddProductInput = {
-  sku: Scalars['String'];
-  name: Scalars['String'];
-  price: Scalars['String'];
-  imageUrl: Scalars['String'];
-};
-
-export type Cart = {
-  __typename?: 'Cart';
-  id: Scalars['String'];
-  createdAt: Scalars['String'];
-  user: User;
-};
-
-export type CartError = {
-  __typename?: 'CartError';
-  field: Scalars['String'];
-  message: Scalars['String'];
-};
-
-export type CartResponse = {
-  __typename?: 'CartResponse';
-  errors?: Maybe<Array<CartError>>;
-  cart?: Maybe<Cart>;
-};
-
 export type FieldError = {
   __typename?: 'FieldError';
   field: Scalars['String'];
@@ -54,8 +28,6 @@ export type Mutation = {
   register: UserResponse;
   login: UserResponse;
   logout: Scalars['Boolean'];
-  createCart: CartResponse;
-  addProduct: ProductResponse;
 };
 
 
@@ -85,39 +57,10 @@ export type MutationLoginArgs = {
   usernameOrEmail: Scalars['String'];
 };
 
-
-export type MutationAddProductArgs = {
-  options: AddProductInput;
-};
-
-export type Product = {
-  __typename?: 'Product';
-  id: Scalars['String'];
-  sku: Scalars['String'];
-  createdAt: Scalars['String'];
-  name: Scalars['String'];
-  imageUrl: Scalars['String'];
-  price: Scalars['Float'];
-};
-
-export type ProductError = {
-  __typename?: 'ProductError';
-  field: Scalars['String'];
-  message: Scalars['String'];
-};
-
-export type ProductResponse = {
-  __typename?: 'ProductResponse';
-  errors?: Maybe<Array<ProductError>>;
-  product?: Maybe<Product>;
-};
-
 export type Query = {
   __typename?: 'Query';
   hello: Scalars['String'];
   me?: Maybe<User>;
-  cart?: Maybe<Cart>;
-  products: Array<Product>;
 };
 
 export type UpdateUserInfoInput = {
@@ -138,7 +81,6 @@ export type User = {
   email: Scalars['String'];
   createdAt: Scalars['String'];
   updatedAt: Scalars['String'];
-  cart: Cart;
 };
 
 export type UserResponse = {
@@ -155,27 +97,6 @@ export type UsernamePasswordInput = {
   firstname: Scalars['String'];
   lastname: Scalars['String'];
 };
-
-export type CartErrorFragment = (
-  { __typename?: 'CartError' }
-  & Pick<CartError, 'field' | 'message'>
-);
-
-export type RegularCartFragment = (
-  { __typename?: 'Cart' }
-  & Pick<Cart, 'id' | 'createdAt'>
-);
-
-export type RegularCartResponseFragment = (
-  { __typename?: 'CartResponse' }
-  & { errors?: Maybe<Array<(
-    { __typename?: 'CartError' }
-    & CartErrorFragment
-  )>>, cart?: Maybe<(
-    { __typename?: 'Cart' }
-    & RegularCartFragment
-  )> }
-);
 
 export type RegularErrorFragment = (
   { __typename?: 'FieldError' }
@@ -198,25 +119,6 @@ export type RegularUserResponseFragment = (
   )> }
 );
 
-export type AddProductMutationVariables = Exact<{
-  options: AddProductInput;
-}>;
-
-
-export type AddProductMutation = (
-  { __typename?: 'Mutation' }
-  & { addProduct: (
-    { __typename?: 'ProductResponse' }
-    & { errors?: Maybe<Array<(
-      { __typename?: 'ProductError' }
-      & Pick<ProductError, 'field' | 'message'>
-    )>>, product?: Maybe<(
-      { __typename?: 'Product' }
-      & Pick<Product, 'sku' | 'name' | 'price' | 'imageUrl'>
-    )> }
-  ) }
-);
-
 export type ChangePasswordMutationVariables = Exact<{
   token: Scalars['String'];
   newPassword: Scalars['String'];
@@ -228,23 +130,6 @@ export type ChangePasswordMutation = (
   & { changePassword: (
     { __typename?: 'UserResponse' }
     & RegularUserResponseFragment
-  ) }
-);
-
-export type CreateCartMutationVariables = Exact<{ [key: string]: never; }>;
-
-
-export type CreateCartMutation = (
-  { __typename?: 'Mutation' }
-  & { createCart: (
-    { __typename?: 'CartResponse' }
-    & { cart?: Maybe<(
-      { __typename?: 'Cart' }
-      & Pick<Cart, 'id' | 'createdAt'>
-    )>, errors?: Maybe<Array<(
-      { __typename?: 'CartError' }
-      & Pick<CartError, 'field' | 'message'>
-    )>> }
   ) }
 );
 
@@ -306,17 +191,6 @@ export type UpdateUserInfoMutation = (
   ) }
 );
 
-export type CartQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type CartQuery = (
-  { __typename?: 'Query' }
-  & { cart?: Maybe<(
-    { __typename?: 'Cart' }
-    & Pick<Cart, 'id' | 'createdAt'>
-  )> }
-);
-
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -328,40 +202,6 @@ export type MeQuery = (
   )> }
 );
 
-export type ProductsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type ProductsQuery = (
-  { __typename?: 'Query' }
-  & { products: Array<(
-    { __typename?: 'Product' }
-    & Pick<Product, 'id' | 'sku' | 'name' | 'price' | 'createdAt' | 'imageUrl'>
-  )> }
-);
-
-export const CartErrorFragmentDoc = gql`
-    fragment CartError on CartError {
-  field
-  message
-}
-    `;
-export const RegularCartFragmentDoc = gql`
-    fragment RegularCart on Cart {
-  id
-  createdAt
-}
-    `;
-export const RegularCartResponseFragmentDoc = gql`
-    fragment RegularCartResponse on CartResponse {
-  errors {
-    ...CartError
-  }
-  cart {
-    ...RegularCart
-  }
-}
-    ${CartErrorFragmentDoc}
-${RegularCartFragmentDoc}`;
 export const RegularErrorFragmentDoc = gql`
     fragment RegularError on FieldError {
   field
@@ -389,48 +229,6 @@ export const RegularUserResponseFragmentDoc = gql`
 }
     ${RegularErrorFragmentDoc}
 ${RegularUserFragmentDoc}`;
-export const AddProductDocument = gql`
-    mutation AddProduct($options: AddProductInput!) {
-  addProduct(options: $options) {
-    errors {
-      field
-      message
-    }
-    product {
-      sku
-      name
-      price
-      imageUrl
-    }
-  }
-}
-    `;
-export type AddProductMutationFn = Apollo.MutationFunction<AddProductMutation, AddProductMutationVariables>;
-
-/**
- * __useAddProductMutation__
- *
- * To run a mutation, you first call `useAddProductMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useAddProductMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [addProductMutation, { data, loading, error }] = useAddProductMutation({
- *   variables: {
- *      options: // value for 'options'
- *   },
- * });
- */
-export function useAddProductMutation(baseOptions?: Apollo.MutationHookOptions<AddProductMutation, AddProductMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<AddProductMutation, AddProductMutationVariables>(AddProductDocument, options);
-      }
-export type AddProductMutationHookResult = ReturnType<typeof useAddProductMutation>;
-export type AddProductMutationResult = Apollo.MutationResult<AddProductMutation>;
-export type AddProductMutationOptions = Apollo.BaseMutationOptions<AddProductMutation, AddProductMutationVariables>;
 export const ChangePasswordDocument = gql`
     mutation ChangePassword($token: String!, $newPassword: String!) {
   changePassword(token: $token, newPassword: $newPassword) {
@@ -465,45 +263,6 @@ export function useChangePasswordMutation(baseOptions?: Apollo.MutationHookOptio
 export type ChangePasswordMutationHookResult = ReturnType<typeof useChangePasswordMutation>;
 export type ChangePasswordMutationResult = Apollo.MutationResult<ChangePasswordMutation>;
 export type ChangePasswordMutationOptions = Apollo.BaseMutationOptions<ChangePasswordMutation, ChangePasswordMutationVariables>;
-export const CreateCartDocument = gql`
-    mutation CreateCart {
-  createCart {
-    cart {
-      id
-      createdAt
-    }
-    errors {
-      field
-      message
-    }
-  }
-}
-    `;
-export type CreateCartMutationFn = Apollo.MutationFunction<CreateCartMutation, CreateCartMutationVariables>;
-
-/**
- * __useCreateCartMutation__
- *
- * To run a mutation, you first call `useCreateCartMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateCartMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createCartMutation, { data, loading, error }] = useCreateCartMutation({
- *   variables: {
- *   },
- * });
- */
-export function useCreateCartMutation(baseOptions?: Apollo.MutationHookOptions<CreateCartMutation, CreateCartMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateCartMutation, CreateCartMutationVariables>(CreateCartDocument, options);
-      }
-export type CreateCartMutationHookResult = ReturnType<typeof useCreateCartMutation>;
-export type CreateCartMutationResult = Apollo.MutationResult<CreateCartMutation>;
-export type CreateCartMutationOptions = Apollo.BaseMutationOptions<CreateCartMutation, CreateCartMutationVariables>;
 export const ForgotPasswordDocument = gql`
     mutation ForgotPassword($email: String!) {
   forgotPassword(email: $email)
@@ -665,41 +424,6 @@ export function useUpdateUserInfoMutation(baseOptions?: Apollo.MutationHookOptio
 export type UpdateUserInfoMutationHookResult = ReturnType<typeof useUpdateUserInfoMutation>;
 export type UpdateUserInfoMutationResult = Apollo.MutationResult<UpdateUserInfoMutation>;
 export type UpdateUserInfoMutationOptions = Apollo.BaseMutationOptions<UpdateUserInfoMutation, UpdateUserInfoMutationVariables>;
-export const CartDocument = gql`
-    query Cart {
-  cart {
-    id
-    createdAt
-  }
-}
-    `;
-
-/**
- * __useCartQuery__
- *
- * To run a query within a React component, call `useCartQuery` and pass it any options that fit your needs.
- * When your component renders, `useCartQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useCartQuery({
- *   variables: {
- *   },
- * });
- */
-export function useCartQuery(baseOptions?: Apollo.QueryHookOptions<CartQuery, CartQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<CartQuery, CartQueryVariables>(CartDocument, options);
-      }
-export function useCartLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CartQuery, CartQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<CartQuery, CartQueryVariables>(CartDocument, options);
-        }
-export type CartQueryHookResult = ReturnType<typeof useCartQuery>;
-export type CartLazyQueryHookResult = ReturnType<typeof useCartLazyQuery>;
-export type CartQueryResult = Apollo.QueryResult<CartQuery, CartQueryVariables>;
 export const MeDocument = gql`
     query Me {
   me {
@@ -734,42 +458,3 @@ export function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeQuery
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
-export const ProductsDocument = gql`
-    query Products {
-  products {
-    id
-    sku
-    name
-    price
-    createdAt
-    imageUrl
-  }
-}
-    `;
-
-/**
- * __useProductsQuery__
- *
- * To run a query within a React component, call `useProductsQuery` and pass it any options that fit your needs.
- * When your component renders, `useProductsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useProductsQuery({
- *   variables: {
- *   },
- * });
- */
-export function useProductsQuery(baseOptions?: Apollo.QueryHookOptions<ProductsQuery, ProductsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ProductsQuery, ProductsQueryVariables>(ProductsDocument, options);
-      }
-export function useProductsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProductsQuery, ProductsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ProductsQuery, ProductsQueryVariables>(ProductsDocument, options);
-        }
-export type ProductsQueryHookResult = ReturnType<typeof useProductsQuery>;
-export type ProductsLazyQueryHookResult = ReturnType<typeof useProductsLazyQuery>;
-export type ProductsQueryResult = Apollo.QueryResult<ProductsQuery, ProductsQueryVariables>;

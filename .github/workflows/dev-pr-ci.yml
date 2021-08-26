@@ -1,0 +1,132 @@
+name: Development PR CI
+
+on:
+  pull_request:
+    branches: [dev]
+
+jobs:
+  test-dev-front-end:
+    name: Test Front End Build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./web
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Use Node.js 16
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16.x"
+
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build Front End
+        run: yarn build
+  test-dev-api:
+    name: Test API Build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./server
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Use Node.js 16
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16.x"
+
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build API
+        run: yarn build
+  build-docker-dev-api:
+    needs: [test-dev-api]
+    name: Testing Build & Push Docker Container for Development API
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Docker Hub Authentication
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+        with:
+          images: mgraman/sd-dev
+
+      - name: Create env vars
+        run: touch ./server/.env
+
+      - name: Set .env
+        run: |
+          cat >> ./server/.env <<EOL
+          DATABASE_URL=${{secrets.DEV_DATABASE_URL}}
+          SESSION_SECRET=${{secrets.DEV_SESSION_SECRET}}
+          CORS_DOMAIN=${{secrets.DEV_CORS_DOMAIN}}
+          CORS_ORIGIN=${{secrets.DEV_CORS_ORIGIN}}
+          REDIS_URL=${{secrets.DEV_REDIS_URL}}
+          PORT=4000
+          EOL
+
+      - name: Check
+        run: cat ./server/.env
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}-api-latest
+          labels: ${{ steps.meta.outputs.labels }}
+          file: ./dockerfiles/dev-api-ci.Dockerfile
+  build-docker-dev-front-end:
+    needs: [test-dev-front-end]
+    name: Testing Build & Push Docker Container for Development Front End
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Docker Hub Authentication
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+        with:
+          images: mgraman/sd-dev
+
+      - name: Create env vars
+        run: touch ./web/.env
+
+      - name: Set .env
+        run: |
+          cat >> ./web/.env <<EOL
+          NEXT_PUBLIC_API_URL=${{secrets.DEV_API_URL}} 
+          EOL
+
+      - name: Check
+        run: cat ./web/.env
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}-frontend-latest
+          labels: ${{ steps.meta.outputs.labels }}
+          file: ./dockerfiles/dev-front-end-ci.Dockerfile
