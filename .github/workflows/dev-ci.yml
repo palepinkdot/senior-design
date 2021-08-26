@@ -1,4 +1,4 @@
-name: Development CI
+name: Development CI Test
 
 on:
   pull_request:
@@ -24,6 +24,9 @@ jobs:
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
+
+      - name: current dir
+        run: pwd && ls
 
       - name: Build GraphQL Codegen
         run: yarn gen
