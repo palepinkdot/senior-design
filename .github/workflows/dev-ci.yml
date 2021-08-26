@@ -87,7 +87,7 @@ jobs:
         run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
 
       - name: Find Deploy Date
-        run: sed -ie "s/deploy-date-value/${{steps.date.outputs.date}}/g" ./kubernetes/deployment.yaml
+        run: sed -ie "s/deploy-date-value/${{steps.date.outputs.date}}/g" ./kubernetes/dev-api.deployment.yaml
 
       - name: Make kubeconfig
         run: mkdir -p ./.kube/ && touch ./.kube/encode_config && touch ./.kube/config
