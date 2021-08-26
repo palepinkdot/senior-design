@@ -50,7 +50,7 @@ jobs:
 
       - name: Set .env
         run: |
-          cat >> ./server/.env.production <<EOL
+          cat >> ./server/.env <<EOL
           DATABASE_URL=${{secrets.PROD_DATABASE_URL}}
           SESSION_SECRET=${{secrets.PROD_SESSION_SECRET}}
           CORS_DOMAIN=${{secrets.PROD_CORS_DOMAIN}} 
