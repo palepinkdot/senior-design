@@ -60,6 +60,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ steps.meta.outputs.tags }},$npm_package_version
           labels: ${{ steps.meta.outputs.labels }}
           file: ./server/dev-ci.Dockerfile
