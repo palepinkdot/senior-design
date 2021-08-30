@@ -75,3 +75,18 @@ Using GraphQL with TypeORM can be confusing. Don't worry once you get the hang o
 ### Resolvers
 
 Resolvers are what happens when we hit an endpoint. Each file in the resolvers directory is essentally an endpoint.
+
+## Technology Used
+
+- [React](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [GraphQL](https://graphql.org/)
+- [URQL/Apollo](https://formidable.com/open-source/urql/)
+- [Node.js](https://nodejs.org/en/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [TypeORM](https://typeorm.io/#/)
+- [Redis](https://redis.io/)
+- [Next.js](https://nextjs.org/)
+- [TypeGraphQL](https://typegraphql.com/)
+- [Chakra](https://chakra-ui.com/)
+
