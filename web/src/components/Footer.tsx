@@ -101,7 +101,7 @@ export default function SmallCentered() {
           justify={{ base: "center", md: "space-between" }}
           align={{ base: "center", md: "center" }}
         >
-          <Text>© 2021 Find-a-pet // All rights reserved</Text>
+          <Text>© 2021 GetaPet // All rights reserved</Text>
           <Stack
             direction={"row"}
             spacing={6}

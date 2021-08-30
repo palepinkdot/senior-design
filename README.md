@@ -1,4 +1,4 @@
-# :paw_prints: Find-a-Pet
+# :paw_prints: GetaPet
 
 Senior Design repo for Group 9 @ University of Cincinnati
 
