@@ -13,8 +13,10 @@ Name (@github / UC 6+2)
 
 ## Prerequisites
 
-- [Redis](https://redis.io/topics/quickstart).
-- [Node.js](https://nodejs.org/en/download/).
+- [Redis](https://redis.io/topics/quickstart)
+- [Node.js](https://nodejs.org/en/download/)
+- [NPM](https://docs.npmjs.com/downloading-and-installing-packages-globally)
+- [Yarn](https://classic.yarnpkg.com/en/docs/install/#mac-stable)
 
 After cloning the repo, go ahead and enter the `server` and `web` directories in separate terminal windows in VSCode. Open two terminal windows in the server directory. This makes sense later.
 
@@ -27,6 +29,18 @@ Running `yarn watch` listens for changes to the server files and compiles them t
 ## Development :toolbox:
 
 Do not commit directly to `main`. Eventually this will get set up to disawllow commits to main besides the DevOps.
+
+### Best Practices
+
+To make sure commits are not littered with intends, tabs, etc. make sure to use [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) which will format the code for you on save, or if you prefer, on command. [TSLint](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-typescript-tslint-plugin) will also give you syntax highlighting for Typescript. The [AirBnb Style Guide](https://github.com/airbnb/javascript) is a great resource to make sure the code we use and commit is clean. There is a way to make sire prettier formats using the AirBnb styling but it is not required. Another great resource is [ReactJS Docs](https://reactjs.org/docs/hello-world.html), especially if you have not used React.
+
+### Pull Requests
+
+Keeping the repository clean is one of my favorite things. To do this, branches will be titled as such:
+
+- `fix(BRANCH_NAME)` for fixes
+- `hotfix(BRANCH_NAME)` for hot-fixes, urget changes made straight to `dev`.
+- `feature(BRANCH_NAME)` for new features.
 
 ## Front End :computer:
 
