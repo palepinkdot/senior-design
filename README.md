@@ -1,4 +1,4 @@
-# :paw_prints: GetaPet
+# :paw_prints: Swipet
 
 Senior Design repo for Group 9 @ University of Cincinnati
 
@@ -89,4 +89,3 @@ Resolvers are what happens when we hit an endpoint. Each file in the resolvers d
 - [Next.js](https://nextjs.org/)
 - [TypeGraphQL](https://typegraphql.com/)
 - [Chakra](https://chakra-ui.com/)
-

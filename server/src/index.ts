@@ -17,7 +17,7 @@ import { graphqlUploadExpress } from "graphql-upload";
 import path from "path";
 
 const main = async () => {
-  console.log("🐾 Starting GetaPet backend...");
+  console.log("🐾 Starting Swipet API...");
   console.log(
     process.env.CORS_DOMAIN +
       "\n" +
@@ -82,7 +82,7 @@ const main = async () => {
   apolloServer.applyMiddleware({ app, cors: false });
   app.listen(parseInt(process.env.PORT), () => {
     console.log(
-      "🚀 GetaPet backend started on " +
+      "🚀 Swipet API started on " +
         process.env.CORS_DOMAIN +
         ":" +
         process.env.PORT
