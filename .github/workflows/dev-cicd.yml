@@ -141,8 +141,8 @@ jobs:
           rancher_token: ${{ secrets.RANCHER_BEARER_TOKEN }}
           cluster_id: ${{ secrets.RANCHER_CLUSTER }}
           project_id: ${{ secrets.RANCHER_PROJECT }}
-          namespace: sd-dev
-          deployment: sd-dev-api
+          namespace: swipet-services
+          deployment: swipet-dev-api
           docker_image: mgraman/sd-dev:dev-api-latest
   deploy-dev-frontend:
     needs: [build-docker-dev-front-end, build-docker-dev-api, deploy-dev-api]
@@ -155,6 +155,6 @@ jobs:
           rancher_token: ${{ secrets.RANCHER_BEARER_TOKEN }}
           cluster_id: ${{ secrets.RANCHER_CLUSTER }}
           project_id: ${{ secrets.RANCHER_PROJECT }}
-          namespace: sd-dev
-          deployment: sd-dev-frontend
+          namespace: swipet-services
+          deployment: swipet-dev-frontend
           docker_image: mgraman/sd-dev:dev-frontend-latest
