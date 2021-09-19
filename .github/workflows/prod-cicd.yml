@@ -156,8 +156,8 @@ jobs:
           rancher_token: ${{ secrets.RANCHER_BEARER_TOKEN }}
           cluster_id: ${{ secrets.RANCHER_CLUSTER }}
           project_id: ${{ secrets.RANCHER_PROJECT }}
-          namespace: sd-prod
-          deployment: sd-prod-api
+          namespace: swipet-services
+          deployment: swipet-prod-api
           docker_image: mgraman/sd-prod:prod-api-${{ steps.package-version.outputs.current-version}}
   deploy-prod-frontend:
     needs: [build-docker-prod-front-end, build-docker-prod-api, deploy-prod-api]
@@ -179,6 +179,6 @@ jobs:
           rancher_token: ${{ secrets.RANCHER_BEARER_TOKEN }}
           cluster_id: ${{ secrets.RANCHER_CLUSTER }}
           project_id: ${{ secrets.RANCHER_PROJECT }}
-          namespace: sd-prod
-          deployment: sd-prod-frontend
+          namespace: swipet-services
+          deployment: swipet-prod-frontend
           docker_image: mgraman/sd-prod:prod-frontend-${{ steps.package-version.outputs.current-version}}
