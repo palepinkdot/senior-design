@@ -5,13 +5,20 @@ import { Wrapper, WrapperVariant } from "./Wrapper";
 
 interface LayoutProps {
   variant?: WrapperVariant;
+  boxHeight?: WrapperVariant;
 }
 
-export const Layout: React.FC<LayoutProps> = ({ children, variant }) => {
+export const Layout: React.FC<LayoutProps> = ({
+  children,
+  variant,
+  boxHeight,
+}) => {
   return (
     <>
       <NavBar />
-      <Wrapper variant={variant}>{children}</Wrapper>
+      <Wrapper height={boxHeight} variant={variant}>
+        {children}
+      </Wrapper>
       <Footer />
     </>
   );
