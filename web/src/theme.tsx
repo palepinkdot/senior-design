@@ -1,6 +1,7 @@
 import { extendTheme } from "@chakra-ui/react";
 import { createBreakpoints } from "@chakra-ui/theme-tools";
 import "@fontsource/raleway";
+import "@fontsource/noto-sans";
 
 const breakpoints = createBreakpoints({
   sm: "40em",
