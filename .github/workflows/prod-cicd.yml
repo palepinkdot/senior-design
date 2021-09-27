@@ -1,5 +1,4 @@
 name: Production CI/CD
-runs-on: self-hosted
 
 on:
   push:
