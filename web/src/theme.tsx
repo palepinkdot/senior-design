@@ -68,7 +68,7 @@ const theme = extendTheme({
     },
   },
   fonts: {
-    heading: "",
+    heading: "Noto Sans",
     body: "Raleway",
   },
   breakpoints,
