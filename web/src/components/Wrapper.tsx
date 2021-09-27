@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Center, Container } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 
 export type WrapperVariant = "small" | "regular" | "100vh";
 interface WrapperProps {
@@ -10,13 +10,16 @@ interface WrapperProps {
 export const Wrapper: React.FC<WrapperProps> = ({
   children,
   variant = "regular",
-  height = null,
 }) => {
   return (
-    <Center height={height} px={8} py={8}>
-      <Box alignSelf="center" maxW="1500px">
-        {children}
-      </Box>
-    </Center>
+    <Box
+      backgroundColor="white"
+      mt={8}
+      mx="auto"
+      w="100%"
+      maxW={variant === "regular" ? "1500px" : "400px"}
+    >
+      {children}
+    </Box>
   );
 };
