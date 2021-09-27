@@ -97,7 +97,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
             mr={4}
             leftIcon={<LockIcon />}
             _hover={{
-              bg: "yellow.200",
+              bg: "blue.200",
               colorScheme: "white",
             }}
           >
@@ -109,10 +109,10 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
           <Button
             fontWeight={600}
             _hover={{
-              bg: "yellow.200",
+              bg: "blue.200",
             }}
             variant={"solid"}
-            colorScheme={"yellow"}
+            colorScheme={"blue"}
             size={"sm"}
             mr={4}
             leftIcon={<AddIcon />}
