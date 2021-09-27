@@ -1,5 +1,5 @@
 name: Development CI/CD
-
+runs-on: self-hosted
 on:
   push:
     branches: [dev]
