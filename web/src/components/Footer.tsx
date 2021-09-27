@@ -47,9 +47,9 @@ export default function SmallCentered() {
     <Box
       bg={useColorModeValue("gray.100", "gray.900")}
       color={useColorModeValue("gray.700", "gray.200")}
-      position={"fixed"}
+      position={"absolute"}
       width={"100%"}
-      bottom="0"
+      margin="0"
     >
       <Box
         borderTopWidth={1}
