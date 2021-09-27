@@ -228,7 +228,12 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
             <Logo />
           </Box>
 
-          <HStack as={"nav"} spacing={4} display={{ base: "none", md: "flex" }}>
+          <HStack
+            as={"nav"}
+            spacing={4}
+            fontWeight="normal"
+            display={{ base: "none", md: "flex" }}
+          >
             {Links.map((link) => (
               <NavLink key={link}>{link}</NavLink>
             ))}
