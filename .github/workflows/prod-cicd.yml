@@ -7,7 +7,7 @@ on:
 jobs:
   test-prod-front-end:
     name: Test Front End Build
-    runs-on: [self-hosted, ubuntu-latest]
+    runs-on: self-hosted
     defaults:
       run:
         working-directory: ./web
@@ -27,7 +27,7 @@ jobs:
         run: yarn build
   test-prod-api:
     name: Test API Build
-    runs-on: [self-hosted, ubuntu-latest]
+    runs-on: self-hosted
     defaults:
       run:
         working-directory: ./server
@@ -48,7 +48,7 @@ jobs:
   build-docker-prod-api:
     needs: [test-prod-api]
     name: Build & Push Docker Container for Production API
-    runs-on: [self-hosted, ubuntu-latest]
+    runs-on: self-hosted
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
@@ -96,7 +96,7 @@ jobs:
   build-docker-prod-front-end:
     needs: [test-prod-front-end]
     name: Build & Push Docker Container for Production Front End
-    runs-on: [self-hosted, ubuntu-latest]
+    runs-on: self-hosted
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
@@ -139,7 +139,7 @@ jobs:
   deploy-prod-api:
     needs: [build-docker-prod-front-end, build-docker-prod-api]
     name: Deploy API to Rancher K8s
-    runs-on: [self-hosted, ubuntu-latest]
+    runs-on: self-hosted
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
@@ -162,7 +162,7 @@ jobs:
   deploy-prod-frontend:
     needs: [build-docker-prod-front-end, build-docker-prod-api, deploy-prod-api]
     name: Deploy Front End to Rancher K8s
-    runs-on: [self-hosted, ubuntu-latest]
+    runs-on: self-hosted
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2

@@ -7,7 +7,7 @@ on:
 jobs:
   test-dev-front-end:
     name: Test Front End Build
-    runs-on: [self-hosted, ubuntu-latest]
+    runs-on: self-hosted
     defaults:
       run:
         working-directory: ./web
@@ -27,7 +27,7 @@ jobs:
         run: yarn build
   test-dev-api:
     name: Test API Build
-    runs-on: [self-hosted, ubuntu-latest]
+    runs-on: self-hosted
     defaults:
       run:
         working-directory: ./server
@@ -48,7 +48,7 @@ jobs:
   build-docker-dev-api:
     needs: [test-dev-api]
     name: Build & Push Docker Container for Development API
-    runs-on: [self-hosted, ubuntu-latest]
+    runs-on: self-hosted
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
@@ -93,7 +93,7 @@ jobs:
   build-docker-dev-front-end:
     needs: [test-dev-front-end]
     name: Build & Push Docker Container for Development Front End
-    runs-on: [self-hosted, ubuntu-latest]
+    runs-on: self-hosted
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
@@ -133,7 +133,7 @@ jobs:
   deploy-dev-api:
     needs: [build-docker-dev-front-end, build-docker-dev-api]
     name: Deploy API to Rancher K8s
-    runs-on: [self-hosted, ubuntu-latest]
+    runs-on: self-hosted
     steps:
       - uses: sekassel-research/actions-rancher-update@2.0.2
         with:
@@ -147,7 +147,7 @@ jobs:
   deploy-dev-frontend:
     needs: [build-docker-dev-front-end, build-docker-dev-api, deploy-dev-api]
     name: Deploy Front End to Rancher K8s
-    runs-on: [self-hosted, ubuntu-latest]
+    runs-on: self-hosted
     steps:
       - uses: sekassel-research/actions-rancher-update@2.0.2
         with:
