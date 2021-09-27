@@ -27,12 +27,11 @@ import {
   IoBagHandleOutline,
   IoLogOutOutline,
   IoMoonOutline,
-  IoSettingsOutline,
   IoSunnyOutline,
 } from "react-icons/io5";
-import router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { UserSettingsModal } from "./user/UserSettingsModal";
-import { ApolloClient, useApolloClient } from "@apollo/client";
+import { useApolloClient } from "@apollo/client";
 
 interface NavBarProps {}
 
@@ -208,9 +207,9 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
 
   return (
     <Box
-      bg={useColorModeValue("gray.100", "gray.900")}
+      bg={useColorModeValue("gray.50", "gray.900")}
       px={8}
-      zIndex={2}
+      zIndex={99}
       position="sticky"
       top={0}
       boxShadow={"lg"}

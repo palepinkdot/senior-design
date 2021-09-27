@@ -45,7 +45,7 @@ const SocialButton = ({
 export default function SmallCentered() {
   return (
     <Box
-      bg={useColorModeValue("gray.50", "gray.900")}
+      bg={useColorModeValue("gray.100", "gray.900")}
       color={useColorModeValue("gray.700", "gray.200")}
       position={"fixed"}
       width={"100%"}
@@ -65,7 +65,9 @@ export default function SmallCentered() {
           justify={{ base: "center", md: "space-between" }}
           align={{ base: "center", md: "center" }}
         >
-          <Text>© 2021 Swipet // All rights reserved</Text>
+          <Text fontWeight="semibold">
+            © 2021 Swipet // All rights reserved
+          </Text>
           <Stack
             direction={"row"}
             spacing={6}

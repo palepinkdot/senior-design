@@ -1198,6 +1198,11 @@
     ts-node "^9"
     tslib "^2"
 
+"@fontsource/raleway@^4.5.0":
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/@fontsource/raleway/-/raleway-4.5.0.tgz#d5c464abe655d2e2cb134c503db455b7af6c03a6"
+  integrity sha512-Rzj90wbZQnNzazqzoiu5HzMEMdqMJLUVFOo699sinTXrZRm1aB5iX2HTiK2VlPnH4M6u8yYnJ7CebOyamfWlqw==
+
 "@graphql-codegen/cli@1.21.5":
   version "1.21.5"
   resolved "https://registry.npmjs.org/@graphql-codegen/cli/-/cli-1.21.5.tgz"

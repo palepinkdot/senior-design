@@ -14,9 +14,7 @@ export const Wrapper: React.FC<WrapperProps> = ({
 }) => {
   return (
     <Center height={height} px={8} py={8}>
-      <Box alignSelf="center" maxW="1500px">
-        {children}
-      </Box>
+      {children}
     </Center>
   );
 };
