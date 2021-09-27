@@ -21,6 +21,7 @@ import React, { ReactNode } from "react";
 import { useLogoutMutation, useMeQuery } from "../generated/graphql";
 import { isServer } from "../utils/isServer";
 import NextLink from "next/link";
+import "../img/swipet-logo.svg";
 
 import {
   IoArchiveOutline,
@@ -207,12 +208,13 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
 
   return (
     <Box
-      bg={useColorModeValue("gray.50", "gray.900")}
+      bg={"rbga(0, 0, 0, 0.0)"}
       px={8}
       zIndex={99}
       position="sticky"
       top={0}
-      boxShadow={"lg"}
+      /* boxShadow={"lg"} */
+      bgGradient="linear(to-b, gray.700, rgba(0,0,0,0))"
     >
       <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
         <IconButton
@@ -233,6 +235,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
             spacing={4}
             fontWeight="normal"
             display={{ base: "none", md: "flex" }}
+            color="white"
           >
             {Links.map((link) => (
               <NavLink key={link}>{link}</NavLink>
@@ -254,5 +257,5 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
         </Box>
       ) : null}
     </Box>
-  );
+  ); //
 };
