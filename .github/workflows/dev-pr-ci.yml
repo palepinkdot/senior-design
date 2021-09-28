@@ -7,7 +7,7 @@ on:
 jobs:
   test-dev-front-end:
     name: Test Front End Build
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     defaults:
       run:
         working-directory: ./web
@@ -20,6 +20,9 @@ jobs:
         with:
           node-version: "16.x"
 
+      - name: Install Yarn
+        run: npm install -g yarn
+
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
 
@@ -27,7 +30,7 @@ jobs:
         run: yarn build
   test-dev-api:
     name: Test API Build
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     defaults:
       run:
         working-directory: ./server
@@ -48,7 +51,7 @@ jobs:
   build-docker-dev-api:
     needs: [test-dev-api]
     name: Testing Build & Push Docker Container for Development API
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
@@ -93,7 +96,7 @@ jobs:
   build-docker-dev-front-end:
     needs: [test-dev-front-end]
     name: Testing Build & Push Docker Container for Development Front End
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
