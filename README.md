@@ -1,6 +1,6 @@
 # :paw_prints: Swipet
 
-![Swipet Logo](https://swipet.s3.us-east-2.amazonaws.com/swipet-logo.png)
+![Swipet Logo](https://swipet.s3.us-east-2.amazonaws.com/swipet-logo-white.png)
 
 Senior Design repo for Group 9 @ University of Cincinnati
 
