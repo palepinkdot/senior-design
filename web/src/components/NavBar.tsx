@@ -92,13 +92,13 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
         <NextLink href="/login">
           <Button
             variant={"ghost"}
-            colorScheme={"grey"}
+            color={"white"}
             size={"sm"}
             mr={4}
             leftIcon={<LockIcon />}
             _hover={{
               bg: "blue.200",
-              colorScheme: "white",
+              color: "gray.50",
             }}
           >
             Sign in
@@ -112,7 +112,8 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
               bg: "blue.200",
             }}
             variant={"solid"}
-            colorScheme={"blue"}
+            bgColor={"blue.300"}
+            color="white"
             size={"sm"}
             mr={4}
             leftIcon={<AddIcon />}
@@ -202,7 +203,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
       position="sticky"
       top={0}
       /* boxShadow={"lg"} */
-      bgGradient="linear(to-b, gray.700, rgba(0,0,0,0))"
+      bgGradient="linear(to-b, gray.600, rgba(0,0,0,0))"
     >
       <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
         <IconButton
