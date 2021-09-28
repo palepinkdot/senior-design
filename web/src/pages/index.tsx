@@ -33,9 +33,9 @@ const Index: React.FC<{}> = ({}) => {
               p={4}
               borderRadius="full"
               transition="all 0.2s cubic-bezier(.08,.52,.52,1)"
-              bgColor="pink.300"
+              bgColor="blue.400"
               _hover={{
-                bgColor: "blue.200",
+                bgColor: "red.300",
                 transform: "scale(1.05)",
               }}
               _active={{

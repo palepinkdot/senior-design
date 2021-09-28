@@ -35,17 +35,18 @@ import { useApolloClient } from "@apollo/client";
 
 interface NavBarProps {}
 
-const Links = ["About", "Contact", "Shop"];
+const Links = ["Shelters", "Contact", "Shop"];
 
 const NavLink = ({ children }: { children: ReactNode }) => (
   <NextLink href={`/${children.toString().toLowerCase()}`}>
     <Link
+      fontWeight="semibold"
       px={2}
       py={1}
       rounded={"md"}
       _hover={{
         textDecoration: "none",
-        bg: useColorModeValue("gray.200", "gray.800"),
+        bg: "red.300",
       }}
     >
       {children}
@@ -91,13 +92,14 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
       <Flex alignItems={"center"}>
         <NextLink href="/login">
           <Button
+            fontWeight="semibold"
             variant={"ghost"}
-            color={"white"}
+            color={isOpen ? "black" : "white"}
             size={"sm"}
             mr={4}
             leftIcon={<LockIcon />}
             _hover={{
-              bg: "blue.200",
+              bg: "red.300",
               color: "gray.50",
             }}
           >
@@ -107,12 +109,12 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
 
         <NextLink href="/register">
           <Button
-            fontWeight={600}
+            fontWeight="semibold"
             _hover={{
-              bg: "blue.200",
+              bg: "red.300",
             }}
             variant={"solid"}
-            bgColor={"blue.300"}
+            bgColor={"blue.400"}
             color="white"
             size={"sm"}
             mr={4}
@@ -203,17 +205,9 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
       position="sticky"
       top={0}
       /* boxShadow={"lg"} */
-      bgGradient="linear(to-b, gray.600, rgba(0,0,0,0))"
+      bgGradient="linear(to-b, gray.500, rgba(0,0,0,0))"
     >
       <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
-        <IconButton
-          size={"md"}
-          icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-          aria-label={"Open Menu"}
-          display={{ md: "none" }}
-          onClick={isOpen ? onClose : onOpen}
-        />
-
         <HStack spacing={8} alignItems={"center"}>
           <Box>
             <Logo />
@@ -232,11 +226,20 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
           </HStack>
         </HStack>
 
+        <IconButton
+          size={"md"}
+          bgColor="white"
+          icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
+          aria-label={"Open Menu"}
+          display={{ md: "none" }}
+          onClick={isOpen ? onClose : onOpen}
+        />
+
         <Flex display={{ base: "none", md: "flex" }}>{userBody}</Flex>
       </Flex>
 
       {isOpen ? (
-        <Box pb={4} display={{ md: "none" }}>
+        <Box bgColor="white" pb={4} display={{ md: "none" }}>
           <Stack as={"nav"} spacing={4}>
             {Links.map((link) => (
               <NavLink key={link}>{link}</NavLink>
