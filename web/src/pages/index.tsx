@@ -29,7 +29,8 @@ const Index: React.FC<{}> = ({}) => {
             </Text>
 
             <Box
-              as="button"
+              as="a"
+              href="/app/get-started"
               p={4}
               borderRadius="full"
               transition="all 0.2s cubic-bezier(.08,.52,.52,1)"
