@@ -14,11 +14,15 @@ import NextLink from "next/link";
 import { Formik, Form } from "formik";
 import { useRouter } from "next/router";
 import React from "react";
-import { MeDocument, MeQuery, useRegisterMutation } from "../generated/graphql";
-import { toErrorMap } from "../utils/toErrorMap";
-import { InputField } from "./InputField";
+import {
+  MeDocument,
+  MeQuery,
+  useRegisterMutation,
+} from "../../generated/graphql";
+import { toErrorMap } from "../../utils/toErrorMap";
+import { InputField } from "../InputField";
 
-export default function RegisterCard() {
+export default function AdoRegisterCard() {
   const router = useRouter();
   const [register] = useRegisterMutation();
   return (
@@ -49,7 +53,7 @@ export default function RegisterCard() {
             setErrors(toErrorMap(response.data.register.errors));
           } else if (response.data?.register.user) {
             // worked
-            router.push("/app");
+            router.push("/app/home/");
           }
         }}
       >
@@ -63,7 +67,7 @@ export default function RegisterCard() {
             >
               <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
                 <Stack align={"center"}>
-                  <Heading fontSize={"4xl"}>Create your account</Heading>
+                  <Heading fontSize={"4xl"}>Create your ado account</Heading>
                   <Text fontSize={"lg"} color={"gray.600"}>
                     to enjoy all of our member{" "}
                     <Link color={"blue.400"}>features</Link> ✌️
