@@ -1,5 +1,5 @@
 import { Box, Button, Flex, Grid } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import {
   IoCheckmark,
   IoChevronBack,
@@ -9,14 +9,31 @@ import {
 import Footer from "../Footer";
 import { NavBar } from "../NavBar";
 import { Wrapper, WrapperVariant } from "../Wrapper";
+import { AnimalCard } from "./AnimalCard";
 
 interface LayoutProps {
   variant?: WrapperVariant;
 }
 
 export const AppUserHome: React.FC<LayoutProps> = ({ children, variant }) => {
-  let isApproved = false;
-  let isDenied = false;
+  const [liked, setLiked] = useState(false);
+  const [disliked, setDislike] = useState(false);
+
+  function like() {
+    setLiked(true);
+    setDislike(false);
+  }
+
+  function dislike() {
+    setLiked(false);
+    setDislike(true);
+  }
+
+  function resetLike() {
+    setLiked(false);
+    setDislike(false);
+  }
+
   return (
     <>
       {/* buttons + columns */}
@@ -27,15 +44,18 @@ export const AppUserHome: React.FC<LayoutProps> = ({ children, variant }) => {
           h="100vh"
           bgColor="red.100"
           _hover={{
-            bgColor: "red.50",
+            bgColor: "red.200",
           }}
+          onClick={() => dislike()}
         >
-          {isDenied ? (
+          {disliked ? (
             <IoClose size="6rem" opacity={0.33} />
           ) : (
             <IoChevronBack size="6rem" opacity={0.33} />
           )}
         </Flex>
+
+        <AnimalCard />
 
         <Flex
           as={Button}
@@ -43,10 +63,11 @@ export const AppUserHome: React.FC<LayoutProps> = ({ children, variant }) => {
           h="100vh"
           bgColor="blue.100"
           _hover={{
-            bgColor: "blue.50",
+            bgColor: "blue.200",
           }}
+          onClick={() => like()}
         >
-          {isApproved ? (
+          {liked ? (
             <IoCheckmark size="6rem" opacity={0.33} />
           ) : (
             <IoChevronForward size="6rem" opacity={0.33} />
