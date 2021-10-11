@@ -1,14 +1,17 @@
 import React from "react";
+import { AppLayout } from "../../components/app/AppLayout";
+import { AppUserHome } from "../../components/app/AppUserHome";
 import { Layout } from "../../components/Layout";
 import { useIsAuth } from "../../utils/useIsAuth";
 import { withApollo } from "../../utils/withApollo";
 
 const AppIndex: React.FC<{}> = ({}) => {
-  useIsAuth();
+  // useIsAuth();
+
   return (
-    <Layout>
-      <h1>This is the main page of the app, once a user is signed in.</h1>
-    </Layout>
+    <AppLayout>
+      <AppUserHome />
+    </AppLayout>
   );
 };
 
