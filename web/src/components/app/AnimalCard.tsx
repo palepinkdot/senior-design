@@ -29,17 +29,10 @@ export const AnimalCard: React.FC<WrapperProps> = ({}) => {
           <Heading fontSize="5xl" fontWeight="900">
             Juno
           </Heading>
-          <Text fontSize="lg">$400</Text>
+          <Text fontSize="lg">4 years old</Text>
+          <Text fontSize="lg">Fee: $180</Text>
         </VStack>
-        <Box
-          w="33vw"
-          h="66vh"
-          bgColor="red.600"
-          borderRadius="20px"
-          bgImage={
-            "https://dogtime.com/assets/uploads/gallery/german-shepherd-dog-breed-pictures/standing-7.jpg"
-          }
-        ></Box>
+        <Box w="33vw" h="66vh" bgColor="red.100" borderRadius="20px"></Box>
       </HStack>
 
       <Box
