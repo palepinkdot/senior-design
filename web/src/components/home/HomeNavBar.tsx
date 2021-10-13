@@ -19,8 +19,8 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 import React, { ReactNode } from "react";
-import { useLogoutMutation, useMeQuery } from "../generated/graphql";
-import { isServer } from "../utils/isServer";
+import { useLogoutMutation, useMeQuery } from "../../generated/graphql";
+import { isServer } from "../../utils/isServer";
 import NextLink from "next/link";
 import {
   IoArchiveOutline,
@@ -30,10 +30,10 @@ import {
   IoSunnyOutline,
 } from "react-icons/io5";
 import { useRouter } from "next/router";
-import { UserSettingsModal } from "./user/UserSettingsModal";
+import { UserSettingsModal } from "../user/UserSettingsModal";
 import { useApolloClient } from "@apollo/client";
 
-interface NavBarProps {}
+interface HomeNavBarProps {}
 
 const Links = ["Shelters", "Contact", "Shop"];
 
@@ -72,7 +72,7 @@ const Logo = (props: any) => {
   );
 };
 
-export const NavBar: React.FC<NavBarProps> = ({}) => {
+export const HomeNavBar: React.FC<HomeNavBarProps> = ({}) => {
   const router = useRouter();
   const { colorMode, toggleColorMode } = useColorMode();
   const [logout, { loading: logoutFetching }] = useLogoutMutation();

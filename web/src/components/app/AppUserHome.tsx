@@ -6,8 +6,8 @@ import {
   IoChevronForward,
   IoClose,
 } from "react-icons/io5";
-import Footer from "../Footer";
-import { NavBar } from "../NavBar";
+import Footer from "../home/HomeFooter";
+import { HomeNavBar } from "../home/HomeNavBar";
 import { Wrapper, WrapperVariant } from "../Wrapper";
 import { AnimalCard } from "./AnimalCard";
 
