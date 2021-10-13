@@ -1,7 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import React from "react";
 import Footer from "../home/HomeFooter";
-import { HomeNavBar } from "../home/HomeNavBar";
+import { AppNavBar } from "../home/HomeNavBar";
 import { Wrapper, WrapperVariant } from "../Wrapper";
 
 interface LayoutProps {
