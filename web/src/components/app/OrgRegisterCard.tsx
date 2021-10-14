@@ -35,6 +35,7 @@ export default function OrgRegisterCard() {
           verifypassword: "",
           firstname: "",
           lastname: "",
+          isOrg: true,
         }}
         onSubmit={async (values, { setErrors }) => {
           const response = await register({
@@ -62,7 +63,9 @@ export default function OrgRegisterCard() {
             <Flex minH={"100vh"} align={"center"} justify={"center"} bg="white">
               <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
                 <Stack align={"center"}>
-                  <Heading fontSize={"4xl"}>Create your org account</Heading>
+                  <Heading fontSize={"4xl"} align={"center"}>
+                    Create your Organization/Shelter account
+                  </Heading>
                   <Text fontSize={"lg"} color={"gray.600"}>
                     to enjoy all of our member{" "}
                     <Link color={"blue.400"}>features</Link> ✌️
@@ -75,34 +78,51 @@ export default function OrgRegisterCard() {
                   p={8}
                 >
                   <Stack spacing={4}>
-                    <Flex justifyContent={"space-between"}>
-                      <FormControl pr={1.5} id="firstname">
+                    {/* <Flex justifyContent={"space-between"}>
+                      <FormControl pr={1.5} id="orgadminFirstname">
                         <InputField
-                          name="firstname"
+                          name="orgadminFirstname"
                           placeholder="First Name"
                           label="First Name"
                         />
                       </FormControl>
-                      <FormControl pl={1.5} id="lastname">
+                      <FormControl pl={1.5} id="orgadminLastname">
                         <InputField
-                          name="lastname"
+                          name="orgadminLastname"
                           placeholder="Last Name"
                           label="Last Name"
                         />
                       </FormControl>
-                    </Flex>
+                    </Flex> */}
 
-                    <FormControl id="username">
+                    <FormControl id="orgname">
                       <InputField
-                        name="username"
-                        placeholder="Username"
-                        label="Username"
+                        name="Organization"
+                        placeholder="Organization"
+                        label="Organization or Shelter Name"
                       />
                     </FormControl>
 
-                    <FormControl id="email">
+                    <Flex justifyContent={"space-between"}>
+                      <FormControl pr={1.5} id="orgstate">
+                        <InputField
+                          name="state"
+                          placeholder="State"
+                          label="State"
+                        />
+                      </FormControl>
+                      <FormControl pl={1.5} id="orgcity">
+                        <InputField
+                          name="orgcity"
+                          placeholder="City"
+                          label="City"
+                        />
+                      </FormControl>
+                    </Flex>
+
+                    <FormControl id="orgemail">
                       <InputField
-                        name="email"
+                        name="orgemail"
                         placeholder="Email"
                         label="Email"
                       />

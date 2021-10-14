@@ -1,6 +1,6 @@
 import React from "react";
-import Footer from "./Footer";
-import { NavBar } from "./NavBar";
+import Footer from "./home/HomeFooter";
+import { HomeNavBarProps } from "./home/HomeNavBar";
 import { Wrapper, WrapperVariant } from "./Wrapper";
 
 interface LayoutProps {
@@ -10,7 +10,7 @@ interface LayoutProps {
 export const Layout: React.FC<LayoutProps> = ({ children, variant }) => {
   return (
     <>
-      <NavBar />
+      <HomeNavBarProps />
       {children}
       <Footer />
     </>
