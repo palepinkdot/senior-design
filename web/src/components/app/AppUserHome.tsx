@@ -7,9 +7,10 @@ import {
   IoClose,
 } from "react-icons/io5";
 import Footer from "../home/HomeFooter";
-import { AppNavBar } from "../home/HomeNavBar";
+import { HomeNavBarProps } from "../home/HomeNavBar";
 import { Wrapper, WrapperVariant } from "../Wrapper";
 import { AnimalCard } from "./AnimalCard";
+import { AppNavBar } from "./AppNavBar";
 
 interface LayoutProps {
   variant?: WrapperVariant;
@@ -36,6 +37,7 @@ export const AppUserHome: React.FC<LayoutProps> = ({ children, variant }) => {
 
   return (
     <>
+      <AppNavBar />
       {/* buttons + columns */}
       <Flex justifyContent="space-between" flexDirection="row">
         <Flex

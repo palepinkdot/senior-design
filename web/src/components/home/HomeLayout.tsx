@@ -1,7 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import React from "react";
 import Footer from "./HomeFooter";
-import { AppNavBar } from "./HomeNavBar";
+import { HomeNavBarProps } from "./HomeNavBar";
 import { Wrapper, WrapperVariant } from "../Wrapper";
 
 interface LayoutProps {
@@ -22,7 +22,7 @@ export const HomeLayout: React.FC<LayoutProps> = ({ children, variant }) => {
         backgroundSize="cover"
         backgroundColor="rgba(0, 0, 0, .25)"
       >
-        <AppNavBar />
+        <HomeNavBarProps />
         {children}
       </Box>
       <Footer />

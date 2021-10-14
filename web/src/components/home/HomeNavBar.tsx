@@ -33,7 +33,7 @@ import { useRouter } from "next/router";
 import { UserSettingsModal } from "../user/UserSettingsModal";
 import { useApolloClient } from "@apollo/client";
 
-interface AppNavBarProps {}
+interface HomeNavBarProps {}
 
 const Links = ["Shelters", "Contact", "Shop"];
 
@@ -72,7 +72,7 @@ const Logo = (props: any) => {
   );
 };
 
-export const AppNavBar: React.FC<AppNavBarProps> = ({}) => {
+export const HomeNavBarProps: React.FC<HomeNavBarProps> = ({}) => {
   const router = useRouter();
   const { colorMode, toggleColorMode } = useColorMode();
   const [logout, { loading: logoutFetching }] = useLogoutMutation();

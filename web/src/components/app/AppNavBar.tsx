@@ -33,7 +33,7 @@ import { useRouter } from "next/router";
 import { UserSettingsModal } from "../user/UserSettingsModal";
 import { useApolloClient } from "@apollo/client";
 
-interface HomeNavBarProps {}
+interface AppNavBarProps {}
 
 const Links = ["Shelters", "Contact", "Shop"];
 
@@ -72,7 +72,7 @@ const Logo = (props: any) => {
   );
 };
 
-export const HomeNavBar: React.FC<HomeNavBarProps> = ({}) => {
+export const AppNavBar: React.FC<AppNavBarProps> = ({}) => {
   const router = useRouter();
   const { colorMode, toggleColorMode } = useColorMode();
   const [logout, { loading: logoutFetching }] = useLogoutMutation();
@@ -88,43 +88,7 @@ export const HomeNavBar: React.FC<HomeNavBarProps> = ({}) => {
   if (loading) {
     // user not logged in
   } else if (!data?.me) {
-    userBody = (
-      <Flex alignItems={"center"}>
-        <NextLink href="/login">
-          <Button
-            fontWeight="semibold"
-            variant={"ghost"}
-            color={isOpen ? "black" : "white"}
-            size={"sm"}
-            mr={4}
-            leftIcon={<LockIcon />}
-            _hover={{
-              bg: "red.300",
-              color: "gray.50",
-            }}
-          >
-            Sign in
-          </Button>
-        </NextLink>
-
-        <NextLink href="/register">
-          <Button
-            fontWeight="semibold"
-            _hover={{
-              bg: "red.300",
-            }}
-            variant={"solid"}
-            bgColor={"blue.400"}
-            color="white"
-            size={"sm"}
-            mr={4}
-            leftIcon={<AddIcon />}
-          >
-            Sign up
-          </Button>
-        </NextLink>
-      </Flex>
-    );
+    userBody = null;
     // user is logged in
   } else {
     userBody = (
@@ -199,13 +163,12 @@ export const HomeNavBar: React.FC<HomeNavBarProps> = ({}) => {
 
   return (
     <Box
-      bg={"rbga(0, 0, 0, 0.0)"}
+      bg={"#fff"}
       px={8}
       zIndex={99}
       position="sticky"
       top={0}
       /* boxShadow={"lg"} */
-      bgGradient="linear(to-b, gray.500, rgba(0,0,0,0))"
     >
       <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
         <HStack spacing={8} alignItems={"center"}>

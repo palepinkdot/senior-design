@@ -30,7 +30,9 @@ export const AnimalCard: React.FC<WrapperProps> = ({}) => {
             Juno
           </Heading>
           <Text fontSize="lg">4 years old</Text>
-          <Text fontSize="lg">Fee: $180</Text>
+          <Text fontSize="md" as="i">
+            fee: $180
+          </Text>
         </VStack>
         <Box w="33vw" h="66vh" bgColor="red.100" borderRadius="20px"></Box>
       </HStack>
