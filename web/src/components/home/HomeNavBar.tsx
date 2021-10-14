@@ -10,7 +10,6 @@ import {
   MenuButton,
   MenuDivider,
   MenuItem,
-  useColorModeValue,
   MenuList,
   IconButton,
   useDisclosure,
