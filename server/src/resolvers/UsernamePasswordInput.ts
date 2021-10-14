@@ -14,4 +14,6 @@ export class UsernamePasswordInput {
   firstname: string;
   @Field()
   lastname: string;
+  @Field()
+  isOrg: boolean;
 }

@@ -35,6 +35,7 @@ export default function OrgRegisterCard() {
           verifypassword: "",
           firstname: "",
           lastname: "",
+          isOrg: true,
         }}
         onSubmit={async (values, { setErrors }) => {
           const response = await register({
@@ -62,7 +63,9 @@ export default function OrgRegisterCard() {
             <Flex minH={"100vh"} align={"center"} justify={"center"} bg="white">
               <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
                 <Stack align={"center"}>
-                  <Heading fontSize={"4xl"} align={"center"}>Create your Organization/Shelter account</Heading>
+                  <Heading fontSize={"4xl"} align={"center"}>
+                    Create your Organization/Shelter account
+                  </Heading>
                   <Text fontSize={"lg"} color={"gray.600"}>
                     to enjoy all of our member{" "}
                     <Link color={"blue.400"}>features</Link> ✌️

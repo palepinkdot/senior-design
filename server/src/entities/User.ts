@@ -37,6 +37,10 @@ export class User extends BaseEntity {
   @Column()
   password!: string;
 
+  @Field()
+  @Column()
+  isOrg: boolean;
+
   @Field(() => String)
   @CreateDateColumn()
   createdAt: Date;
