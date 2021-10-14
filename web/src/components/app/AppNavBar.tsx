@@ -17,6 +17,15 @@ import {
   HStack,
   Stack,
   useColorMode,
+  Drawer,
+  DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  Input,
+  VStack,
 } from "@chakra-ui/react";
 import React, { ReactNode } from "react";
 import { useLogoutMutation, useMeQuery } from "../../generated/graphql";
@@ -32,6 +41,7 @@ import {
 import { useRouter } from "next/router";
 import { UserSettingsModal } from "../user/UserSettingsModal";
 import { useApolloClient } from "@apollo/client";
+import { Squash as Hamburger } from "hamburger-react";
 
 interface AppNavBarProps {}
 
@@ -41,12 +51,11 @@ const NavLink = ({ children }: { children: ReactNode }) => (
   <NextLink href={`/${children.toString().toLowerCase()}`}>
     <Link
       fontWeight="semibold"
-      px={2}
-      py={1}
-      rounded={"md"}
+      borderBottom="1px solid transparent"
       _hover={{
+        transitionDuration: "300ms",
         textDecoration: "none",
-        bg: "red.300",
+        borderBottom: "1px solid black",
       }}
     >
       {children}
@@ -65,7 +74,7 @@ const Logo = (props: any) => {
       >
         <Image
           h="8"
-          src="https://swipet.s3.us-east-2.amazonaws.com/swipet-logo-white.png"
+          src="https://swipet.s3.us-east-2.amazonaws.com/swipet-logo-black.png"
         />
       </Link>
     </NextLink>
@@ -162,55 +171,57 @@ export const AppNavBar: React.FC<AppNavBarProps> = ({}) => {
   }
 
   return (
-    <Box
-      bg={"#fff"}
-      px={8}
-      zIndex={99}
-      position="sticky"
-      top={0}
-      /* boxShadow={"lg"} */
-    >
-      <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
-        <HStack spacing={8} alignItems={"center"}>
-          <Box>
-            <Logo />
-          </Box>
-
-          <HStack
-            as={"nav"}
-            spacing={4}
-            fontWeight="normal"
-            display={{ base: "none", md: "flex" }}
-            color="white"
-          >
-            {Links.map((link) => (
-              <NavLink key={link}>{link}</NavLink>
-            ))}
-          </HStack>
+    <>
+      <Flex
+        bg={"#fff"}
+        px={"1rem"}
+        zIndex={99}
+        position="sticky"
+        top={0}
+        overflow="hidden"
+        width="100vw"
+        height="7vh"
+        alignItems="center"
+        justifyContent="space-between"
+      >
+        <HStack spacing="2rem">
+          <Hamburger
+            toggled={isOpen}
+            toggle={isOpen ? onClose : onOpen}
+            size={20}
+          />
+          <Logo />
         </HStack>
 
-        <IconButton
-          size={"md"}
-          bgColor="white"
-          icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-          aria-label={"Open Menu"}
-          display={{ md: "none" }}
-          onClick={isOpen ? onClose : onOpen}
-        />
-
-        <Flex display={{ base: "none", md: "flex" }}>{userBody}</Flex>
+        <HStack
+          as={"nav"}
+          spacing={4}
+          fontWeight="normal"
+          display={{ base: "none", md: "flex" }}
+          color="black"
+        >
+          {Links.map((link) => (
+            <NavLink key={link}>{link}</NavLink>
+          ))}
+        </HStack>
       </Flex>
 
-      {isOpen ? (
-        <Box bgColor="white" pb={4} display={{ md: "none" }}>
-          <Stack as={"nav"} spacing={4}>
-            {Links.map((link) => (
-              <NavLink key={link}>{link}</NavLink>
-            ))}
-            <Flex justifyContent={"flex-end"}>{userBody}</Flex>
-          </Stack>
-        </Box>
-      ) : null}
-    </Box>
-  ); //
+      <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
+        <DrawerOverlay />
+        <DrawerContent flexDirection="row" alignItems="center">
+          <DrawerCloseButton />
+
+          <DrawerBody p="0" display="flex" justifyContent="flex-end">
+            <VStack spacing={8} alignItems="flex-end">
+              {Links.map((link) => (
+                <NavLink key={link}>{link}</NavLink>
+              ))}
+            </VStack>
+          </DrawerBody>
+
+          <DrawerFooter>{userBody}</DrawerFooter>
+        </DrawerContent>
+      </Drawer>
+    </>
+  );
 };

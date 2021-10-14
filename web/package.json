@@ -21,6 +21,7 @@
     "formik": "^2.2.9",
     "framer-motion": "^4",
     "graphql": "^15.5.0",
+    "hamburger-react": "^2.4.1",
     "isomorphic-unfetch": "^3.1.0",
     "next": "latest",
     "next-apollo": "^5.0.4",

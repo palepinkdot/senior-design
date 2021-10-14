@@ -43,7 +43,7 @@ export const AppUserHome: React.FC<LayoutProps> = ({ children, variant }) => {
         <Flex
           as={Button}
           w="12.5vw"
-          h="100vh"
+          h="93vh"
           bgColor="red.100"
           _hover={{
             bgColor: "red.200",
@@ -62,7 +62,7 @@ export const AppUserHome: React.FC<LayoutProps> = ({ children, variant }) => {
         <Flex
           as={Button}
           w="12.5vw"
-          h="100vh"
+          h="93vh"
           bgColor="blue.100"
           _hover={{
             bgColor: "blue.200",
