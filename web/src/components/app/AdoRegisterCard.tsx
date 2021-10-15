@@ -29,12 +29,16 @@ export default function AdoRegisterCard() {
     <>
       <Formik
         initialValues={{
-          email: "",
           username: "",
           password: "",
           verifypassword: "",
           firstname: "",
           lastname: "",
+          petinterest: "",
+          location: "",
+          travelRadius: "",
+          email: "",
+          isOrg: false,
         }}
         onSubmit={async (values, { setErrors }) => {
           const response = await register({
@@ -67,7 +71,9 @@ export default function AdoRegisterCard() {
             >
               <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
                 <Stack align={"center"}>
-                  <Heading fontSize={"4xl"}>Create your ado account</Heading>
+                  <Heading fontSize={"3xl"}>
+                    Create your adopter account
+                  </Heading>
                   <Text fontSize={"lg"} color={"gray.600"}>
                     to enjoy all of our member{" "}
                     <Link color={"blue.400"}>features</Link> ✌️
@@ -93,6 +99,31 @@ export default function AdoRegisterCard() {
                           name="lastname"
                           placeholder="Last Name"
                           label="Last Name"
+                        />
+                      </FormControl>
+                    </Flex>
+
+                    <FormControl id="petinterest">
+                      <InputField
+                        name="petinterest"
+                        placeholder="Looking to adopt..."
+                        label="Pet Interest"
+                      />
+                    </FormControl>
+
+                    <Flex justifyContent={"space-between"}>
+                      <FormControl pr={1.5} id="location">
+                        <InputField
+                          name="location"
+                          placeholder="Location"
+                          label="Location"
+                        />
+                      </FormControl>
+                      <FormControl pl={1.5} id="travelRadius">
+                        <InputField
+                          name="travelRadius"
+                          placeholder="Travel Radius"
+                          label="Travel Radius"
                         />
                       </FormControl>
                     </Flex>
