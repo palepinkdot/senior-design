@@ -34,9 +34,6 @@ export default function AdoRegisterCard() {
           verifypassword: "",
           firstname: "",
           lastname: "",
-          petinterest: "",
-          location: "",
-          travelRadius: "",
           email: "",
           isOrg: false,
         }}
@@ -67,24 +64,17 @@ export default function AdoRegisterCard() {
               minH={"100vh"}
               align={"center"}
               justify={"center"}
-              bg={useColorModeValue("gray.50", "gray.800")}
+              bg="red.100"
             >
               <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
                 <Stack align={"center"}>
-                  <Heading fontSize={"3xl"}>
-                    Create your adopter account
-                  </Heading>
+                  <Heading fontSize={"3xl"}>Create your account</Heading>
                   <Text fontSize={"lg"} color={"gray.600"}>
                     to enjoy all of our member{" "}
                     <Link color={"blue.400"}>features</Link> ✌️
                   </Text>
                 </Stack>
-                <Box
-                  rounded={"lg"}
-                  bg={useColorModeValue("white", "gray.700")}
-                  boxShadow={"lg"}
-                  p={8}
-                >
+                <Box rounded={"lg"} bg="white" boxShadow={"lg"} p={8}>
                   <Stack spacing={4}>
                     <Flex justifyContent={"space-between"}>
                       <FormControl pr={1.5} id="firstname">
@@ -103,7 +93,7 @@ export default function AdoRegisterCard() {
                       </FormControl>
                     </Flex>
 
-                    <FormControl id="petinterest">
+                    {/* <FormControl id="petinterest">
                       <InputField
                         name="petinterest"
                         placeholder="Looking to adopt..."
@@ -126,7 +116,7 @@ export default function AdoRegisterCard() {
                           label="Travel Radius"
                         />
                       </FormControl>
-                    </Flex>
+                    </Flex> */}
 
                     <FormControl id="username">
                       <InputField
@@ -176,10 +166,10 @@ export default function AdoRegisterCard() {
                       <Button
                         type="submit"
                         isLoading={isSubmitting}
-                        bg={"yellow.300"}
-                        color={"grey.700"}
+                        bg={"red.200"}
+                        color={"white"}
                         _hover={{
-                          bg: "yellow.200",
+                          bg: "blue.200",
                         }}
                       >
                         Register

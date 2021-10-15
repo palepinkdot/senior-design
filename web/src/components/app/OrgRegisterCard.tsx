@@ -60,7 +60,12 @@ export default function OrgRegisterCard() {
       >
         {({ isSubmitting }) => (
           <Form>
-            <Flex minH={"100vh"} align={"center"} justify={"center"} bg="white">
+            <Flex
+              minH={"100vh"}
+              align={"center"}
+              justify={"center"}
+              bg="blue.100"
+            >
               <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
                 <Stack align={"center"}>
                   <Heading fontSize={"4xl"} align={"center"}>
@@ -71,39 +76,34 @@ export default function OrgRegisterCard() {
                     <Link color={"blue.400"}>features</Link> ✌️
                   </Text>
                 </Stack>
-                <Box
-                  rounded={"lg"}
-                  bg={useColorModeValue("white", "gray.700")}
-                  boxShadow={"lg"}
-                  p={8}
-                >
+                <Box rounded={"lg"} bg="white" boxShadow={"lg"} p={8}>
                   <Stack spacing={4}>
-                    {/* <Flex justifyContent={"space-between"}>
-                      <FormControl pr={1.5} id="orgadminFirstname">
+                    <Flex justifyContent={"space-between"}>
+                      <FormControl pr={1.5} id="ofirstname">
                         <InputField
-                          name="orgadminFirstname"
-                          placeholder="First Name"
+                          name="firstname"
+                          placeholder="Contact First Name"
                           label="First Name"
                         />
                       </FormControl>
-                      <FormControl pl={1.5} id="orgadminLastname">
+                      <FormControl pl={1.5} id="lastname">
                         <InputField
-                          name="orgadminLastname"
+                          name="lastname"
                           placeholder="Last Name"
-                          label="Last Name"
+                          label="Contact Last Name"
                         />
                       </FormControl>
-                    </Flex> */}
+                    </Flex>
 
-                    <FormControl id="orgname">
+                    {/* <FormControl id="orgname">
                       <InputField
                         name="Organization"
-                        placeholder="Organization"
+                        placeholder="This is how you'll appear to users"
                         label="Organization or Shelter Name"
                       />
-                    </FormControl>
+                    </FormControl> */}
 
-                    <Flex justifyContent={"space-between"}>
+                    {/* <Flex justifyContent={"space-between"}>
                       <FormControl pr={1.5} id="orgstate">
                         <InputField
                           name="state"
@@ -118,12 +118,20 @@ export default function OrgRegisterCard() {
                           label="City"
                         />
                       </FormControl>
-                    </Flex>
+                    </Flex> */}
 
-                    <FormControl id="orgemail">
+                    <FormControl id="username">
                       <InputField
-                        name="orgemail"
-                        placeholder="Email"
+                        name="username"
+                        placeholder="This is only used to log you in"
+                        label="Username"
+                      />
+                    </FormControl>
+
+                    <FormControl id="email">
+                      <InputField
+                        name="email"
+                        placeholder="We won't spam you, we promise"
                         label="Email"
                       />
                     </FormControl>
@@ -154,16 +162,18 @@ export default function OrgRegisterCard() {
                         justify={"flex-end"}
                       >
                         <NextLink href="/forgot-password">
-                          <Link color={"grey.400"}>already have one?</Link>
+                          <Link color={"grey.400"}>
+                            already have an account?
+                          </Link>
                         </NextLink>
                       </Stack>
                       <Button
                         type="submit"
                         isLoading={isSubmitting}
-                        bg={"yellow.300"}
-                        color={"grey.700"}
+                        bg={"blue.200"}
+                        color={"white"}
                         _hover={{
-                          bg: "yellow.200",
+                          bg: "red.200",
                         }}
                       >
                         Register
