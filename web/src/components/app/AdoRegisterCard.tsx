@@ -7,7 +7,7 @@ import {
   Button,
   Heading,
   Text,
-  useColorModeValue,  
+  useColorModeValue,
 } from "@chakra-ui/react";
 
 import NextLink from "next/link";
@@ -28,16 +28,17 @@ export default function AdoRegisterCard() {
   return (
     <>
       <Formik
-        initialValues={{          
+        initialValues={{
           username: "",
           password: "",
           verifypassword: "",
           firstname: "",
           lastname: "",
-          petinterest: "",          
+          petinterest: "",
           location: "",
           travelRadius: "",
           email: "",
+          isOrg: false,
         }}
         onSubmit={async (values, { setErrors }) => {
           const response = await register({
@@ -70,7 +71,9 @@ export default function AdoRegisterCard() {
             >
               <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
                 <Stack align={"center"}>
-                  <Heading fontSize={"3xl"}>Create your adopter account</Heading>
+                  <Heading fontSize={"3xl"}>
+                    Create your adopter account
+                  </Heading>
                   <Text fontSize={"lg"} color={"gray.600"}>
                     to enjoy all of our member{" "}
                     <Link color={"blue.400"}>features</Link> ✌️
@@ -105,7 +108,7 @@ export default function AdoRegisterCard() {
                         name="petinterest"
                         placeholder="Looking to adopt..."
                         label="Pet Interest"
-                      />                      
+                      />
                     </FormControl>
 
                     <Flex justifyContent={"space-between"}>
@@ -113,14 +116,14 @@ export default function AdoRegisterCard() {
                         <InputField
                           name="location"
                           placeholder="Location"
-                          label="Location"                          
+                          label="Location"
                         />
                       </FormControl>
                       <FormControl pl={1.5} id="travelRadius">
                         <InputField
                           name="travelRadius"
                           placeholder="Travel Radius"
-                          label="Travel Radius"                          
+                          label="Travel Radius"
                         />
                       </FormControl>
                     </Flex>
@@ -180,7 +183,7 @@ export default function AdoRegisterCard() {
                         }}
                       >
                         Register
-                      </Button>                      
+                      </Button>
                     </Stack>
                   </Stack>
                 </Box>
