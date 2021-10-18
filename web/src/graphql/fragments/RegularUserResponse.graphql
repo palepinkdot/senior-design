@@ -1,6 +1,6 @@
 fragment RegularUserResponse on UserResponse {
   errors {
-    ...RegularError
+    ...RegularUserError
   }
   user {
     ...RegularUser

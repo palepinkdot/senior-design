@@ -8,19 +8,17 @@ import {
   Query,
 } from "type-graphql";
 import { MyContext } from "../types";
-import { User } from "../entities/User";
+import { Org } from "../entities/Org";
 import argon2 from "argon2";
 import { COOKIE_NAME, FORGET_PASSWORD_PREFIX } from "../constants";
-import { UsernamePasswordInput } from "./UsernamePasswordInput";
-import { validateRegisterUser } from "../utils/validateRegisterUser";
 import { sendEmail } from "../utils/sendEmail";
 import { v4 } from "uuid";
 import { getConnection } from "typeorm";
-import { UpdateUserInfoInput } from "./UpdateUserInfoInput";
-import { promises } from "stream";
+import { OrgUsernamePasswordInput } from "./OrgUsernamePasswordInput";
+import { validateRegisterOrg } from "../utils/validateRegisterOrg";
 
 @ObjectType()
-class FieldError {
+class OrgFieldError {
   @Field()
   field: string;
   @Field()
@@ -28,65 +26,22 @@ class FieldError {
 }
 
 @ObjectType()
-class UserResponse {
-  @Field(() => [FieldError], { nullable: true })
-  errors?: FieldError[];
+class OrgResponse {
+  @Field(() => [OrgFieldError], { nullable: true })
+  errors?: OrgFieldError[];
 
-  @Field(() => User, { nullable: true })
-  user?: User;
+  @Field(() => Org, { nullable: true })
+  org?: Org;
 }
 
 @Resolver()
-export class UserResolver {
-  @Mutation(() => UserResponse)
-  async updateUserInfo(
-    @Arg("options") options: UpdateUserInfoInput,
-    @Ctx() { req }: MyContext
-  ): Promise<UserResponse> {
-    const updatedUser = await User.findOne({ where: { id: options.userid } });
-
-    const newFirstname = options.firstname;
-    const newLastname = options.lastname;
-    const newAvatarUrl = options.avatarUrl;
-    const newEmail = options.email;
-
-    let user;
-    try {
-      const result = await User.update(
-        { id: options.userid },
-        {
-          firstname: newFirstname,
-          lastname: newLastname,
-          avatarUrl: newAvatarUrl,
-          email: newEmail,
-        }
-      );
-      user = result.raw[0];
-    } catch (err) {
-      if (err.code === "23505") {
-        return {
-          errors: [
-            {
-              field: "email",
-              message: "email already taken",
-            },
-          ],
-        };
-      }
-    }
-
-    // log in user after change password
-    req.session.userId = updatedUser?.id;
-
-    return { user };
-  }
-
-  @Mutation(() => UserResponse)
-  async changeUserPassword(
+export class OrgResolver {
+  @Mutation(() => OrgResponse)
+  async changeOrgPassword(
     @Arg("token") token: string,
     @Arg("newPassword") newPassword: string,
     @Ctx() { redis, req }: MyContext
-  ): Promise<UserResponse> {
+  ): Promise<OrgResponse> {
     if (newPassword.length <= 2) {
       return {
         errors: [
@@ -99,8 +54,8 @@ export class UserResolver {
     }
 
     const key = FORGET_PASSWORD_PREFIX + token;
-    const userId = await redis.get(key);
-    if (!userId) {
+    const orgId = await redis.get(key);
+    if (!orgId) {
       return {
         errors: [
           {
@@ -111,10 +66,10 @@ export class UserResolver {
       };
     }
 
-    const userIdNum = userId;
-    const user = await User.findOne(userIdNum);
+    const orgIdNum = orgId;
+    const org = await Org.findOne(orgIdNum);
 
-    if (!user) {
+    if (!org) {
       return {
         errors: [
           {
@@ -125,8 +80,8 @@ export class UserResolver {
       };
     }
 
-    await User.update(
-      { id: userIdNum },
+    await Org.update(
+      { id: orgIdNum },
       {
         password: await argon2.hash(newPassword),
       }
@@ -135,18 +90,18 @@ export class UserResolver {
     await redis.del(key);
 
     // log in user after change password
-    req.session.userId = user.id;
+    req.session.orgId = org.id;
 
-    return { user };
+    return { org: org };
   }
 
   @Mutation(() => Boolean)
-  async forgotUserPassword(
+  async forgotOrgPassword(
     @Arg("email") email: string,
     @Ctx() { redis }: MyContext
   ) {
-    const user = await User.findOne({ where: { email } });
-    if (!user) {
+    const org = await Org.findOne({ where: { email } });
+    if (!org) {
       // the email is not in the db
       return true;
     }
@@ -156,7 +111,7 @@ export class UserResolver {
 
     await redis.set(
       FORGET_PASSWORD_PREFIX + token,
-      user.id,
+      org.id,
       "ex",
       1000 * 60 * 60 * 24 * 3
     ); // 3 days
@@ -169,28 +124,28 @@ export class UserResolver {
     return true;
   }
 
-  @Query(() => User, { nullable: true })
-  meUser(@Ctx() { req }: MyContext) {
+  @Query(() => Org, { nullable: true })
+  meOrg(@Ctx() { req }: MyContext) {
     // you are not logged in
-    if (!req.session.userId) {
+    if (!req.session.orgId) {
       return null;
     }
 
-    return User.findOne(req.session.userId);
+    return Org.findOne(req.session.orgId);
   }
 
-  @Mutation(() => UserResponse)
-  async registerUser(
-    @Arg("options") options: UsernamePasswordInput,
+  @Mutation(() => OrgResponse)
+  async registerOrg(
+    @Arg("options") options: OrgUsernamePasswordInput,
     @Ctx() { req }: MyContext
-  ): Promise<UserResponse> {
-    const errors = validateRegisterUser(options);
+  ): Promise<OrgResponse> {
+    const errors = validateRegisterOrg(options);
     if (errors) {
       return { errors };
     }
 
     const hashedPassword = await argon2.hash(options.password);
-    let user;
+    let org;
     try {
       if (options.password != options.verifypassword) {
         return {
@@ -204,14 +159,16 @@ export class UserResolver {
       }
 
       const newUserAvatar = "placeholder";
-      // User.create({}).save()
+
       const result = await getConnection()
         .createQueryBuilder()
         .insert()
-        .into(User)
+        .into(Org)
         .values({
-          firstname: options.firstname,
-          lastname: options.lastname,
+          contactFirstname: options.contactFirstname,
+          contactLastname: options.contactLastname,
+          orgName: options.orgName,
+          address: options.address,
           username: options.username,
           email: options.email,
           avatarUrl: newUserAvatar,
@@ -219,7 +176,7 @@ export class UserResolver {
         })
         .returning("*")
         .execute();
-      user = result.raw[0];
+      org = result.raw[0];
     } catch (err) {
       if (err.code === "23505") {
         return {
@@ -233,23 +190,23 @@ export class UserResolver {
       }
     }
 
-    req.session.userId = user.id;
+    req.session.orgId = org.id;
 
-    return { user };
+    return { org: org };
   }
 
-  @Mutation(() => UserResponse)
-  async loginUser(
+  @Mutation(() => OrgResponse)
+  async login(
     @Arg("usernameOrEmail") usernameOrEmail: string,
     @Arg("password") password: string,
     @Ctx() { req }: MyContext
-  ): Promise<UserResponse> {
-    const user = await User.findOne(
+  ): Promise<OrgResponse> {
+    const org = await Org.findOne(
       usernameOrEmail.includes("@")
         ? { where: { email: usernameOrEmail } }
         : { where: { username: usernameOrEmail } }
     );
-    if (!user) {
+    if (!org) {
       return {
         errors: [
           {
@@ -259,7 +216,7 @@ export class UserResolver {
         ],
       };
     }
-    const valid = await argon2.verify(user.password, password);
+    const valid = await argon2.verify(org.password, password);
     if (!valid) {
       return {
         errors: [
@@ -271,10 +228,10 @@ export class UserResolver {
       };
     }
 
-    req.session.userId = user.id;
+    req.session.userId = org.id;
 
     return {
-      user,
+      org: org,
     };
   }
 

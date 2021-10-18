@@ -15,16 +15,16 @@ import { Formik, Form } from "formik";
 import { useRouter } from "next/router";
 import React from "react";
 import {
-  MeDocument,
-  MeQuery,
-  useRegisterMutation,
+  MeUserDocument,
+  MeUserQuery,
+  useRegisterUserMutation,
 } from "../../generated/graphql";
 import { toErrorMap } from "../../utils/toErrorMap";
 import { InputField } from "../InputField";
 
 export default function AdoRegisterCard() {
   const router = useRouter();
-  const [register] = useRegisterMutation();
+  const [register] = useRegisterUserMutation();
   return (
     <>
       <Formik
@@ -35,26 +35,25 @@ export default function AdoRegisterCard() {
           firstname: "",
           lastname: "",
           email: "",
-          isOrg: false,
         }}
         onSubmit={async (values, { setErrors }) => {
           const response = await register({
             variables: { options: values },
             update: (cache, { data }) => {
-              cache.writeQuery<MeQuery>({
-                query: MeDocument,
+              cache.writeQuery<MeUserQuery>({
+                query: MeUserDocument,
                 data: {
                   __typename: "Query",
-                  me: data?.register.user,
+                  meUser: data?.registerUser.user,
                 },
               });
             },
           });
-          if (response.data?.register.errors) {
-            setErrors(toErrorMap(response.data.register.errors));
-          } else if (response.data?.register.user) {
+          if (response.data?.registerUser.errors) {
+            setErrors(toErrorMap(response.data.registerUser.errors));
+          } else if (response.data?.registerUser.user) {
             // worked
-            router.push("/app/home/");
+            router.push("/app/");
           }
         }}
       >
@@ -92,31 +91,6 @@ export default function AdoRegisterCard() {
                         />
                       </FormControl>
                     </Flex>
-
-                    {/* <FormControl id="petinterest">
-                      <InputField
-                        name="petinterest"
-                        placeholder="Looking to adopt..."
-                        label="Pet Interest"
-                      />
-                    </FormControl>
-
-                    <Flex justifyContent={"space-between"}>
-                      <FormControl pr={1.5} id="location">
-                        <InputField
-                          name="location"
-                          placeholder="Location"
-                          label="Location"
-                        />
-                      </FormControl>
-                      <FormControl pl={1.5} id="travelRadius">
-                        <InputField
-                          name="travelRadius"
-                          placeholder="Travel Radius"
-                          label="Travel Radius"
-                        />
-                      </FormControl>
-                    </Flex> */}
 
                     <FormControl id="username">
                       <InputField

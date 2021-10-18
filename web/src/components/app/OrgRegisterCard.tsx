@@ -15,16 +15,17 @@ import { Formik, Form } from "formik";
 import { useRouter } from "next/router";
 import React from "react";
 import {
-  MeDocument,
-  MeQuery,
-  useRegisterMutation,
+  MeOrgDocument,
+  MeOrgQuery,
+  useRegisterOrgMutation,
 } from "../../generated/graphql";
 import { toErrorMap } from "../../utils/toErrorMap";
 import { InputField } from "../InputField";
+import { toOrgErrorMap } from "../../utils/toOrgErrorMap";
 
 export default function OrgRegisterCard() {
   const router = useRouter();
-  const [register] = useRegisterMutation();
+  const [register] = useRegisterOrgMutation();
   return (
     <>
       <Formik
@@ -33,26 +34,27 @@ export default function OrgRegisterCard() {
           username: "",
           password: "",
           verifypassword: "",
-          firstname: "",
-          lastname: "",
-          isOrg: true,
+          contactFirstname: "",
+          contactLastname: "",
+          orgName: "",
+          address: "",
         }}
         onSubmit={async (values, { setErrors }) => {
           const response = await register({
             variables: { options: values },
             update: (cache, { data }) => {
-              cache.writeQuery<MeQuery>({
-                query: MeDocument,
+              cache.writeQuery<MeOrgQuery>({
+                query: MeOrgDocument,
                 data: {
                   __typename: "Query",
-                  me: data?.register.user,
+                  meOrg: data?.registerOrg.org,
                 },
               });
             },
           });
-          if (response.data?.register.errors) {
-            setErrors(toErrorMap(response.data.register.errors));
-          } else if (response.data?.register.user) {
+          if (response.data?.registerOrg.errors) {
+            setErrors(toOrgErrorMap(response.data.registerOrg.errors));
+          } else if (response.data?.registerOrg.org) {
             // worked
             router.push("/app/org/dash");
           }
@@ -79,29 +81,29 @@ export default function OrgRegisterCard() {
                 <Box rounded={"lg"} bg="white" boxShadow={"lg"} p={8}>
                   <Stack spacing={4}>
                     <Flex justifyContent={"space-between"}>
-                      <FormControl pr={1.5} id="ofirstname">
+                      <FormControl pr={1.5} id="contactFirstname">
                         <InputField
-                          name="firstname"
+                          name="contactFirstname"
                           placeholder="Contact First Name"
                           label="First Name"
                         />
                       </FormControl>
-                      <FormControl pl={1.5} id="lastname">
+                      <FormControl pl={1.5} id="contactLastname">
                         <InputField
-                          name="lastname"
+                          name="contactLastname"
                           placeholder="Last Name"
                           label="Contact Last Name"
                         />
                       </FormControl>
                     </Flex>
 
-                    {/* <FormControl id="orgname">
+                    <FormControl id="orgName">
                       <InputField
-                        name="Organization"
+                        name="orgName"
                         placeholder="This is how you'll appear to users"
                         label="Organization or Shelter Name"
                       />
-                    </FormControl> */}
+                    </FormControl>
 
                     {/* <Flex justifyContent={"space-between"}>
                       <FormControl pr={1.5} id="orgstate">

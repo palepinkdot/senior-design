@@ -5,5 +5,4 @@ fragment RegularUser on User {
   lastname
   avatarUrl
   email
-  isOrg
 }

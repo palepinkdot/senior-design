@@ -1,0 +1,8 @@
+fragment RegularOrgResponse on OrgResponse {
+  errors {
+    ...RegularOrgError
+  }
+  org {
+    ...RegularOrg
+  }
+}

@@ -20,18 +20,21 @@ import {
 import { Formik, Form } from "formik";
 import React from "react";
 import { IoSettingsOutline } from "react-icons/io5";
-import { useMeQuery, useUpdateUserInfoMutation } from "../../generated/graphql";
+import {
+  useMeUserQuery,
+  useUpdateUserInfoMutation,
+} from "../../generated/graphql";
 import { toErrorMap } from "../../utils/toErrorMap";
 import { InputField } from "../InputField";
 
 export function UserSettingsModal() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [updateUserInfo] = useUpdateUserInfoMutation();
-  const { data, loading } = useMeQuery();
+  const { data, loading } = useMeUserQuery();
 
   if (loading) {
     return <h1>Loading...</h1>;
-  } else if (!data?.me) {
+  } else if (!data?.meUser) {
   } else {
   }
 
@@ -51,11 +54,11 @@ export function UserSettingsModal() {
             <ModalBody>
               <Formik
                 initialValues={{
-                  userid: `${data.me.id}`,
-                  firstname: `${data.me.firstname}`,
-                  lastname: `${data.me.lastname}`,
-                  avatarUrl: `${data.me.avatarUrl}`,
-                  email: `${data.me.email}`,
+                  userid: `${data.meUser.id}`,
+                  firstname: `${data.meUser.firstname}`,
+                  lastname: `${data.meUser.lastname}`,
+                  avatarUrl: `${data.meUser.avatarUrl}`,
+                  email: `${data.meUser.email}`,
                 }}
                 onSubmit={async (values, { setErrors }) => {
                   const response = await updateUserInfo({
@@ -74,9 +77,11 @@ export function UserSettingsModal() {
                     <Box pb={5}>
                       <Flex justifyContent={"space-between"}>
                         <Avatar
-                          name={data.me.firstname + " " + data.me.lastname}
+                          name={
+                            data.meUser.firstname + " " + data.meUser.lastname
+                          }
                           size={"xl"}
-                          src={data.me.avatarUrl}
+                          src={data.meUser.avatarUrl}
                         />
 
                         <FormControl pl={3} id="avatarUrl">

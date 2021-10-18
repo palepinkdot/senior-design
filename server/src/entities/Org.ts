@@ -9,7 +9,7 @@ import {
 } from "typeorm";
 @ObjectType()
 @Entity()
-export class User extends BaseEntity {
+export class Org extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn("uuid")
   id!: string;
@@ -20,11 +20,19 @@ export class User extends BaseEntity {
 
   @Field()
   @Column()
-  firstname!: string;
+  orgName!: string;
 
   @Field()
   @Column()
-  lastname!: string;
+  address!: string;
+
+  @Field()
+  @Column()
+  contactFirstname!: string;
+
+  @Field()
+  @Column()
+  contactLastname!: string;
 
   @Field()
   @Column()

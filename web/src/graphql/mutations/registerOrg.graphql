@@ -1,0 +1,5 @@
+mutation RegisterOrg($options: OrgUsernamePasswordInput!) {
+  registerOrg(options: $options) {
+    ...RegularOrgResponse
+  }
+}

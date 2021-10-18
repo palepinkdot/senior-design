@@ -15,6 +15,8 @@ import { createConnection } from "typeorm";
 import { User } from "./entities/User";
 import { graphqlUploadExpress } from "graphql-upload";
 import path from "path";
+import { Org } from "./entities/Org";
+import { OrgResolver } from "./resolvers/org";
 
 const main = async () => {
   console.log("🐾 Starting Swipet API...");
@@ -37,7 +39,7 @@ const main = async () => {
     url: process.env.DATABASE_URL,
     logging: true,
     migrations: [path.join(__dirname, "./migrations/*")],
-    entities: [User],
+    entities: [User, Org],
     synchronize: true,
   });
   await conn.runMigrations();
@@ -72,7 +74,7 @@ const main = async () => {
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [HelloResolver, UserResolver],
+      resolvers: [HelloResolver, UserResolver, OrgResolver],
       validate: false,
     }),
     context: ({ req, res }): MyContext => ({ req, res, redis }),

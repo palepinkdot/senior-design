@@ -1,7 +1,7 @@
 import { Field, InputType } from "type-graphql";
 
 @InputType()
-export class UsernamePasswordInput {
+export class OrgUsernamePasswordInput {
   @Field()
   email: string;
   @Field()
@@ -11,7 +11,11 @@ export class UsernamePasswordInput {
   @Field()
   verifypassword: string;
   @Field()
-  firstname: string;
+  contactFirstname: string;
   @Field()
-  lastname: string;
+  contactLastname: string;
+  @Field()
+  address: string;
+  @Field()
+  orgName: string;
 }

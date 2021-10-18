@@ -6,7 +6,7 @@ import { useIsAuth } from "../../utils/useIsAuth";
 import { withApollo } from "../../utils/withApollo";
 
 const AppIndex: React.FC<{}> = ({}) => {
-  // useIsAuth();
+  useIsAuth();
 
   return (
     <AppLayout>

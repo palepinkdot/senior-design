@@ -14,13 +14,17 @@ import NextLink from "next/link";
 import { Formik, Form } from "formik";
 import { useRouter } from "next/router";
 import React from "react";
-import { MeDocument, MeQuery, useLoginMutation } from "../generated/graphql";
+import {
+  MeUserDocument,
+  MeUserQuery,
+  useLoginUserMutation,
+} from "../generated/graphql";
 import { toErrorMap } from "../utils/toErrorMap";
 import { InputField } from "./InputField";
 
 export default function LoginCard() {
   const router = useRouter();
-  const [login] = useLoginMutation();
+  const [login] = useLoginUserMutation();
   return (
     <>
       <Formik
@@ -29,18 +33,18 @@ export default function LoginCard() {
           const response = await login({
             variables: values,
             update: (cache, { data }) => {
-              cache.writeQuery<MeQuery>({
-                query: MeDocument,
+              cache.writeQuery<MeUserQuery>({
+                query: MeUserDocument,
                 data: {
                   __typename: "Query",
-                  me: data?.login.user,
+                  meUser: data?.loginUser.user,
                 },
               });
             },
           });
-          if (response.data?.login.errors) {
-            setErrors(toErrorMap(response.data.login.errors));
-          } else if (response.data?.login.user) {
+          if (response.data?.loginUser.errors) {
+            setErrors(toErrorMap(response.data.loginUser.errors));
+          } else if (response.data?.loginUser.user) {
             // worked
             router.push("/app");
           }

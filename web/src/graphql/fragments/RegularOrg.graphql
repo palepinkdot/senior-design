@@ -1,0 +1,10 @@
+fragment RegularOrg on Org {
+  id
+  username
+  contactFirstname
+  contactLastname
+  orgName
+  address
+  avatarUrl
+  email
+}

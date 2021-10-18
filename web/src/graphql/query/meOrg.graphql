@@ -1,0 +1,5 @@
+query MeOrg {
+  meOrg {
+    ...RegularOrg
+  }
+}

@@ -5,7 +5,8 @@ import { Stream } from "stream";
 
 export type MyContext = {
   req: Request & {
-    session: Session & Partial<SessionData> & { userId?: string };
+    session: Session &
+      Partial<SessionData> & { userId?: string; orgId?: string };
   };
   res: Response;
   redis: Redis;

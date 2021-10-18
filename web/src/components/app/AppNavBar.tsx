@@ -28,7 +28,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import React, { ReactNode } from "react";
-import { useLogoutMutation, useMeQuery } from "../../generated/graphql";
+import { useLogoutUserMutation, useMeUserQuery } from "../../generated/graphql";
 import { isServer } from "../../utils/isServer";
 import NextLink from "next/link";
 import {
@@ -84,9 +84,9 @@ const Logo = (props: any) => {
 export const AppNavBar: React.FC<AppNavBarProps> = ({}) => {
   const router = useRouter();
   const { colorMode, toggleColorMode } = useColorMode();
-  const [logout, { loading: logoutFetching }] = useLogoutMutation();
+  const [logout, { loading: logoutFetching }] = useLogoutUserMutation();
   const apolloClient = useApolloClient();
-  const { data, loading } = useMeQuery({
+  const { data, loading } = useMeUserQuery({
     skip: isServer(),
   });
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -96,24 +96,13 @@ export const AppNavBar: React.FC<AppNavBarProps> = ({}) => {
   // data is loading
   if (loading) {
     // user not logged in
-  } else if (!data?.me) {
+  } else if (!data?.meUser) {
     userBody = null;
     // user is logged in
   } else {
     userBody = (
       <Flex alignItems={"center"}>
-        <NextLink href={"/members/shop"}>
-          <Button
-            variant={"solid"}
-            colorScheme={"yellow"}
-            size={"sm"}
-            mr={4}
-            leftIcon={<IoBagHandleOutline size={"1.25em"} />}
-          >
-            Team Shop
-          </Button>
-        </NextLink>
-
+        Hey, {data.meUser.firstname}!
         <Menu>
           <MenuButton
             as={Button}
@@ -122,34 +111,13 @@ export const AppNavBar: React.FC<AppNavBarProps> = ({}) => {
             cursor={"pointer"}
           >
             <Avatar
-              name={data.me.firstname + " " + data.me.lastname}
+              name={data.meUser.firstname + " " + data.meUser.lastname}
               size={"sm"}
-              src={data.me.avatarUrl}
+              src={data.meUser.avatarUrl}
             />
           </MenuButton>
           <MenuList>
-            <Flex pl={"3.5"} justifyContent={"flex-start"}>
-              Hey, {data.me.firstname}!
-            </Flex>
-            <MenuDivider />
-
-            <MenuItem justifyContent={"space-between"}>
-              <NextLink href={"/orders"}>Order History</NextLink>
-              <IoArchiveOutline size={"1.25em"} />
-            </MenuItem>
             <UserSettingsModal />
-            <MenuItem
-              justifyContent={"space-between"}
-              onClick={toggleColorMode}
-              size={"sm"}
-            >
-              <p>Toggle Color Mode</p>
-              {colorMode === "light" ? (
-                <IoMoonOutline size={"1.25em"} />
-              ) : (
-                <IoSunnyOutline size={"1.25em"} />
-              )}
-            </MenuItem>
             <MenuDivider />
             <MenuItem
               onClick={async () => {
@@ -208,11 +176,12 @@ export const AppNavBar: React.FC<AppNavBarProps> = ({}) => {
 
       <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
         <DrawerOverlay />
-        <DrawerContent flexDirection="row" alignItems="center">
+
+        <DrawerContent>
           <DrawerCloseButton />
 
-          <DrawerBody p="0" display="flex" justifyContent="flex-end">
-            <VStack spacing={8} alignItems="flex-end">
+          <DrawerBody>
+            <VStack spacing={8} alignItems="center" justifyContent="center">
               {Links.map((link) => (
                 <NavLink key={link}>{link}</NavLink>
               ))}
