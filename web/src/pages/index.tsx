@@ -14,6 +14,7 @@ import { HomeLayout } from "../components/home/HomeLayout";
 import { HomeWrapper } from "../components/home/HomeWrapper";
 import { Layout } from "../components/Layout";
 import { withApollo } from "../utils/withApollo";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const Index: React.FC<{}> = ({}) => {
   return (
