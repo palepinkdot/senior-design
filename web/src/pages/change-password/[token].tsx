@@ -6,16 +6,16 @@ import { toErrorMap } from "../../utils/toErrorMap";
 import { InputField } from "../../components/InputField";
 import { Box, Button, Link, Flex } from "@chakra-ui/react";
 import {
-  MeDocument,
-  MeQuery,
-  useChangePasswordMutation,
+  MeUserDocument,
+  MeUserQuery,
+  useChangeUserPasswordMutation,
 } from "../../generated/graphql";
 import { useRouter } from "next/router";
 import NextLink from "next/link";
 
 const ChangePassword: NextPage<{ token: string }> = ({ token }) => {
   const router = useRouter();
-  const [changePassword] = useChangePasswordMutation();
+  const [changePassword] = useChangeUserPasswordMutation();
   const [tokenError, setTokenError] = useState("");
   return (
     <Wrapper variant="small">
@@ -28,22 +28,24 @@ const ChangePassword: NextPage<{ token: string }> = ({ token }) => {
               token,
             },
             update: (cache, { data }) => {
-              cache.writeQuery<MeQuery>({
-                query: MeDocument,
+              cache.writeQuery<MeUserQuery>({
+                query: MeUserDocument,
                 data: {
                   __typename: "Query",
-                  me: data?.changePassword.user,
+                  meUser: data?.changeUserPassword.user,
                 },
               });
             },
           });
-          if (response.data?.changePassword.errors) {
-            const errorMap = toErrorMap(response.data.changePassword.errors);
+          if (response.data?.changeUserPassword.errors) {
+            const errorMap = toErrorMap(
+              response.data.changeUserPassword.errors
+            );
             if ("token" in errorMap) {
               setTokenError(errorMap.token);
             }
             setErrors(errorMap);
-          } else if (response.data?.changePassword.user) {
+          } else if (response.data?.changeUserPassword.user) {
             // worked
             router.push("/");
           }
