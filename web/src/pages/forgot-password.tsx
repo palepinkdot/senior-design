@@ -3,12 +3,12 @@ import { Wrapper } from "../components/Wrapper";
 import { Formik, Form } from "formik";
 import { InputField } from "../components/InputField";
 import { Box, Button } from "@chakra-ui/react";
-import { useForgotPasswordMutation } from "../generated/graphql";
+import { useForgotUserPasswordMutation } from "../generated/graphql";
 import { withApollo } from "../utils/withApollo";
 
 const ForgotPassword: React.FC<{}> = ({}) => {
   const [complete, setComplete] = useState(false);
-  const [forgotPassword] = useForgotPasswordMutation();
+  const [forgotPassword] = useForgotUserPasswordMutation();
   return (
     <Wrapper variant="small">
       <Formik
