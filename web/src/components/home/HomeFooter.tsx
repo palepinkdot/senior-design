@@ -3,12 +3,22 @@ import {
   chakra,
   Container,
   Stack,
+  SimpleGrid,
+  Link,
   Text,
   useColorModeValue,
   VisuallyHidden,
 } from "@chakra-ui/react";
 import { FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 import { ReactNode } from "react";
+
+const ListHeader = ({ children }: { children: ReactNode }) => {
+  return (
+    <Text fontWeight={'800'} fontSize={'lg'} mb={2}>
+      {children}
+    </Text>
+  );
+};
 
 const SocialButton = ({
   children,
@@ -45,12 +55,37 @@ const SocialButton = ({
 export default function SmallCentered() {
   return (
     <Box
-      bg={useColorModeValue("gray.100", "gray.900")}
-      color={useColorModeValue("gray.700", "gray.200")}
+      bgGradient="linear(blue.300 50%, red.200)"
+      color={useColorModeValue("white", "white")}
       position={"absolute"}
-      width={"100%"}
+      width={"100%"}      
       margin="0"
     >
+      <Container as={Stack} maxW={'6xl'} py={4}>
+        <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing={6} paddingLeft={4}>
+          <Stack align={'flex-start'}>
+            <ListHeader>Company</ListHeader>
+            <Link href={'#'}>About Us</Link>
+            <Link href={'#'}>Contact Us</Link>
+          </Stack>
+
+          <Stack align={'flex-start'}>
+            <ListHeader>Support</ListHeader>
+            <Link href={'#'}>Help Center</Link>
+            <Link href={'#'}>Safety Center</Link>
+            <Link href={'#'}>Community Guidelines</Link>
+          </Stack>
+
+          <Stack align={'flex-start'}>
+            <ListHeader>Legal</ListHeader>
+            <Link href={'#'}>Cookies Policy</Link>
+            <Link href={'#'}>Privacy Policy</Link>
+            <Link href={'#'}>Terms of Service</Link>
+            <Link href={'#'}>Law Enforcement</Link>
+          </Stack>         
+        </SimpleGrid>
+      </Container>
+      
       <Box
         borderTopWidth={1}
         borderStyle={"solid"}
