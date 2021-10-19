@@ -7,14 +7,16 @@ import {
   Link,
   Text,
   useColorModeValue,
+  Flex,
   VisuallyHidden,
+  VStack,
 } from "@chakra-ui/react";
 import { FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 
 const ListHeader = ({ children }: { children: ReactNode }) => {
   return (
-    <Text fontWeight={'800'} fontSize={'lg'} mb={2}>
+    <Text fontWeight={"800"} fontSize={"lg"} mb={2}>
       {children}
     </Text>
   );
@@ -58,34 +60,38 @@ export default function SmallCentered() {
       bgGradient="linear(blue.300 50%, red.200)"
       color={useColorModeValue("white", "white")}
       position={"absolute"}
-      width={"100%"}      
+      width={"100%"}
       margin="0"
+      overflow="hidden"
     >
-      <Container as={Stack} maxW={'6xl'} py={4}>
-        <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing={6} paddingLeft={4}>
-          <Stack align={'flex-start'}>
-            <ListHeader>Company</ListHeader>
-            <Link href={'#'}>About Us</Link>
-            <Link href={'#'}>Contact Us</Link>
-          </Stack>
+      <Flex
+        pt={8}
+        pb={8}
+        w="100%"
+        justifyContent="space-evenly"
+        alignItems="flex-start"
+      >
+        <VStack align={"flex-start"}>
+          <ListHeader>Company</ListHeader>
+          <Link href={"#"}>About Us</Link>
+          <Link href={"#"}>Contact Us</Link>
+        </VStack>
 
-          <Stack align={'flex-start'}>
-            <ListHeader>Support</ListHeader>
-            <Link href={'#'}>Help Center</Link>
-            <Link href={'#'}>Safety Center</Link>
-            <Link href={'#'}>Community Guidelines</Link>
-          </Stack>
+        <VStack align={"flex-start"}>
+          <ListHeader>Support</ListHeader>
+          <Link href={"#"}>Help Center</Link>
+          <Link href={"#"}>Safety Center</Link>
+          <Link href={"#"}>Community Guidelines</Link>
+        </VStack>
 
-          <Stack align={'flex-start'}>
-            <ListHeader>Legal</ListHeader>
-            <Link href={'#'}>Cookies Policy</Link>
-            <Link href={'#'}>Privacy Policy</Link>
-            <Link href={'#'}>Terms of Service</Link>
-            <Link href={'#'}>Law Enforcement</Link>
-          </Stack>         
-        </SimpleGrid>
-      </Container>
-      
+        <VStack align={"flex-start"}>
+          <ListHeader>Legal</ListHeader>
+          <Link href={"#"}>Cookies Policy</Link>
+          <Link href={"#"}>Privacy Policy</Link>
+          <Link href={"#"}>Terms of Service</Link>
+        </VStack>
+      </Flex>
+
       <Box
         borderTopWidth={1}
         borderStyle={"solid"}
