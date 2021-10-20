@@ -7,4 +7,5 @@ fragment RegularOrg on Org {
   address
   avatarUrl
   email
+  firstLogin
 }

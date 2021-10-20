@@ -45,6 +45,10 @@ export class Org extends BaseEntity {
   @Column()
   password!: string;
 
+  @Field()
+  @Column({ default: true })
+  firstLogin!: boolean;
+
   @Field(() => String)
   @CreateDateColumn()
   createdAt: Date;
