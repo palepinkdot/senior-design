@@ -1,9 +1,19 @@
-import { Box, HStack, VStack, Heading, Text, Image, StackDivider } from "@chakra-ui/react";
 import React from "react";
-import { Layout } from "../components/Layout";
-import { withApollo } from "../utils/withApollo";
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  Text,
+  VStack,
+  HStack,
+  Image,
+  StackDivider
+} from "@chakra-ui/react";
 
-const Contact: React.FC<{}> = ({ }) => {
+interface WrapperProps {}
+
+export const PetDetailPage: React.FC<WrapperProps> = ({}) => {
   return (
     <Box
       display="flex"
@@ -132,28 +142,4 @@ const Contact: React.FC<{}> = ({ }) => {
     </Box>
 
   );
-
-  return null;
 };
-
-export default withApollo()(Contact);
-
-
-
-
-// import React from "react";
-// import { Layout } from "../components/Layout";
-// import { withApollo } from "../utils/withApollo";
-
-// const Contact: React.FC<{}> = ({}) => {
-//   return (
-//     <Layout>
-//       <h1>Contact works.</h1>
-//     </Layout>
-
-//   );
-
-//   return null;
-// };
-
-// export default withApollo()(Contact);
