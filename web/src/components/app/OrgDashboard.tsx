@@ -64,6 +64,16 @@ export default function OrgDashboard() {
                                 font-size: large;\
                                 }\
                                 .sidebar-items p {\
+                                    margin-left: 1em;\
+                                }\
+                                .sidebar-items:hover p {\
+                                color: #fff;\
+                                }\
+                                .sidebar-items:hover svg {\
+                                color: #b57295;\
+                                }\
+                                .sidebar-items:not(:last-child) {\
+                                margin-bottom: 1.5em;\
                                 }\
                             '}
                         </style>
@@ -108,6 +118,7 @@ export default function OrgDashboard() {
                     </Flex>
                 </Flex>
             </Flex>
+
             {/* Column 2 */}
             <Flex>
 
