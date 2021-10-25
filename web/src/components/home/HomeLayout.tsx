@@ -25,6 +25,7 @@ export const HomeLayout: React.FC<LayoutProps> = ({ children, variant }) => {
         <HomeNavBarProps />
         {children}
       </Box>
+
       <Footer />
     </>
   );
