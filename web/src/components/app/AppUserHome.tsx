@@ -73,7 +73,7 @@ export const AppUserHome: React.FC<LayoutProps> = ({ children, variant }) => {
           </Flex>
 
           <AnimalCard />
-          {data.meUser.firstLogin
+          {data.meUser.attributes == "new"
             ? router.push("/app/ado-first-login")
             : alert("This is NOT your first login")}
           <Flex

@@ -38,11 +38,7 @@ export class User extends BaseEntity {
   password!: string;
 
   @Field()
-  @Column({ default: true })
-  firstLogin!: boolean;
-
-  @Field()
-  @Column({ default: "" })
+  @Column({ default: "new" })
   attributes!: string;
 
   @Field(() => String)

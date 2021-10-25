@@ -3,7 +3,6 @@ import { FiHome } from "react-icons/fi";
 import { HashLoader } from "react-spinners";
 import { useMeOrgQuery } from "../../generated/graphql";
 import { isServer } from "../../utils/isServer";
-import OrgFirstLoginCard from "./OrgFirstLoginCard";
 import { useRouter } from "next/router";
 
 export default function OrgDashboard() {
@@ -18,7 +17,7 @@ export default function OrgDashboard() {
     return (
       <Flex h="100vh" flexDir="row" overflow="hidden" maxW="2000px">
         {/* Column 1 */}
-        {data.meOrg.firstLogin
+        {data.meOrg.attributes == "new"
           ? router.push("/app/org-first-login")
           : alert("This is NOT your first login")}
         <Flex
