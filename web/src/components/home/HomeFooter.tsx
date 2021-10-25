@@ -86,9 +86,15 @@ export default function SmallCentered() {
 
         <VStack align={"flex-start"}>
           <ListHeader>Legal</ListHeader>
-          <Link href={"#"}>Cookies Policy</Link>
-          <Link href={"#"}>Privacy Policy</Link>
-          <Link href={"#"}>Terms of Service</Link>
+          <Link href={"/policy/cookies"}>Cookies Policy</Link>
+          <Link href={"/policy/privacy"}>Privacy Policy</Link>
+          <Link
+            as="a"
+            href={"https://swipet.s3.us-east-2.amazonaws.com/TOS.pdf"}
+            target="_blank"
+          >
+            Terms of Service
+          </Link>
         </VStack>
       </Flex>
 
