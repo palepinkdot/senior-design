@@ -41,6 +41,10 @@ export class User extends BaseEntity {
   @Column({ default: true })
   firstLogin!: boolean;
 
+  @Field()
+  @Column()
+  attributes!: string;
+
   @Field(() => String)
   @CreateDateColumn()
   createdAt: Date;
