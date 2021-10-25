@@ -50,7 +50,7 @@ export class Org extends BaseEntity {
   firstLogin!: boolean;
 
   @Field()
-  @Column()
+  @Column({ default: "" })
   attributes!: string;
 
   @Field(() => String)

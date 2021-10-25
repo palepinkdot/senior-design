@@ -42,7 +42,7 @@ export class User extends BaseEntity {
   firstLogin!: boolean;
 
   @Field()
-  @Column()
+  @Column({ default: "" })
   attributes!: string;
 
   @Field(() => String)

@@ -14,6 +14,9 @@ import { AnimalCard } from "./AnimalCard";
 import { AppNavBar } from "./AppNavBar";
 
 import { HashLoader } from "react-spinners";
+import AdoFirstLoginCard from "./AdoFirstLoginCard";
+
+import { useRouter } from "next/router";
 
 interface LayoutProps {
   variant?: WrapperVariant;
@@ -22,6 +25,7 @@ interface LayoutProps {
 export const AppUserHome: React.FC<LayoutProps> = ({ children, variant }) => {
   useIsUser();
 
+  const router = useRouter();
   const [liked, setLiked] = useState(false);
   const [disliked, setDislike] = useState(false);
   const { data, loading } = useMeUserQuery({
@@ -70,7 +74,7 @@ export const AppUserHome: React.FC<LayoutProps> = ({ children, variant }) => {
 
           <AnimalCard />
           {data.meUser.firstLogin
-            ? alert("This is your first login")
+            ? router.push("/app/ado-first-login")
             : alert("This is NOT your first login")}
           <Flex
             as={Button}
