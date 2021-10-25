@@ -25,6 +25,20 @@ export const HomeLayout: React.FC<LayoutProps> = ({ children, variant }) => {
         <HomeNavBarProps />
         {children}
       </Box>
+      <Box
+        w="100%"
+        h="100vh"
+        backgroundImage="https://swipet.s3.us-east-2.amazonaws.com/cocker-spaniel-2785074.jpg"
+        backgroundBlendMode="darken"
+        backgroundRepeat="no-repeat"
+        backgroundAttachment="fixed"
+        backgroundPosition="60% 50%"
+        backgroundSize="cover"
+        backgroundColor="rgba(0, 0, 0, .25)"
+      >
+        <HomeNavBarProps />
+        {children}
+      </Box>
       <Footer />
     </>
   );
