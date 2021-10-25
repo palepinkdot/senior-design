@@ -95,7 +95,7 @@ export default function OrgDashboard() {
                                     <Icon as={FiHome} fontSize="2xl" />
                                 </Link>
                                 <Link _hover={{textDecor: 'none'}}>
-                                    <Text>Home</Text>
+                                    <Text>Post Animal</Text>
                                 </Link>
                             </Flex>
                             <Flex className="sidebar-items">
@@ -103,7 +103,7 @@ export default function OrgDashboard() {
                                     <Icon as={FiHome} fontSize="2xl" />
                                 </Link>
                                 <Link _hover={{textDecor: 'none'}}>
-                                    <Text>Home</Text>
+                                    <Text>Applications</Text>
                                 </Link>
                             </Flex>
                             <Flex className="sidebar-items">
@@ -111,7 +111,7 @@ export default function OrgDashboard() {
                                     <Icon as={FiHome} fontSize="2xl" />
                                 </Link>
                                 <Link _hover={{textDecor: 'none'}}>
-                                    <Text>Home</Text>
+                                    <Text>Settings</Text>
                                 </Link>
                             </Flex>
                         </Flex>
@@ -120,11 +120,26 @@ export default function OrgDashboard() {
             </Flex>
 
             {/* Column 2 */}
-            <Flex>
-
+            <Flex
+                w="55%"
+                p="3%"
+                flexDir="column"
+                overflow="auto"
+                minH="100vh"
+            >
+                <Heading fontWeight="bold" display={"inline-flex"}>
+                    Clermont County Animal Shelter
+                </Heading>
+                <Text fontWeight={"normal"} mb={4}>Welcome back!</Text>
             </Flex>
             {/* Column 3 */}
-            <Flex>
+            <Flex
+                w="35%"
+                bgColor="#F5F5F5"
+                p="3%"
+                flexDir="column"
+                overflow="auto"
+            >
 
             </Flex>
         </Flex>
