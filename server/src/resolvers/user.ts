@@ -40,25 +40,21 @@ class UserResponse {
 export class UserResolver {
   @Mutation(() => UserResponse)
   async updateUserInfo(
-    @Arg("options") options: UpdateUserInfoInput,
+    @Arg("options") options: string,
     @Ctx() { req }: MyContext
   ): Promise<UserResponse> {
-    const updatedUser = await User.findOne({ where: { id: options.userid } });
+    const updatedUser = await User.findOne({
+      where: { id: req.session.userId },
+    });
 
-    const newFirstname = options.firstname;
-    const newLastname = options.lastname;
-    const newAvatarUrl = options.avatarUrl;
-    const newEmail = options.email;
+    const attributes = options;
 
     let user;
     try {
       const result = await User.update(
-        { id: options.userid },
+        { id: req.session.userId },
         {
-          firstname: newFirstname,
-          lastname: newLastname,
-          avatarUrl: newAvatarUrl,
-          email: newEmail,
+          attributes: attributes,
         }
       );
       user = result.raw[0];

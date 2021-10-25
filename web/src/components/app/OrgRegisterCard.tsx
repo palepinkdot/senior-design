@@ -56,7 +56,7 @@ export default function OrgRegisterCard() {
             setErrors(toOrgErrorMap(response.data.registerOrg.errors));
           } else if (response.data?.registerOrg.org) {
             // worked
-            router.push("/app/org/dash");
+            router.push("/app/shelter");
           }
         }}
       >

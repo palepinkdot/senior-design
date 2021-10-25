@@ -39,7 +39,6 @@ import {
   IoSunnyOutline,
 } from "react-icons/io5";
 import { useRouter } from "next/router";
-import { UserSettingsModal } from "../user/UserSettingsModal";
 import { useApolloClient } from "@apollo/client";
 import { Squash as Hamburger } from "hamburger-react";
 
@@ -117,7 +116,6 @@ export const AppNavBar: React.FC<AppNavBarProps> = ({}) => {
             />
           </MenuButton>
           <MenuList>
-            <UserSettingsModal />
             <MenuDivider />
             <MenuItem
               onClick={async () => {

@@ -27,7 +27,6 @@ import {
   IoSunnyOutline,
 } from "react-icons/io5";
 import { useRouter } from "next/router";
-import { UserSettingsModal } from "../user/UserSettingsModal";
 import { useApolloClient } from "@apollo/client";
 
 interface HomeNavBarProps {}

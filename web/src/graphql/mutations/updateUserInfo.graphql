@@ -1,4 +1,4 @@
-mutation UpdateUserInfo($options: UpdateUserInfoInput!) {
+mutation UpdateUserInfo($options: String!) {
   updateUserInfo(options: $options) {
     ...RegularUserResponse
   }
