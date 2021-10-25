@@ -3,11 +3,13 @@ import {
     Heading,
     Link,
     Icon,
-    Text,
+    Text, Table, Tr, Td, Thead,
+    Stack, Button, HStack,
 } from "@chakra-ui/react";
 import {
     FiHome,
 } from "react-icons/fi";
+import ApplicationCard from "../dashboard/ApplicationCard";
 
 
 export default function OrgDashboard() {
@@ -118,19 +120,99 @@ export default function OrgDashboard() {
                     </Flex>
                 </Flex>
             </Flex>
-
             {/* Column 2 */}
             <Flex
                 w="55%"
                 p="3%"
                 flexDir="column"
-                overflow="auto"
+                overflow="hidden"
                 minH="100vh"
             >
                 <Heading fontWeight="bold" display={"inline-flex"}>
                     Clermont County Animal Shelter
                 </Heading>
                 <Text fontWeight={"normal"} mb={4}>Welcome back!</Text>
+                <Text fontWeight={"bold"} display={"inline-flex"}>
+                    Quick Stats
+                </Text>
+                <Flex
+                w={"100%"}
+                p={"3%"}
+                pr={"1%"}
+                minH={"20vh"}
+                mt={4}
+                display={"inline-flex"}
+                >
+                    <Flex
+                        flexDir={"row"}
+                        overflow={"auto"}
+                        display={"column"}
+                        flex={3}
+                    >
+                        <Text fontWeight={"normal"} mb={4} fontSize={"12"}>Total Applications</Text>
+                        <Heading fontWeight={"bold"} display={"inline-flex"}>1,393</Heading>
+                    </Flex>
+                    <Flex
+                        flexDir={"row"}
+                        overflow={"auto"}
+                        display={"column"}
+                        flex={3}
+                    >
+                        <Text fontWeight={"normal"} mb={4} fontSize={"12"}>Pending Approval</Text>
+                        <Heading fontWeight={"bold"} display={"inline-flex"} fontColor={"red"}>23</Heading>
+                    </Flex>
+                    <Flex
+                        flexDir={"row"}
+                        overflow={"auto"}
+                        display={"column"}
+                        flex={3}
+                    >
+                        <Text fontWeight={"normal"} mb={4} fontSize={"12"}>Adoptions This Month</Text>
+                        <Heading fontWeight={"bold"} display={"inline-flex"}>39</Heading>
+                    </Flex>
+                    <Flex
+                        flexDir={"row"}
+                        overflow={"auto"}
+                        display={"column"}
+                        flex={3}
+                    >
+                        <Text fontWeight={"normal"} mb={4} fontSize={"12"}>Adoptions Last Month</Text>
+                        <Heading fontWeight={"bold"} display={"inline-flex"}>21</Heading>
+                    </Flex>
+                </Flex>
+                <HStack
+                    w={"100%"}
+                    h={"100%"}
+                    display={"inline-flex"}
+                    mt={6}
+                >
+                    <Text fontWeight={"bold"}>Applications</Text>
+                            <Text fontWeight={"lighter"}>Animals</Text>
+                </HStack>
+                <Flex
+                    w={"100%"}
+                    h={"100%"}
+                    display={"inline-flex"}
+                    overflow={"auto"}
+                >
+                    <Stack
+                        w={"100%"}
+                        h={"100%"}
+                        display={"inline-flex"}
+                        overflow={"auto"}
+                    >
+                        <HStack>
+                            <ApplicationCard />
+                            <ApplicationCard />
+                            <ApplicationCard />
+                        </HStack>
+                        <HStack>
+                            <ApplicationCard />
+                            <ApplicationCard />
+                            <ApplicationCard />
+                        </HStack>
+                    </Stack>
+                </Flex>
             </Flex>
             {/* Column 3 */}
             <Flex
@@ -140,8 +222,8 @@ export default function OrgDashboard() {
                 flexDir="column"
                 overflow="auto"
             >
-
             </Flex>
+
         </Flex>
     )
 }
