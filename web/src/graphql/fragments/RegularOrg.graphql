@@ -8,4 +8,5 @@ fragment RegularOrg on Org {
   avatarUrl
   email
   firstLogin
+  attributes
 }

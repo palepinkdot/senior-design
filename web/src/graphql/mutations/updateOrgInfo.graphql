@@ -1,0 +1,5 @@
+mutation UpdateOrgInfo($options: String!) {
+  updateOrgInfo(options: $options) {
+    ...RegularOrgResponse
+  }
+}

@@ -37,6 +37,44 @@ class OrgResponse {
 @Resolver()
 export class OrgResolver {
   @Mutation(() => OrgResponse)
+  async updateOrgInfo(
+    @Arg("options") options: string,
+    @Ctx() { req }: MyContext
+  ): Promise<OrgResponse> {
+    const updatedOrg = await Org.findOne({
+      where: { id: req.session.orgId },
+    });
+
+    const attributes = options;
+
+    let org;
+    try {
+      const result = await Org.update(
+        { id: req.session.orgId },
+        {
+          attributes: attributes,
+        }
+      );
+      org = result.raw[0];
+    } catch (err) {
+      if (err.code === "23505") {
+        return {
+          errors: [
+            {
+              field: "email",
+              message: "email already taken",
+            },
+          ],
+        };
+      }
+    }
+
+    // log in user after change password
+    req.session.orgId = updatedOrg?.id;
+
+    return { org };
+  }
+  @Mutation(() => OrgResponse)
   async changeOrgPassword(
     @Arg("token") token: string,
     @Arg("newPassword") newPassword: string,

@@ -31,6 +31,7 @@ export type Mutation = {
   logout: Scalars['Boolean'];
   registerOrg: OrgResponse;
   registerUser: UserResponse;
+  updateOrgInfo: OrgResponse;
   updateUserInfo: UserResponse;
 };
 
@@ -79,13 +80,19 @@ export type MutationRegisterUserArgs = {
 };
 
 
+export type MutationUpdateOrgInfoArgs = {
+  options: Scalars['String'];
+};
+
+
 export type MutationUpdateUserInfoArgs = {
-  options: UpdateUserInfoInput;
+  options: Scalars['String'];
 };
 
 export type Org = {
   __typename?: 'Org';
   address: Scalars['String'];
+  attributes: Scalars['String'];
   avatarUrl: Scalars['String'];
   contactFirstname: Scalars['String'];
   contactLastname: Scalars['String'];
@@ -128,16 +135,9 @@ export type Query = {
   meUser?: Maybe<User>;
 };
 
-export type UpdateUserInfoInput = {
-  avatarUrl: Scalars['String'];
-  email: Scalars['String'];
-  firstname: Scalars['String'];
-  lastname: Scalars['String'];
-  userid: Scalars['String'];
-};
-
 export type User = {
   __typename?: 'User';
+  attributes: Scalars['String'];
   avatarUrl: Scalars['String'];
   createdAt: Scalars['String'];
   email: Scalars['String'];
@@ -164,17 +164,17 @@ export type UsernamePasswordInput = {
   verifypassword: Scalars['String'];
 };
 
-export type RegularOrgFragment = { __typename?: 'Org', id: string, username: string, contactFirstname: string, contactLastname: string, orgName: string, address: string, avatarUrl: string, email: string, firstLogin: boolean };
+export type RegularOrgFragment = { __typename?: 'Org', id: string, username: string, contactFirstname: string, contactLastname: string, orgName: string, address: string, avatarUrl: string, email: string, firstLogin: boolean, attributes: string };
 
 export type RegularOrgErrorFragment = { __typename?: 'OrgFieldError', field: string, message: string };
 
-export type RegularOrgResponseFragment = { __typename?: 'OrgResponse', errors?: Array<{ __typename?: 'OrgFieldError', field: string, message: string }> | null | undefined, org?: { __typename?: 'Org', id: string, username: string, contactFirstname: string, contactLastname: string, orgName: string, address: string, avatarUrl: string, email: string, firstLogin: boolean } | null | undefined };
+export type RegularOrgResponseFragment = { __typename?: 'OrgResponse', errors?: Array<{ __typename?: 'OrgFieldError', field: string, message: string }> | null | undefined, org?: { __typename?: 'Org', id: string, username: string, contactFirstname: string, contactLastname: string, orgName: string, address: string, avatarUrl: string, email: string, firstLogin: boolean, attributes: string } | null | undefined };
 
-export type RegularUserFragment = { __typename?: 'User', id: string, username: string, firstname: string, lastname: string, avatarUrl: string, email: string, firstLogin: boolean };
+export type RegularUserFragment = { __typename?: 'User', id: string, username: string, firstname: string, lastname: string, avatarUrl: string, email: string, firstLogin: boolean, attributes: string };
 
 export type RegularUserErrorFragment = { __typename?: 'FieldError', field: string, message: string };
 
-export type RegularUserResponseFragment = { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', id: string, username: string, firstname: string, lastname: string, avatarUrl: string, email: string, firstLogin: boolean } | null | undefined };
+export type RegularUserResponseFragment = { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', id: string, username: string, firstname: string, lastname: string, avatarUrl: string, email: string, firstLogin: boolean, attributes: string } | null | undefined };
 
 export type ChangeOrgPasswordMutationVariables = Exact<{
   token: Scalars['String'];
@@ -182,7 +182,7 @@ export type ChangeOrgPasswordMutationVariables = Exact<{
 }>;
 
 
-export type ChangeOrgPasswordMutation = { __typename?: 'Mutation', changeOrgPassword: { __typename?: 'OrgResponse', errors?: Array<{ __typename?: 'OrgFieldError', field: string, message: string }> | null | undefined, org?: { __typename?: 'Org', id: string, username: string, contactFirstname: string, contactLastname: string, orgName: string, address: string, avatarUrl: string, email: string, firstLogin: boolean } | null | undefined } };
+export type ChangeOrgPasswordMutation = { __typename?: 'Mutation', changeOrgPassword: { __typename?: 'OrgResponse', errors?: Array<{ __typename?: 'OrgFieldError', field: string, message: string }> | null | undefined, org?: { __typename?: 'Org', id: string, username: string, contactFirstname: string, contactLastname: string, orgName: string, address: string, avatarUrl: string, email: string, firstLogin: boolean, attributes: string } | null | undefined } };
 
 export type ChangeUserPasswordMutationVariables = Exact<{
   token: Scalars['String'];
@@ -190,7 +190,7 @@ export type ChangeUserPasswordMutationVariables = Exact<{
 }>;
 
 
-export type ChangeUserPasswordMutation = { __typename?: 'Mutation', changeUserPassword: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', id: string, username: string, firstname: string, lastname: string, avatarUrl: string, email: string, firstLogin: boolean } | null | undefined } };
+export type ChangeUserPasswordMutation = { __typename?: 'Mutation', changeUserPassword: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', id: string, username: string, firstname: string, lastname: string, avatarUrl: string, email: string, firstLogin: boolean, attributes: string } | null | undefined } };
 
 export type ForgotOrgPasswordMutationVariables = Exact<{
   email: Scalars['String'];
@@ -212,7 +212,7 @@ export type LoginUserMutationVariables = Exact<{
 }>;
 
 
-export type LoginUserMutation = { __typename?: 'Mutation', loginUser: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', id: string, username: string, firstname: string, lastname: string, avatarUrl: string, email: string, firstLogin: boolean } | null | undefined } };
+export type LoginUserMutation = { __typename?: 'Mutation', loginUser: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', id: string, username: string, firstname: string, lastname: string, avatarUrl: string, email: string, firstLogin: boolean, attributes: string } | null | undefined } };
 
 export type LogoutUserMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -224,31 +224,38 @@ export type RegisterOrgMutationVariables = Exact<{
 }>;
 
 
-export type RegisterOrgMutation = { __typename?: 'Mutation', registerOrg: { __typename?: 'OrgResponse', errors?: Array<{ __typename?: 'OrgFieldError', field: string, message: string }> | null | undefined, org?: { __typename?: 'Org', id: string, username: string, contactFirstname: string, contactLastname: string, orgName: string, address: string, avatarUrl: string, email: string, firstLogin: boolean } | null | undefined } };
+export type RegisterOrgMutation = { __typename?: 'Mutation', registerOrg: { __typename?: 'OrgResponse', errors?: Array<{ __typename?: 'OrgFieldError', field: string, message: string }> | null | undefined, org?: { __typename?: 'Org', id: string, username: string, contactFirstname: string, contactLastname: string, orgName: string, address: string, avatarUrl: string, email: string, firstLogin: boolean, attributes: string } | null | undefined } };
 
 export type RegisterUserMutationVariables = Exact<{
   options: UsernamePasswordInput;
 }>;
 
 
-export type RegisterUserMutation = { __typename?: 'Mutation', registerUser: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', id: string, username: string, firstname: string, lastname: string, avatarUrl: string, email: string, firstLogin: boolean } | null | undefined } };
+export type RegisterUserMutation = { __typename?: 'Mutation', registerUser: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', id: string, username: string, firstname: string, lastname: string, avatarUrl: string, email: string, firstLogin: boolean, attributes: string } | null | undefined } };
 
-export type UpdateUserInfoMutationVariables = Exact<{
-  options: UpdateUserInfoInput;
+export type UpdateOrgInfoMutationVariables = Exact<{
+  options: Scalars['String'];
 }>;
 
 
-export type UpdateUserInfoMutation = { __typename?: 'Mutation', updateUserInfo: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', id: string, username: string, firstname: string, lastname: string, avatarUrl: string, email: string, firstLogin: boolean } | null | undefined } };
+export type UpdateOrgInfoMutation = { __typename?: 'Mutation', updateOrgInfo: { __typename?: 'OrgResponse', errors?: Array<{ __typename?: 'OrgFieldError', field: string, message: string }> | null | undefined, org?: { __typename?: 'Org', id: string, username: string, contactFirstname: string, contactLastname: string, orgName: string, address: string, avatarUrl: string, email: string, firstLogin: boolean, attributes: string } | null | undefined } };
+
+export type UpdateUserInfoMutationVariables = Exact<{
+  options: Scalars['String'];
+}>;
+
+
+export type UpdateUserInfoMutation = { __typename?: 'Mutation', updateUserInfo: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', id: string, username: string, firstname: string, lastname: string, avatarUrl: string, email: string, firstLogin: boolean, attributes: string } | null | undefined } };
 
 export type MeOrgQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MeOrgQuery = { __typename?: 'Query', meOrg?: { __typename?: 'Org', id: string, username: string, contactFirstname: string, contactLastname: string, orgName: string, address: string, avatarUrl: string, email: string, firstLogin: boolean } | null | undefined };
+export type MeOrgQuery = { __typename?: 'Query', meOrg?: { __typename?: 'Org', id: string, username: string, contactFirstname: string, contactLastname: string, orgName: string, address: string, avatarUrl: string, email: string, firstLogin: boolean, attributes: string } | null | undefined };
 
 export type MeUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MeUserQuery = { __typename?: 'Query', meUser?: { __typename?: 'User', id: string, username: string, firstname: string, lastname: string, avatarUrl: string, email: string, firstLogin: boolean } | null | undefined };
+export type MeUserQuery = { __typename?: 'Query', meUser?: { __typename?: 'User', id: string, username: string, firstname: string, lastname: string, avatarUrl: string, email: string, firstLogin: boolean, attributes: string } | null | undefined };
 
 export const RegularOrgErrorFragmentDoc = gql`
     fragment RegularOrgError on OrgFieldError {
@@ -267,6 +274,7 @@ export const RegularOrgFragmentDoc = gql`
   avatarUrl
   email
   firstLogin
+  attributes
 }
     `;
 export const RegularOrgResponseFragmentDoc = gql`
@@ -295,6 +303,7 @@ export const RegularUserFragmentDoc = gql`
   avatarUrl
   email
   firstLogin
+  attributes
 }
     `;
 export const RegularUserResponseFragmentDoc = gql`
@@ -568,8 +577,41 @@ export function useRegisterUserMutation(baseOptions?: Apollo.MutationHookOptions
 export type RegisterUserMutationHookResult = ReturnType<typeof useRegisterUserMutation>;
 export type RegisterUserMutationResult = Apollo.MutationResult<RegisterUserMutation>;
 export type RegisterUserMutationOptions = Apollo.BaseMutationOptions<RegisterUserMutation, RegisterUserMutationVariables>;
+export const UpdateOrgInfoDocument = gql`
+    mutation UpdateOrgInfo($options: String!) {
+  updateOrgInfo(options: $options) {
+    ...RegularOrgResponse
+  }
+}
+    ${RegularOrgResponseFragmentDoc}`;
+export type UpdateOrgInfoMutationFn = Apollo.MutationFunction<UpdateOrgInfoMutation, UpdateOrgInfoMutationVariables>;
+
+/**
+ * __useUpdateOrgInfoMutation__
+ *
+ * To run a mutation, you first call `useUpdateOrgInfoMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateOrgInfoMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateOrgInfoMutation, { data, loading, error }] = useUpdateOrgInfoMutation({
+ *   variables: {
+ *      options: // value for 'options'
+ *   },
+ * });
+ */
+export function useUpdateOrgInfoMutation(baseOptions?: Apollo.MutationHookOptions<UpdateOrgInfoMutation, UpdateOrgInfoMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateOrgInfoMutation, UpdateOrgInfoMutationVariables>(UpdateOrgInfoDocument, options);
+      }
+export type UpdateOrgInfoMutationHookResult = ReturnType<typeof useUpdateOrgInfoMutation>;
+export type UpdateOrgInfoMutationResult = Apollo.MutationResult<UpdateOrgInfoMutation>;
+export type UpdateOrgInfoMutationOptions = Apollo.BaseMutationOptions<UpdateOrgInfoMutation, UpdateOrgInfoMutationVariables>;
 export const UpdateUserInfoDocument = gql`
-    mutation UpdateUserInfo($options: UpdateUserInfoInput!) {
+    mutation UpdateUserInfo($options: String!) {
   updateUserInfo(options: $options) {
     ...RegularUserResponse
   }
