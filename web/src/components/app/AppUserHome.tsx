@@ -8,7 +8,7 @@ import {
 } from "react-icons/io5";
 import { useMeUserQuery } from "../../generated/graphql";
 import { isServer } from "../../utils/isServer";
-import { useIsAuth } from "../../utils/useIsAuth";
+import { useIsUser } from "../../utils/useIsUser";
 import Footer from "../home/HomeFooter";
 import { HomeNavBarProps } from "../home/HomeNavBar";
 import { Wrapper, WrapperVariant } from "../Wrapper";
@@ -22,7 +22,7 @@ interface LayoutProps {
 }
 
 export const AppUserHome: React.FC<LayoutProps> = ({ children, variant }) => {
-  useIsAuth();
+  useIsUser();
 
   const [liked, setLiked] = useState(false);
   const [disliked, setDislike] = useState(false);
@@ -47,7 +47,7 @@ export const AppUserHome: React.FC<LayoutProps> = ({ children, variant }) => {
 
   if (loading) {
     return <HashLoader />;
-  } else if (data && !loading) {
+  } else if (data) {
     return (
       <>
         <AppNavBar />
