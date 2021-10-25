@@ -3,11 +3,9 @@ import {
   Box,
   FormControl,
   Stack,
-  Link,
   Button,
   Heading,
   Text,
-  useColorModeValue,
 } from "@chakra-ui/react";
 
 import NextLink from "next/link";
