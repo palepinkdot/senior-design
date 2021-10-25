@@ -23,6 +23,7 @@ import {
 import { toErrorMap } from "../../utils/toErrorMap";
 import { InputField } from "../InputField";
 import { toOrgErrorMap } from "../../utils/toOrgErrorMap";
+import { stringify } from "querystring";
 
 export default function OrgFirstLoginCard() {
   const router = useRouter();
@@ -38,14 +39,16 @@ export default function OrgFirstLoginCard() {
         }}
         onSubmit={async (values, { setErrors }) => {
           console.log(values);
-          console.log(values.toString());
+          console.log(stringify(values));
+          formattedString = stringify(values);
           const response = await updateOrgInfo({
-            variables: { options: formattedString },
+            variables: { options: formattedString.toString() },
           });
           if (response.data?.updateOrgInfo.errors) {
             setErrors(toOrgErrorMap(response.data.updateOrgInfo.errors));
           } else if (response.data?.updateOrgInfo) {
             // worked
+            router.push("/app/shelter");
           }
         }}
       >

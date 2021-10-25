@@ -22,6 +22,7 @@ import {
 } from "../../generated/graphql";
 import { toErrorMap } from "../../utils/toErrorMap";
 import { InputField } from "../InputField";
+import { stringify } from "querystring";
 
 export default function AdoFirstLoginCard() {
   const router = useRouter();
@@ -37,13 +38,17 @@ export default function AdoFirstLoginCard() {
           age: "",
         }}
         onSubmit={async (values, { setErrors }) => {
+          console.log(values);
+          console.log(stringify(values));
+          formattedString = stringify(values);
           const response = await updateUserInfo({
-            variables: { options: formattedString },
+            variables: { options: formattedString.toString() },
           });
           if (response.data?.updateUserInfo.errors) {
             setErrors(toErrorMap(response.data.updateUserInfo.errors));
           } else if (response.data?.updateUserInfo) {
             // worked
+            router.push("/app/");
           }
         }}
       >
