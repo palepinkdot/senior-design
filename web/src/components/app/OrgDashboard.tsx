@@ -3,7 +3,6 @@ import { FiHome } from "react-icons/fi";
 import { HashLoader } from "react-spinners";
 import { useMeOrgQuery } from "../../generated/graphql";
 import { isServer } from "../../utils/isServer";
-import { useIsOrg } from "../../utils/useIsOrg";
 
 export default function OrgDashboard() {
   const { data, loading } = useMeOrgQuery({
@@ -16,6 +15,9 @@ export default function OrgDashboard() {
     return (
       <Flex h="100vh" flexDir="row" overflow="hidden" maxW="2000px">
         {/* Column 1 */}
+        {data.meOrg.firstLogin
+          ? alert("This is your first login")
+          : alert("This is NOT your first login")}
         <Flex
           w="15%"
           flexDir="column"

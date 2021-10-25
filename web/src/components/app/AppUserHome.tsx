@@ -9,8 +9,6 @@ import {
 import { useMeUserQuery } from "../../generated/graphql";
 import { isServer } from "../../utils/isServer";
 import { useIsUser } from "../../utils/useIsUser";
-import Footer from "../home/HomeFooter";
-import { HomeNavBarProps } from "../home/HomeNavBar";
 import { Wrapper, WrapperVariant } from "../Wrapper";
 import { AnimalCard } from "./AnimalCard";
 import { AppNavBar } from "./AppNavBar";
