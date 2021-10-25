@@ -5,4 +5,6 @@ fragment RegularUser on User {
   lastname
   avatarUrl
   email
+  firstLogin
+  attributes
 }
