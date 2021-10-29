@@ -11,7 +11,7 @@ interface LayoutProps {
 export const AppLayout: React.FC<LayoutProps> = ({ children, variant }) => {
   return (
     <>
-      <Box w="100%" h="100vh">
+      <Box overflow="hidden" w="100%" h="100vh">
         {children}
       </Box>
     </>

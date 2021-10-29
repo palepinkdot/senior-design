@@ -18,6 +18,8 @@ import AdoFirstLoginCard from "./AdoFirstLoginCard";
 
 import { useRouter } from "next/router";
 
+import TinderCard from "react-tinder-card";
+
 interface LayoutProps {
   variant?: WrapperVariant;
 }
@@ -31,6 +33,20 @@ export const AppUserHome: React.FC<LayoutProps> = ({ children, variant }) => {
   const { data, loading } = useMeUserQuery({
     skip: isServer(),
   });
+
+  const onSwipe = (direction) => {
+    console.log("You swiped: " + direction);
+    if (direction == "right") {
+      like();
+    } else if (direction == "left") {
+      dislike();
+    }
+  };
+
+  const onCardLeftScreen = (myIdentifier) => {
+    console.log(myIdentifier + " left the screen");
+    resetLike();
+  };
 
   function like() {
     setLiked(true);
@@ -54,7 +70,11 @@ export const AppUserHome: React.FC<LayoutProps> = ({ children, variant }) => {
       <>
         <AppNavBar />
         {/* buttons + columns */}
-        <Flex justifyContent="space-between" flexDirection="row">
+        <Flex
+          justifyContent="space-between"
+          flexDirection="row"
+          alignItems="center"
+        >
           <Flex
             as={Button}
             w="12.5vw"
@@ -64,6 +84,7 @@ export const AppUserHome: React.FC<LayoutProps> = ({ children, variant }) => {
               bgColor: "red.200",
             }}
             onClick={() => dislike()}
+            zIndex="10"
           >
             {disliked ? (
               <IoClose size="6rem" opacity={0.33} />
@@ -71,11 +92,17 @@ export const AppUserHome: React.FC<LayoutProps> = ({ children, variant }) => {
               <IoChevronBack size="6rem" opacity={0.33} />
             )}
           </Flex>
+          <TinderCard
+            onSwipe={onSwipe}
+            onCardLeftScreen={() => onCardLeftScreen("fooBar")}
+            preventSwipe={["up", "down"]}
+          >
+            <AnimalCard />
+          </TinderCard>
 
-          <AnimalCard />
           {data.meUser.attributes == "new"
             ? router.push("/app/ado-first-login")
-            : alert("This is NOT your first login")}
+            : null}
           <Flex
             as={Button}
             w="12.5vw"
@@ -85,6 +112,7 @@ export const AppUserHome: React.FC<LayoutProps> = ({ children, variant }) => {
               bgColor: "blue.200",
             }}
             onClick={() => like()}
+            zIndex="10"
           >
             {liked ? (
               <IoCheckmark size="6rem" opacity={0.33} />
@@ -98,7 +126,7 @@ export const AppUserHome: React.FC<LayoutProps> = ({ children, variant }) => {
   } else {
     return (
       <>
-        <HashLoader></HashLoader>something went wrong
+        <HashLoader></HashLoader>
       </>
     );
   }

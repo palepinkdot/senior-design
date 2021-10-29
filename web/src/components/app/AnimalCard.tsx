@@ -22,6 +22,10 @@ export const AnimalCard: React.FC<WrapperProps> = ({}) => {
       flexDirection="column"
       w="80vw"
       height="80vh"
+      boxShadow="xl"
+      borderRadius="16px"
+      zIndex="1"
+      bgColor="white"
     >
       <HStack justify="space-around" w={"100%"}>
         <VStack alignItems="left">
