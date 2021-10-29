@@ -4,15 +4,25 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
+import { Org } from "./Org";
 @ObjectType()
 @Entity()
 export class Animal extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn("uuid")
   id!: string;
+
+  @Field()
+  @Column()
+  orgId!: string;
+
+  @Field(() => String)
+  @ManyToOne(() => Org, (org) => org.animals)
+  org!: Org;
 
   @Field()
   @Column()

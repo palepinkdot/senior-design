@@ -4,9 +4,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
+import { Animal } from "./Animal";
 @ObjectType()
 @Entity()
 export class Org extends BaseEntity {
@@ -48,6 +50,10 @@ export class Org extends BaseEntity {
   @Field()
   @Column({ default: "new" })
   attributes!: string;
+
+  @Field(() => String)
+  @OneToMany(() => Animal, (animal) => animal.org)
+  animals: Animal[];
 
   @Field(() => String)
   @CreateDateColumn()
