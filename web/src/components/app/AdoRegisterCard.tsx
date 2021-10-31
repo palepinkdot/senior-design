@@ -133,7 +133,7 @@ export default function AdoRegisterCard() {
                         align={"start"}
                         justify={"flex-end"}
                       >
-                        <NextLink href="/forgot-password">
+                        <NextLink href="/app/ado-first-login">
                           <Link color={"grey.400"}>already have one?</Link>
                         </NextLink>
                       </Stack>
