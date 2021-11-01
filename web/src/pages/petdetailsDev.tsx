@@ -24,20 +24,17 @@ import { withApollo } from "../utils/withApollo";
 
 interface WrapperProps { }
 
-export const PetDetailPage: React.FC<WrapperProps> = ({ }) => {
+export const PetDetailModal: React.FC<WrapperProps> = ({ }) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [size, setSize] = React.useState("full")
     return (
         <>
             <Button onClick={onOpen}>More Details</Button>
-
             <Modal isOpen={isOpen} onClose={onClose} size="xl-1">
                 <ModalContent>
                     <ModalHeader>More Details</ModalHeader>
-
                     <ModalCloseButton />
                     <ModalBody>
-
                         <Flex justify="space-around" bg="blue.100" borderRadius="20" w="100%" flexDirection="column">
                             <VStack p={6} alignItems="left" >
                                 <HStack  >
@@ -70,10 +67,7 @@ export const PetDetailPage: React.FC<WrapperProps> = ({ }) => {
                                         fee: $180
                                     </Text>
                                 </VStack>
-
                             </VStack>
-
-
 
                             <Flex justify="space-around" bg="white" borderRadius="20" w="100%" flexDirection="column">
                                 <VStack p={6} alignItems="left" >
@@ -118,18 +112,11 @@ export const PetDetailPage: React.FC<WrapperProps> = ({ }) => {
                                                 <Text fontSize="md"> 513-123-1234 </Text>
                                                 <Text fontSize="md"> sheltername@gmail.com </Text>
                                             </VStack>
-
                                         </HStack>
                                     </VStack>
                                 </VStack>
                             </Flex>
-
-
-
                         </Flex>
-
-
-
                     </ModalBody>
 
                     <ModalFooter>
@@ -169,8 +156,6 @@ export const PetDetailPage: React.FC<WrapperProps> = ({ }) => {
                 </ModalContent>
             </Modal>
         </>
-
-
     )
 }
-export default withApollo({ ssr: false })(PetDetailPage);
+export default withApollo({ ssr: false })(PetDetailModal);
