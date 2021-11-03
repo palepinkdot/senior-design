@@ -20,6 +20,7 @@
     "@types/apollo-upload-client": "^14.1.0",
     "apollo-upload-client": "^16.0.0",
     "chart.js": "^3.3.2",
+    "faker": "^5.5.3",
     "formik": "^2.2.9",
     "framer-motion": "^4",
     "graphql": "^15.5.0",
