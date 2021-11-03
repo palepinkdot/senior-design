@@ -4,6 +4,7 @@ import { HashLoader } from "react-spinners";
 import { useMeOrgQuery } from "../../generated/graphql";
 import { isServer } from "../../utils/isServer";
 import { useRouter } from "next/router";
+import OrgFirstLoginCard from "./OrgFirstLoginCard";
 
 export default function OrgDashboard() {
   const router = useRouter();
@@ -13,13 +14,13 @@ export default function OrgDashboard() {
 
   if (loading) {
     return <HashLoader />;
+  } else if (data && data.meOrg.attributes == "new") {
+    return <OrgFirstLoginCard />;
   } else if (data) {
     return (
       <Flex h="100vh" flexDir="row" overflow="hidden" maxW="2000px">
         {/* Column 1 */}
-        {data.meOrg.attributes == "new"
-          ? router.push("/app/org-first-login")
-          : alert("This is NOT your first login")}
+
         <Flex
           w="15%"
           flexDir="column"
