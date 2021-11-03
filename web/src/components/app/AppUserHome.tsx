@@ -1,5 +1,5 @@
 import { Box, Button, Flex, Grid } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import {
   IoCheckmark,
   IoChevronBack,
@@ -8,13 +8,11 @@ import {
 } from "react-icons/io5";
 import { useMeUserQuery } from "../../generated/graphql";
 import { isServer } from "../../utils/isServer";
-import { useIsUser } from "../../utils/useIsUser";
-import { Wrapper, WrapperVariant } from "../Wrapper";
+import { WrapperVariant } from "../Wrapper";
 import { AnimalCard } from "./AnimalCard";
 import { AppNavBar } from "./AppNavBar";
 
 import { HashLoader } from "react-spinners";
-import AdoFirstLoginCard from "./AdoFirstLoginCard";
 
 import { useRouter } from "next/router";
 
@@ -24,9 +22,30 @@ interface LayoutProps {
   variant?: WrapperVariant;
 }
 
-export const AppUserHome: React.FC<LayoutProps> = ({ children, variant }) => {
-  useIsUser();
+// const db = [
+//   {
+//     name: "Richard Hendricks",
+//     url: "./img/richard.jpg",
+//   },
+//   {
+//     name: "Erlich Bachman",
+//     url: "./img/erlich.jpg",
+//   },
+//   {
+//     name: "Monica Hall",
+//     url: "./img/monica.jpg",
+//   },
+//   {
+//     name: "Jared Dunn",
+//     url: "./img/jared.jpg",
+//   },
+//   {
+//     name: "Dinesh Chugtai",
+//     url: "./img/dinesh.jpg",
+//   },
+// ];
 
+export const AppUserHome: React.FC<LayoutProps> = ({ children, variant }) => {
   const router = useRouter();
   const [liked, setLiked] = useState(false);
   const [disliked, setDislike] = useState(false);
@@ -93,6 +112,7 @@ export const AppUserHome: React.FC<LayoutProps> = ({ children, variant }) => {
             )}
           </Flex>
           <TinderCard
+            flickOnSwipe={true}
             onSwipe={onSwipe}
             onCardLeftScreen={() => onCardLeftScreen("fooBar")}
             preventSwipe={["up", "down"]}
