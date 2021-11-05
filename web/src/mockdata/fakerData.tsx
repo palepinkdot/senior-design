@@ -5,34 +5,90 @@ var fs = require('fs');
 
 function generatePets() {
 
-    for (let id = 1; id <= 20; id++) {
+    for (let id = 1; id <= 10; id++) {
 
+        // initialize animal with random data
         let pets = [];
 
-        // initialize variables with random data
-        var petName = faker.random.firstname;
-        var petType = "dog";
+        var name = faker.random.firstname;
+        var type = "dog";
         var petPrice = faker.random.datatype.number({ min: "25", max: "300" });
-        var petImage = faker.random.image.animal();
-        var petBio = faker.random.words(15);
+        var imageURL = faker.random.image.animal();
+        var description = faker.random.words(15);
+        var breed = "german shephard";
+        var totalLikes = faker.random.datatype.number({ min: "0", max: "10" });
+        var createdAt = faker.random.date.past;
+        var updatedAt = faker.random.date.recent;
 
+        // push data to array
         pets.push({
-            "id": id,
-            "pet_name": petName,
-            "pet_type": petType,
+            "id": id.toString(),
+            "pet_name": name,
+            "pet_type": type,
             "pet_price": petPrice,
-            "pet_bio": petBio,
-            "pet_image": petImage
+            "pet_bio": description,
+            "pet_image": imageURL,
+            "pet_breed": breed,
+            "pet_totalLikes": totalLikes,
+            "pet_createdAt": createdAt,
+            "pet_updatedAt": updatedAt
         });
 
-        return {"PetData": pets}
+        return { "PetData": pets }
 
     }
 
+    // write data to JSON file
     let dataObj = generatePets();
 
     fs.writeFileSync('petData.json', JSON.stringify(dataObj, null, '\t'));
 
 }
 
+
+
+// @Field()
+//   @PrimaryGeneratedColumn("uuid")
+//   id!: string;
+
+//   @Field()
+//   @Column()
+//   orgId!: string;
+
+//   @Field(() => String)
+//   @ManyToOne(() => Org, (org) => org.animals)
+//   org!: Org;
+
+//   @Field()
+//   @Column()
+//   type!: string;
+
+//   @Field()
+//   @Column()
+//   name!: string;
+
+//   @Field()
+//   @Column()
+//   description!: string;
+
+//   @Field()
+//   @Column()
+//   imageURL!: string;
+
+//   @Field()
+//   @Column()
+//   breed!: string;
+
+//   @Field()
+//   @Column({ default: 0 })
+//   totalLikes!: number;
+
+//   @Field(() => String)
+//   @CreateDateColumn()
+//   createdAt: Date;
+
+//   @Field(() => String)
+//   @UpdateDateColumn()
+//   updatedAt: Date;
+// }
 
