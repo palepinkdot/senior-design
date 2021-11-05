@@ -13,7 +13,7 @@ function generatePets() {
         var petName = faker.random.firstname;
         var petType = "dog";
         var petPrice = faker.random.datatype.number({ min: "25", max: "300" });
-        //var petImage = faker.random.animal.image.cat;
+        var petImage = faker.random.image.animal();
         var petBio = faker.random.words(15);
 
         pets.push({
@@ -21,7 +21,8 @@ function generatePets() {
             "pet_name": petName,
             "pet_type": petType,
             "pet_price": petPrice,
-            "pet_bio": petBio
+            "pet_bio": petBio,
+            "pet_image": petImage
         });
 
         return {"PetData": pets}
