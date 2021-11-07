@@ -23,12 +23,15 @@ import {
 import { toErrorMap } from "../../utils/toErrorMap";
 import { InputField } from "../InputField";
 import { stringify } from "querystring";
+import { useIsUser } from "../../utils/useIsUser";
 
 export default function AdoFirstLoginCard() {
   const router = useRouter();
   const [updateUserInfo] = useUpdateUserInfoMutation();
 
   let formattedString;
+
+  useIsUser();
   return (
     <>
       <Formik
@@ -48,7 +51,7 @@ export default function AdoFirstLoginCard() {
             setErrors(toErrorMap(response.data.updateUserInfo.errors));
           } else if (response.data?.updateUserInfo) {
             // worked
-            router.push("/app/");
+            router.reload();
           }
         }}
       >
