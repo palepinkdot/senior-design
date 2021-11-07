@@ -84,6 +84,8 @@ export const AppUserHome: React.FC<LayoutProps> = ({ children, variant }) => {
 
   if (loading) {
     return <HashLoader />;
+  } else if (data && data.meUser.attributes == "new") {
+    return <AdoFirstLoginCard />;
   } else if (data) {
     return (
       <>
@@ -120,9 +122,9 @@ export const AppUserHome: React.FC<LayoutProps> = ({ children, variant }) => {
             <AnimalCard />
           </TinderCard>
 
-          {data.meUser.attributes == "new"
-            ? router.push("/app/ado-first-login")
-            : null}
+          <AnimalCard />
+
+
           <Flex
             as={Button}
             w="12.5vw"

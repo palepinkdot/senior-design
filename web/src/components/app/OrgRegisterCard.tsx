@@ -163,7 +163,7 @@ export default function OrgRegisterCard() {
                         align={"start"}
                         justify={"flex-end"}
                       >
-                        <NextLink href="/forgot-password">
+                        <NextLink href="/app/org-first-login">
                           <Link color={"grey.400"}>
                             already have an account?
                           </Link>
