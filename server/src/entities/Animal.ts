@@ -4,56 +4,49 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  OneToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
-import { Animal } from "./Animal";
+import { Org } from "./Org";
 @ObjectType()
 @Entity()
-export class Org extends BaseEntity {
+export class Animal extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn("uuid")
   id!: string;
 
   @Field()
-  @Column({ unique: true })
-  username!: string;
-
-  @Field()
   @Column()
-  orgName!: string;
-
-  @Field()
-  @Column()
-  address!: string;
-
-  @Field()
-  @Column()
-  contactFirstname!: string;
-
-  @Field()
-  @Column()
-  contactLastname!: string;
-
-  @Field()
-  @Column()
-  avatarUrl: string;
-
-  @Field()
-  @Column({ unique: true })
-  email!: string;
-
-  @Column()
-  password!: string;
-
-  @Field()
-  @Column({ default: "new" })
-  attributes!: string;
+  orgId!: string;
 
   @Field(() => String)
-  @OneToMany(() => Animal, (animal) => animal.org)
-  animals: Animal[];
+  @ManyToOne(() => Org, (org) => org.animals)
+  org!: Org;
+
+  @Field()
+  @Column()
+  type!: string;
+
+  @Field()
+  @Column()
+  name!: string;
+
+  @Field()
+  @Column()
+  description!: string;
+
+  @Field()
+  @Column()
+  imageURL!: string;
+
+  @Field()
+  @Column()
+  breed!: string;
+
+  @Field()
+  @Column({ default: 0 })
+  totalLikes!: number;
 
   @Field(() => String)
   @CreateDateColumn()
