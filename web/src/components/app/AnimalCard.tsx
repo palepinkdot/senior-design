@@ -1,13 +1,13 @@
 import React from "react";
 import {
-    Box,
-    Button,
-    Flex,
-    Heading,
-    Text,
-    Image,
-    VStack,
-    HStack,
+  Box,
+  Button,
+  Flex,
+  Heading,
+  Text,
+  Image,
+  VStack,
+  HStack,
 } from "@chakra-ui/react";
 import { PetDetailModal } from "./PetDetailModal";
 
@@ -77,7 +77,7 @@ export const AnimalCard: React.FC<AnimalDataProps> = ({ data }) => {
             transform: "scale(0.95)",
           }}
         >
-           <PetDetailModal />
+          <PetDetailModal pet={data} />
         </Box>
       </Box>
     );
