@@ -46,11 +46,6 @@ function generatePets() {
 }
 
 
-
-// @Field()
-//   @PrimaryGeneratedColumn("uuid")
-//   id!: string;
-
 //   @Field()
 //   @Column()
 //   orgId!: string;
@@ -58,37 +53,3 @@ function generatePets() {
 //   @Field(() => String)
 //   @ManyToOne(() => Org, (org) => org.animals)
 //   org!: Org;
-
-//   @Field()
-//   @Column()
-//   type!: string;
-
-//   @Field()
-//   @Column()
-//   name!: string;
-
-//   @Field()
-//   @Column()
-//   description!: string;
-
-//   @Field()
-//   @Column()
-//   imageURL!: string;
-
-//   @Field()
-//   @Column()
-//   breed!: string;
-
-//   @Field()
-//   @Column({ default: 0 })
-//   totalLikes!: number;
-
-//   @Field(() => String)
-//   @CreateDateColumn()
-//   createdAt: Date;
-
-//   @Field(() => String)
-//   @UpdateDateColumn()
-//   updatedAt: Date;
-// }
-
