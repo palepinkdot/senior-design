@@ -8,17 +8,10 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-import NextLink from "next/link";
 import { Formik, Form } from "formik";
 import { useRouter } from "next/router";
 import React from "react";
-import {
-  MeUserDocument,
-  MeUserQuery,
-  useRegisterUserMutation,
-  useUpdateOrgInfoMutation,
-} from "../../generated/graphql";
-import { toErrorMap } from "../../utils/toErrorMap";
+import { useUpdateOrgInfoMutation } from "../../generated/graphql";
 import { InputField } from "../InputField";
 import { toOrgErrorMap } from "../../utils/toOrgErrorMap";
 import { stringify } from "querystring";
@@ -46,7 +39,7 @@ export default function OrgFirstLoginCard() {
             setErrors(toOrgErrorMap(response.data.updateOrgInfo.errors));
           } else if (response.data?.updateOrgInfo) {
             // worked
-            router.push("/app/shelter");
+            router.reload();
           }
         }}
       >
