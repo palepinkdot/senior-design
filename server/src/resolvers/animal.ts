@@ -25,6 +25,8 @@ class AnimalInput {
   imageURL: string;
   @Field()
   breed: string;
+  @Field()
+  cost: number;
 }
 @ObjectType()
 class AnimalFieldError {

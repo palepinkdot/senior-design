@@ -22,6 +22,7 @@ import AdoFirstLoginCard from "./AdoFirstLoginCard";
 interface LayoutProps {
   variant?: WrapperVariant;
 }
+import { animals } from "../../mocks/fakerData";
 
 // const db = [
 //   {
@@ -114,17 +115,28 @@ export const AppUserHome: React.FC<LayoutProps> = ({ children, variant }) => {
               <IoChevronBack size="6rem" opacity={0.33} />
             )}
           </Flex>
-          <TinderCard
-            flickOnSwipe={true}
-            onSwipe={onSwipe}
-            onCardLeftScreen={() => onCardLeftScreen("fooBar")}
-            preventSwipe={["up", "down"]}
+          {/* width: 90vw; max-width: 260px; height: 300px; */}
+          <Box
+            justifyContent="center"
+            alignItems="center"
+            width="80vw"
+            overflow="hidden"
+            h="90vh"
           >
-            <AnimalCard />
-          </TinderCard>
-
-          <AnimalCard />
-
+            {animals.map((e) => {
+              return (
+                <TinderCard
+                  key={e.id}
+                  flickOnSwipe={true}
+                  onSwipe={onSwipe}
+                  onCardLeftScreen={() => onCardLeftScreen("fooBar")}
+                  preventSwipe={["up", "down"]}
+                >
+                  <AnimalCard data={e} />
+                </TinderCard>
+              );
+            })}
+          </Box>
           <Flex
             as={Button}
             w="12.5vw"
