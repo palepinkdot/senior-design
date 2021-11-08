@@ -45,6 +45,10 @@ export class Animal extends BaseEntity {
   breed!: string;
 
   @Field()
+  @Column()
+  cost!: number;
+
+  @Field()
   @Column({ default: 0 })
   totalLikes!: number;
 
