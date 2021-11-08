@@ -1,14 +1,15 @@
 import React from "react";
 import {
-  Box,
-  Button,
-  Flex,
-  Heading,
-  Text,
-  Image,
-  VStack,
-  HStack,
+    Box,
+    Button,
+    Flex,
+    Heading,
+    Text,
+    Image,
+    VStack,
+    HStack,
 } from "@chakra-ui/react";
+import { PetDetailModal } from "./PetDetailModal";
 
 interface AnimalDataProps {
   data;
@@ -76,16 +77,7 @@ export const AnimalCard: React.FC<AnimalDataProps> = ({ data }) => {
             transform: "scale(0.95)",
           }}
         >
-          <Text
-            as="i"
-            px="10"
-            color="white"
-            fontSize="1.2rem"
-            fontWeight="bold"
-            textTransform="uppercase"
-          >
-            More details
-          </Text>
+           <PetDetailModal />
         </Box>
       </Box>
     );
