@@ -17,6 +17,7 @@ import { HashLoader } from "react-spinners";
 import { useRouter } from "next/router";
 
 import TinderCard from "react-tinder-card";
+import AdoFirstLoginCard from "./AdoFirstLoginCard";
 
 interface LayoutProps {
   variant?: WrapperVariant;
@@ -123,7 +124,6 @@ export const AppUserHome: React.FC<LayoutProps> = ({ children, variant }) => {
           </TinderCard>
 
           <AnimalCard />
-
 
           <Flex
             as={Button}
