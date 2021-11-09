@@ -147,7 +147,6 @@ export const AppUserHome: React.FC<LayoutProps> = ({ children, variant }) => {
             }}
             onClick={() => like()}
             zIndex="10"
-            _hidden={[true, false]}
           >
             {liked ? (
               <IoCheckmark size="6rem" opacity={0.33} />
