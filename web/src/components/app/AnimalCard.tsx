@@ -61,24 +61,9 @@ export const AnimalCard: React.FC<AnimalDataProps> = ({ data }) => {
             borderRadius="20px"
           ></Box>
         </HStack>
-
-        <Box
-          as="a"
-          href="#"
-          p={4}
-          borderRadius="full"
-          transition="all 0.2s cubic-bezier(.08,.52,.52,1)"
-          bgColor="blue.400"
-          _hover={{
-            bgColor: "red.300",
-            transform: "scale(1.05)",
-          }}
-          _active={{
-            transform: "scale(0.95)",
-          }}
-        >
-          <PetDetailModal pet={data} />
-        </Box>
+        &nbsp;
+        <PetDetailModal pet={data} />
+        &nbsp;
       </Box>
     );
   }

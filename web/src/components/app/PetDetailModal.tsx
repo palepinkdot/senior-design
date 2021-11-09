@@ -33,6 +33,7 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet }) => {
     <>
       <Box
         onClick={onOpen}
+        as="a"
         p={4}
         borderRadius="full"
         transition="all 0.2s cubic-bezier(.08,.52,.52,1)"
