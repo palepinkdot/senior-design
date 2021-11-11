@@ -67,13 +67,6 @@ export default function OrgFirstLoginCard() {
                         label="What kind of animals do you have?"
                       />
                     </FormControl>
-                    <FormControl id="location">
-                      <InputField
-                        name="location"
-                        placeholder="Coordinates, PLEASE"
-                        label="Location"
-                      />
-                    </FormControl>
 
                     <FormControl id="age">
                       <InputField name="age" placeholder="Age" label="Age" />

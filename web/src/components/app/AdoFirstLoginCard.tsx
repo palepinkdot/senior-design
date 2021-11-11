@@ -42,6 +42,7 @@ export default function AdoFirstLoginCard() {
         }}
         onSubmit={async (values, { setErrors }) => {
           console.log(values);
+          values.location = "0";
           console.log(stringify(values));
           formattedString = stringify(values);
           const response = await updateUserInfo({
@@ -77,13 +78,6 @@ export default function AdoFirstLoginCard() {
                         name="animalPreference"
                         placeholder="cats, dogs, hamsters, aligators..."
                         label="Animal Preference"
-                      />
-                    </FormControl>
-                    <FormControl pl={1.5} id="location">
-                      <InputField
-                        name="location"
-                        placeholder="Coordinates, PLEASE"
-                        label="Location"
                       />
                     </FormControl>
 
