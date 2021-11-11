@@ -5,6 +5,7 @@ import { useMeOrgQuery } from "../../generated/graphql";
 import { isServer } from "../../utils/isServer";
 import { useRouter } from "next/router";
 import OrgFirstLoginCard from "./OrgFirstLoginCard";
+import { OrgNavBar } from "./OrgNavBar";
 
 export default function OrgDashboard() {
   const router = useRouter();
@@ -69,40 +70,7 @@ export default function OrgDashboard() {
                             "
                 }
               </style>
-              <Flex flexDir="column" align="flex-start" justifyContent="center">
-                <Flex className="sidebar-items">
-                  <Link>
-                    <Icon as={FiHome} fontSize="2xl" className="active-icon" />
-                  </Link>
-                  <Link _hover={{ textDecor: "none" }}>
-                    <Text className="active">Home</Text>
-                  </Link>
-                </Flex>
-                <Flex className="sidebar-items">
-                  <Link>
-                    <Icon as={FiHome} fontSize="2xl" />
-                  </Link>
-                  <Link _hover={{ textDecor: "none" }}>
-                    <Text>Post Animal</Text>
-                  </Link>
-                </Flex>
-                <Flex className="sidebar-items">
-                  <Link>
-                    <Icon as={FiHome} fontSize="2xl" />
-                  </Link>
-                  <Link _hover={{ textDecor: "none" }}>
-                    <Text>Applications</Text>
-                  </Link>
-                </Flex>
-                <Flex className="sidebar-items">
-                  <Link>
-                    <Icon as={FiHome} fontSize="2xl" />
-                  </Link>
-                  <Link _hover={{ textDecor: "none" }}>
-                    <Text>Settings</Text>
-                  </Link>
-                </Flex>
-              </Flex>
+              <OrgNavBar />
             </Flex>
           </Flex>
         </Flex>
