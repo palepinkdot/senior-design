@@ -48,10 +48,10 @@ import { Squash as Hamburger } from "hamburger-react";
 
 interface OrgNavBarProps {}
 
-const Links = ["Dashboard", "Post Animal", "Applications"];
+const Links = ["Dashboard", "Upload", "Applications"];
 
 const NavLink = ({ children }: { children: ReactNode }) => (
-  <NextLink href={`/${children.toString().toLowerCase()}`}>
+  <NextLink href={`/app/shelter/${children.toString().toLowerCase()}`}>
     <Link
       fontWeight="semibold"
       borderBottom="1px solid transparent"
@@ -161,18 +161,6 @@ export const OrgNavBar: React.FC<OrgNavBarProps> = ({}) => {
             size={20}
           />
           <Logo />
-        </HStack>
-
-        <HStack
-          as={"nav"}
-          spacing={4}
-          fontWeight="normal"
-          display={{ base: "none", md: "flex" }}
-          color="black"
-        >
-          {Links.map((link) => (
-            <NavLink key={link}>{link}</NavLink>
-          ))}
         </HStack>
       </Flex>
 
