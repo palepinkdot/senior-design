@@ -22,20 +22,6 @@ import { AnimalResolver } from "./resolvers/animal";
 
 const main = async () => {
   console.log("🐾 Starting Swipet API...");
-  console.log(
-    process.env.CORS_DOMAIN +
-      "\n" +
-      process.env.CORS_ORIGIN +
-      "\n" +
-      process.env.DATABASE_URL +
-      "\n" +
-      process.env.PORT +
-      "\n" +
-      process.env.REDIS_URL +
-      "\n" +
-      process.env.SESSION_SECRET +
-      "\n"
-  );
   const conn = await createConnection({
     type: "postgres",
     url: process.env.DATABASE_URL,
