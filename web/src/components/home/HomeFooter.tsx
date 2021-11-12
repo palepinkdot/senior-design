@@ -4,6 +4,7 @@ import {
   Container,
   Stack,
   SimpleGrid,
+  GridItem,
   Link,
   Text,
   useColorModeValue,
@@ -71,31 +72,37 @@ export default function SmallCentered() {
         justifyContent="space-evenly"
         alignItems="flex-start"
       >
-        <VStack align={"flex-start"}>
-          <ListHeader>Company</ListHeader>
-          <Link href={"#"}>About Us</Link>
-          <Link href={"#"}>Contact Us</Link>
-        </VStack>
-
-        <VStack align={"flex-start"}>
-          <ListHeader>Support</ListHeader>
-          <Link href={"#"}>Help Center</Link>
-          <Link href={"#"}>Safety Center</Link>
-          <Link href={"#"}>Community Guidelines</Link>
-        </VStack>
-
-        <VStack align={"flex-start"}>
-          <ListHeader>Legal</ListHeader>
-          <Link href={"/policy/cookies"}>Cookies Policy</Link>
-          <Link href={"/policy/privacy"}>Privacy Policy</Link>
-          <Link
-            as="a"
-            href={"https://swipet.s3.us-east-2.amazonaws.com/TOS.pdf"}
-            target="_blank"
-          >
-            Terms of Service
-          </Link>
-        </VStack>
+        <SimpleGrid columns={6} width="full">
+          <GridItem colSpan={2} px="5">
+            <VStack align={"flex-start"}>
+              <ListHeader>Company</ListHeader>
+              <Link href={"#"}>About Us</Link>
+              <Link href={"#"}>Contact Us</Link>
+            </VStack>
+          </GridItem>
+          <GridItem colSpan={2} px="5">
+            <VStack align={"flex-start"}>
+              <ListHeader>Support</ListHeader>
+              <Link href={"#"}>Help Center</Link>
+              <Link href={"#"}>Safety Center</Link>
+              <Link href={"#"}>Community Guidelines</Link>
+            </VStack>
+          </GridItem>
+          <GridItem colSpan={2} px="5">
+            <VStack align={"flex-start"}>
+              <ListHeader>Legal</ListHeader>
+              <Link href={"/policy/cookies"}>Cookies Policy</Link>
+              <Link href={"/policy/privacy"}>Privacy Policy</Link>
+              <Link
+                as="a"
+                href={"https://swipet.s3.us-east-2.amazonaws.com/TOS.pdf"}
+                target="_blank"
+              >
+                Terms of Service
+              </Link>
+            </VStack>
+          </GridItem>
+        </SimpleGrid>
       </Flex>
 
       <Box

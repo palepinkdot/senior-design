@@ -6,6 +6,10 @@ import { isServer } from "../../utils/isServer";
 import { useRouter } from "next/router";
 import ApplicationCard from "../dashboard/ApplicationCard";
 
+import OrgFirstLoginCard from "./OrgFirstLoginCard";
+import { OrgNavBar } from "./OrgNavBar";
+
+
 export default function OrgDashboard() {
   const router = useRouter();
   const { data, loading } = useMeOrgQuery({
@@ -14,13 +18,13 @@ export default function OrgDashboard() {
 
   if (loading) {
     return <HashLoader />;
+  } else if (data && data.meOrg.attributes == "new") {
+    return <OrgFirstLoginCard />;
   } else if (data) {
     return (
       <Flex h="100vh" flexDir="row" overflow="hidden" maxW="2000px">
         {/* Column 1 */}
-        {data.meOrg.attributes == "new"
-          ? router.push("/app/org-first-login")
-          : alert("This is NOT your first login")}
+
         <Flex
           w="15%"
           flexDir="column"
@@ -69,40 +73,7 @@ export default function OrgDashboard() {
                             "
                 }
               </style>
-              <Flex flexDir="column" align="flex-start" justifyContent="center">
-                <Flex className="sidebar-items">
-                  <Link>
-                    <Icon as={FiHome} fontSize="2xl" className="active-icon" />
-                  </Link>
-                  <Link _hover={{ textDecor: "none" }}>
-                    <Text className="active">Home</Text>
-                  </Link>
-                </Flex>
-                <Flex className="sidebar-items">
-                  <Link>
-                    <Icon as={FiHome} fontSize="2xl" />
-                  </Link>
-                  <Link _hover={{ textDecor: "none" }}>
-                    <Text>Post Animal</Text>
-                  </Link>
-                </Flex>
-                <Flex className="sidebar-items">
-                  <Link>
-                    <Icon as={FiHome} fontSize="2xl" />
-                  </Link>
-                  <Link _hover={{ textDecor: "none" }}>
-                    <Text>Applications</Text>
-                  </Link>
-                </Flex>
-                <Flex className="sidebar-items">
-                  <Link>
-                    <Icon as={FiHome} fontSize="2xl" />
-                  </Link>
-                  <Link _hover={{ textDecor: "none" }}>
-                    <Text>Settings</Text>
-                  </Link>
-                </Flex>
-              </Flex>
+              <OrgNavBar />
             </Flex>
           </Flex>
         </Flex>

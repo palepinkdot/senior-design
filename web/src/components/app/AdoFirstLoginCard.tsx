@@ -23,12 +23,15 @@ import {
 import { toErrorMap } from "../../utils/toErrorMap";
 import { InputField } from "../InputField";
 import { stringify } from "querystring";
+import { useIsUser } from "../../utils/useIsUser";
 
 export default function AdoFirstLoginCard() {
   const router = useRouter();
   const [updateUserInfo] = useUpdateUserInfoMutation();
 
   let formattedString;
+
+  useIsUser();
   return (
     <>
       <Formik
@@ -39,6 +42,7 @@ export default function AdoFirstLoginCard() {
         }}
         onSubmit={async (values, { setErrors }) => {
           console.log(values);
+          values.location = "0";
           console.log(stringify(values));
           formattedString = stringify(values);
           const response = await updateUserInfo({
@@ -48,7 +52,7 @@ export default function AdoFirstLoginCard() {
             setErrors(toErrorMap(response.data.updateUserInfo.errors));
           } else if (response.data?.updateUserInfo) {
             // worked
-            router.push("/app/");
+            router.reload();
           }
         }}
       >
@@ -74,13 +78,6 @@ export default function AdoFirstLoginCard() {
                         name="animalPreference"
                         placeholder="cats, dogs, hamsters, aligators..."
                         label="Animal Preference"
-                      />
-                    </FormControl>
-                    <FormControl pl={1.5} id="location">
-                      <InputField
-                        name="location"
-                        placeholder="Coordinates, PLEASE"
-                        label="Location"
                       />
                     </FormControl>
 
