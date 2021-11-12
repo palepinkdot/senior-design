@@ -23,30 +23,6 @@ interface LayoutProps {
   variant?: WrapperVariant;
 }
 import { animals } from "../../mocks/fakerData";
-
-// const db = [
-//   {
-//     name: "Richard Hendricks",
-//     url: "./img/richard.jpg",
-//   },
-//   {
-//     name: "Erlich Bachman",
-//     url: "./img/erlich.jpg",
-//   },
-//   {
-//     name: "Monica Hall",
-//     url: "./img/monica.jpg",
-//   },
-//   {
-//     name: "Jared Dunn",
-//     url: "./img/jared.jpg",
-//   },
-//   {
-//     name: "Dinesh Chugtai",
-//     url: "./img/dinesh.jpg",
-//   },
-// ];
-
 export const AppUserHome: React.FC<LayoutProps> = ({ children, variant }) => {
   const router = useRouter();
   const [liked, setLiked] = useState(false);
@@ -124,6 +100,7 @@ export const AppUserHome: React.FC<LayoutProps> = ({ children, variant }) => {
             h="90vh"
           >
             {animals.map((e) => {
+              console.log(e);
               return (
                 <TinderCard
                   key={e.id}
