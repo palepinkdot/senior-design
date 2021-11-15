@@ -16,6 +16,7 @@ import ApplicationCard from "../dashboard/ApplicationCard";
 
 import OrgFirstLoginCard from "./OrgFirstLoginCard";
 import { OrgNavBar } from "./OrgNavBar";
+import TableAnimals from "../dashboard/TableAnimals";
 
 export default function OrgDashboard() {
   const router = useRouter();
@@ -33,7 +34,7 @@ export default function OrgDashboard() {
         <OrgNavBar />
 
         {/* Column 2 */}
-        <Flex w="55%" p="3%" flexDir="column" overflow="auto" minH="100vh">
+        <Flex w="55%" p="3%" flexDir="column" overflow="hidden" minH="100vh">
           <Heading fontWeight="bold" display={"inline-flex"}>
             {data.meOrg.orgName}
           </Heading>
@@ -50,8 +51,9 @@ export default function OrgDashboard() {
             minH={"20vh"}
             mt={4}
             display={"inline-flex"}
+            overflow={"hidden"}
           >
-            <Flex flexDir={"row"} overflow={"auto"} display={"column"} flex={3}>
+            <Flex flexDir={"row"} overflow={"hidden"} display={"column"} flex={3}>
               <Text fontWeight={"normal"} mb={4} fontSize={"12"}>
                 Total Applications
               </Text>
@@ -88,7 +90,7 @@ export default function OrgDashboard() {
               </Heading>
             </Flex>
           </Flex>
-          <Tabs size="md" variant="enclosed">
+          <Tabs variant="soft-rounded" colorScheme="red">
             <TabList>
               <Tab>
                 Application
@@ -118,7 +120,7 @@ export default function OrgDashboard() {
                 </Stack>
               </TabPanel>
               <TabPanel>
-                <p>two</p>
+                <TableAnimals />
               </TabPanel>
             </TabPanels>
           </Tabs>
@@ -148,7 +150,7 @@ export default function OrgDashboard() {
           bgColor="#F5F5F5"
           p="3%"
           flexDir="column"
-          overflow="auto"
+          overflow="hidden"
         ></Flex>
       </>
     );
