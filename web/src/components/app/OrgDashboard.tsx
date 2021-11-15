@@ -5,7 +5,7 @@ import {
   Icon,
   Text,
   HStack,
-  Stack,
+  Stack, Tabs, TabList, Tab, TabPanels, TabPanel,
 } from "@chakra-ui/react";
 import { FiHome } from "react-icons/fi";
 import { HashLoader } from "react-spinners";
@@ -88,10 +88,40 @@ export default function OrgDashboard() {
               </Heading>
             </Flex>
           </Flex>
-          <HStack w={"100%"} h={"100%"} display={"inline-flex"} mt={6}>
-            <Text fontWeight={"bold"}>Applications</Text>
-            <Text fontWeight={"lighter"}>Animals</Text>
-          </HStack>
+          <Tabs size="md" variant="enclosed">
+            <TabList>
+              <Tab>
+                Application
+              </Tab>
+              <Tab>
+                Animals
+              </Tab>
+            </TabList>
+            <TabPanels>
+              <TabPanel>
+                <Stack
+                    w={"100%"}
+                    h={"100%"}
+                    display={"inline-flex"}
+                    overflow={"auto"}
+                >
+                  <HStack>
+                    <ApplicationCard />
+                    <ApplicationCard />
+                    <ApplicationCard />
+                  </HStack>
+                  <HStack>
+                    <ApplicationCard />
+                    <ApplicationCard />
+                    <ApplicationCard />
+                  </HStack>
+                </Stack>
+              </TabPanel>
+              <TabPanel>
+                <p>two</p>
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
           <Flex w={"100%"} h={"100%"} display={"inline-flex"} overflow={"auto"}>
             <Stack
               w={"100%"}
