@@ -5,7 +5,7 @@ import {
   Icon,
   Text,
   HStack,
-  Stack,
+  Stack, Tabs, TabList, Tab, TabPanels, TabPanel,
 } from "@chakra-ui/react";
 import { FiHome } from "react-icons/fi";
 import { HashLoader } from "react-spinners";
@@ -16,6 +16,7 @@ import ApplicationCard from "../dashboard/ApplicationCard";
 
 import OrgFirstLoginCard from "./OrgFirstLoginCard";
 import { OrgNavBar } from "./OrgNavBar";
+import TableAnimals from "../dashboard/TableAnimals";
 
 export default function OrgDashboard() {
   const router = useRouter();
@@ -33,7 +34,7 @@ export default function OrgDashboard() {
         <OrgNavBar />
 
         {/* Column 2 */}
-        <Flex w="55%" p="3%" flexDir="column" overflow="auto" minH="100vh">
+        <Flex w="55%" p="3%" flexDir="column" overflow="hidden" minH="100vh">
           <Heading fontWeight="bold" display={"inline-flex"}>
             {data.meOrg.orgName}
           </Heading>
@@ -50,8 +51,9 @@ export default function OrgDashboard() {
             minH={"20vh"}
             mt={4}
             display={"inline-flex"}
+            overflow={"hidden"}
           >
-            <Flex flexDir={"row"} overflow={"auto"} display={"column"} flex={3}>
+            <Flex flexDir={"row"} overflow={"hidden"} display={"column"} flex={3}>
               <Text fontWeight={"normal"} mb={4} fontSize={"12"}>
                 Total Applications
               </Text>
@@ -88,10 +90,40 @@ export default function OrgDashboard() {
               </Heading>
             </Flex>
           </Flex>
-          <HStack w={"100%"} h={"100%"} display={"inline-flex"} mt={6}>
-            <Text fontWeight={"bold"}>Applications</Text>
-            <Text fontWeight={"lighter"}>Animals</Text>
-          </HStack>
+          <Tabs variant="soft-rounded" colorScheme="red">
+            <TabList>
+              <Tab>
+                Application
+              </Tab>
+              <Tab>
+                Animals
+              </Tab>
+            </TabList>
+            <TabPanels>
+              <TabPanel>
+                <Stack
+                    w={"100%"}
+                    h={"100%"}
+                    display={"inline-flex"}
+                    overflow={"auto"}
+                >
+                  <HStack>
+                    <ApplicationCard />
+                    <ApplicationCard />
+                    <ApplicationCard />
+                  </HStack>
+                  <HStack>
+                    <ApplicationCard />
+                    <ApplicationCard />
+                    <ApplicationCard />
+                  </HStack>
+                </Stack>
+              </TabPanel>
+              <TabPanel>
+                <TableAnimals />
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
           <Flex w={"100%"} h={"100%"} display={"inline-flex"} overflow={"auto"}>
             <Stack
               w={"100%"}
@@ -118,7 +150,7 @@ export default function OrgDashboard() {
           bgColor="#F5F5F5"
           p="3%"
           flexDir="column"
-          overflow="auto"
+          overflow="hidden"
         ></Flex>
       </>
     );
