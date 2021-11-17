@@ -22,65 +22,49 @@ import {
 import { withApollo } from "../utils/withApollo";
 import HomeFooter from "../components/home/HomeFooter";
 
+import Carousel from "../components/carousel/Carousel";
+import SlideOne from '../components/carousel/SlideOne';
+import SlideTwo from '../components/carousel/SlideTwo';
+import SlideThree from '../components/carousel/SlideThree';
+
 const AnimalUploadPage: React.FC<{}> = ({}) => {
   return (
     
     <Container maxWidth="container.3xl" padding={0}>
       <Flex h="100vh" w="100hh">        
-        <VStack w="full" h="full" p={10} spacing={10} alignItems="flex-start" bg="blue.300">
-          <Heading size="1xl">Dashboard / <b>Post Animal</b></Heading>
-          <SimpleGrid columns={6} width="full" py="25">
-            <GridItem colSpan={2} px="5">
-              <VStack>
-                <ChevronUpIcon w={10} h={10} color="black"/>
-              </VStack>
-              <VStack>
-                <MinusIcon w={5} h={5} color="black"/>
-              </VStack>
-              <VStack>
-                <MinusIcon w={5} h={5} color="black"/>
-              </VStack>
-              <VStack>
-                <MinusIcon w={5} h={5} color="black"/>
-              </VStack>
-              <VStack>
-                <MinusIcon w={5} h={5} color="black"/>
-              </VStack>
-              <VStack>
-                <ChevronDownIcon w={10} h={10} color="black"/>
-              </VStack>
+        <VStack w="full" h="full" p={10} spacing={10} alignItems="center" bg="blue.300">
+          <Heading size="1xl" alignSelf="flex-start">Dashboard / <b>Post Animal</b></Heading>
+          <SimpleGrid columns={3} width="full" marginLeft="5" paddingBottom="5">
+            <GridItem colSpan={3} px="5">
+              <Carousel>
+                <SlideOne />
+                <SlideTwo />
+                <SlideThree />
+              </Carousel>
             </GridItem>
-            <GridItem colSpan={4} px="50" paddingLeft="110" verticalAlign="center" py="50">
-              <AddIcon w={70} h={70} color="#707070"/>
-            </GridItem>
-            <GridItem colSpan={1}>
-            </GridItem>
-            <GridItem colSpan={4} px="100">
-              <Box
-                
-                href="/app/get-started"
-                p={4}
-                borderRadius="full" 
-                textAlign="center"                
-                bgColor="#FFFFFF"                
-                _active={{
-                  transform: "scale(0.95)",
-                }}
-              >
-                <Text                  
-                  px="20"
-                  color="#000000"
-                  fontSize="1.2rem"
-                  fontWeight="bold"
-                  textTransform="uppercase"
-                >
-                  Add Images
-                </Text>
-              </Box>
-            </GridItem>   
-            <GridItem colSpan={1}>
-            </GridItem>      
           </SimpleGrid>
+          <div>
+            <Box
+              href="/app/get-started"
+              p={4}
+              borderRadius="full" 
+              textAlign="center"                
+              bgColor="#FFFFFF"                
+              _active={{
+                transform: "scale(0.95)",
+              }}
+            >
+              <Text                  
+                px="10"
+                color="#000000"
+                fontSize="1.2rem"
+                fontWeight="bold"
+                textTransform="uppercase"
+              >
+                Add Images
+              </Text>
+            </Box>
+          </div>
         </VStack>
         <VStack w="full" h="full" p={10} spacing={10} alignItems="flex-start">
           <Heading size="1xl">
