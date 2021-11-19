@@ -35,6 +35,7 @@
     "react-icons": "^4.2.0",
     "react-is": "^17.0.2",
     "react-spinners": "^0.11.0",
+    "styled-components": "^5.3.3",
     "react-tinder-card": "^1.4.5",
     "uuidv4": "^6.2.12"
   },
