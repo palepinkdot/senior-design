@@ -1,0 +1,5 @@
+mutation LoginOrg($usernameOrEmail: String!, $password: String!) {
+  loginOrg(usernameOrEmail: $usernameOrEmail, password: $password) {
+    ...RegularOrgResponse
+  }
+}

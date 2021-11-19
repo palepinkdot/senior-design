@@ -14,6 +14,31 @@ export type Scalars = {
   Float: number;
 };
 
+export type Animal = {
+  __typename?: 'Animal';
+  breed: Scalars['String'];
+  cost: Scalars['Float'];
+  createdAt: Scalars['String'];
+  description: Scalars['String'];
+  id: Scalars['String'];
+  imageURL: Scalars['String'];
+  name: Scalars['String'];
+  org: Scalars['String'];
+  orgId: Scalars['String'];
+  totalLikes: Scalars['Float'];
+  type: Scalars['String'];
+  updatedAt: Scalars['String'];
+};
+
+export type AnimalInput = {
+  breed: Scalars['String'];
+  cost: Scalars['Float'];
+  description: Scalars['String'];
+  imageURL: Scalars['String'];
+  name: Scalars['String'];
+  type: Scalars['String'];
+};
+
 export type FieldError = {
   __typename?: 'FieldError';
   field: Scalars['String'];
@@ -24,9 +49,10 @@ export type Mutation = {
   __typename?: 'Mutation';
   changeOrgPassword: OrgResponse;
   changeUserPassword: UserResponse;
+  createPost: Animal;
   forgotOrgPassword: Scalars['Boolean'];
   forgotUserPassword: Scalars['Boolean'];
-  login: OrgResponse;
+  loginOrg: OrgResponse;
   loginUser: UserResponse;
   logout: Scalars['Boolean'];
   registerOrg: OrgResponse;
@@ -48,6 +74,11 @@ export type MutationChangeUserPasswordArgs = {
 };
 
 
+export type MutationCreatePostArgs = {
+  input: AnimalInput;
+};
+
+
 export type MutationForgotOrgPasswordArgs = {
   email: Scalars['String'];
 };
@@ -58,7 +89,7 @@ export type MutationForgotUserPasswordArgs = {
 };
 
 
-export type MutationLoginArgs = {
+export type MutationLoginOrgArgs = {
   password: Scalars['String'];
   usernameOrEmail: Scalars['String'];
 };
@@ -92,6 +123,7 @@ export type MutationUpdateUserInfoArgs = {
 export type Org = {
   __typename?: 'Org';
   address: Scalars['String'];
+  animals: Scalars['String'];
   attributes: Scalars['String'];
   avatarUrl: Scalars['String'];
   contactFirstname: Scalars['String'];
@@ -130,6 +162,7 @@ export type OrgUsernamePasswordInput = {
 export type Query = {
   __typename?: 'Query';
   hello: Scalars['String'];
+  helloAnimal: Scalars['String'];
   meOrg?: Maybe<Org>;
   meUser?: Maybe<User>;
 };
@@ -203,6 +236,14 @@ export type ForgotUserPasswordMutationVariables = Exact<{
 
 
 export type ForgotUserPasswordMutation = { __typename?: 'Mutation', forgotUserPassword: boolean };
+
+export type LoginOrgMutationVariables = Exact<{
+  usernameOrEmail: Scalars['String'];
+  password: Scalars['String'];
+}>;
+
+
+export type LoginOrgMutation = { __typename?: 'Mutation', loginOrg: { __typename?: 'OrgResponse', errors?: Array<{ __typename?: 'OrgFieldError', field: string, message: string }> | null | undefined, org?: { __typename?: 'Org', id: string, username: string, contactFirstname: string, contactLastname: string, orgName: string, address: string, avatarUrl: string, email: string, attributes: string } | null | undefined } };
 
 export type LoginUserMutationVariables = Exact<{
   usernameOrEmail: Scalars['String'];
@@ -443,6 +484,40 @@ export function useForgotUserPasswordMutation(baseOptions?: Apollo.MutationHookO
 export type ForgotUserPasswordMutationHookResult = ReturnType<typeof useForgotUserPasswordMutation>;
 export type ForgotUserPasswordMutationResult = Apollo.MutationResult<ForgotUserPasswordMutation>;
 export type ForgotUserPasswordMutationOptions = Apollo.BaseMutationOptions<ForgotUserPasswordMutation, ForgotUserPasswordMutationVariables>;
+export const LoginOrgDocument = gql`
+    mutation LoginOrg($usernameOrEmail: String!, $password: String!) {
+  loginOrg(usernameOrEmail: $usernameOrEmail, password: $password) {
+    ...RegularOrgResponse
+  }
+}
+    ${RegularOrgResponseFragmentDoc}`;
+export type LoginOrgMutationFn = Apollo.MutationFunction<LoginOrgMutation, LoginOrgMutationVariables>;
+
+/**
+ * __useLoginOrgMutation__
+ *
+ * To run a mutation, you first call `useLoginOrgMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLoginOrgMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [loginOrgMutation, { data, loading, error }] = useLoginOrgMutation({
+ *   variables: {
+ *      usernameOrEmail: // value for 'usernameOrEmail'
+ *      password: // value for 'password'
+ *   },
+ * });
+ */
+export function useLoginOrgMutation(baseOptions?: Apollo.MutationHookOptions<LoginOrgMutation, LoginOrgMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<LoginOrgMutation, LoginOrgMutationVariables>(LoginOrgDocument, options);
+      }
+export type LoginOrgMutationHookResult = ReturnType<typeof useLoginOrgMutation>;
+export type LoginOrgMutationResult = Apollo.MutationResult<LoginOrgMutation>;
+export type LoginOrgMutationOptions = Apollo.BaseMutationOptions<LoginOrgMutation, LoginOrgMutationVariables>;
 export const LoginUserDocument = gql`
     mutation LoginUser($usernameOrEmail: String!, $password: String!) {
   loginUser(usernameOrEmail: $usernameOrEmail, password: $password) {

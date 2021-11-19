@@ -1,6 +1,6 @@
 import React from "react";
-import OrgRegisterCard from "../../components/app/OrgRegisterCard";
-import { withApollo } from "../../utils/withApollo";
+import OrgRegisterCard from "../../../components/app/OrgRegisterCard";
+import { withApollo } from "../../../utils/withApollo";
 
 const AppRegisterOrg: React.FC<{}> = ({}) => {
   return <OrgRegisterCard />;

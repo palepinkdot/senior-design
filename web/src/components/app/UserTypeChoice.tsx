@@ -22,7 +22,7 @@ export const UserTypeChoice: React.FC<LayoutProps> = ({}) => {
           <StackItem>
             <Box
               as="a"
-              href="/app/register-ado"
+              href="/app/ado/register"
               p={4}
               borderRadius="full"
               transition="all 0.2s cubic-bezier(.08,.52,.52,1)"
@@ -51,7 +51,7 @@ export const UserTypeChoice: React.FC<LayoutProps> = ({}) => {
           <StackItem>
             <Box
               as="a"
-              href="/app/register-org"
+              href="/app/org/register"
               p={4}
               borderRadius="full"
               transition="all 0.2s cubic-bezier(.08,.52,.52,1)"

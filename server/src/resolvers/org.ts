@@ -234,7 +234,7 @@ export class OrgResolver {
   }
 
   @Mutation(() => OrgResponse)
-  async login(
+  async loginOrg(
     @Arg("usernameOrEmail") usernameOrEmail: string,
     @Arg("password") password: string,
     @Ctx() { req }: MyContext
