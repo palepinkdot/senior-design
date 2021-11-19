@@ -20,6 +20,7 @@
     "@types/apollo-upload-client": "^14.1.0",
     "apollo-upload-client": "^16.0.0",
     "chart.js": "^3.3.2",
+    "faker": "^5.5.3",
     "formik": "^2.2.9",
     "framer-motion": "^4",
     "graphql": "^15.5.0",
@@ -34,7 +35,9 @@
     "react-icons": "^4.2.0",
     "react-is": "^17.0.2",
     "react-spinners": "^0.11.0",
-    "styled-components": "^5.3.3"
+    "styled-components": "^5.3.3",
+    "react-tinder-card": "^1.4.5",
+    "uuidv4": "^6.2.12"
   },
   "license": "MIT",
   "devDependencies": {
@@ -46,6 +49,7 @@
     "@graphql-codegen/typescript-graphql-files-modules": "2.1.0",
     "@graphql-codegen/typescript-operations": "2.1.7",
     "@graphql-codegen/typescript-react-apollo": "3.1.5",
+    "@types/faker": "^5.5.9",
     "@types/jest": "^27.0.2",
     "@types/node": "^15.12.2",
     "@types/react-dropzone": "^5.1.0",
