@@ -38,7 +38,7 @@ import {
     Input,
     InputGroup,
     InputLeftElement,
-    Textarea,
+    Textarea, SimpleGrid, useColorModeValue, StackDivider,
 } from '@chakra-ui/react';
 import {
     MdPhone,
@@ -47,16 +47,19 @@ import {
     MdFacebook,
     MdOutlineEmail,
 } from 'react-icons/md';
-import { BsGithub, BsDiscord, BsPerson } from 'react-icons/bs';
+import {BsGithub, BsDiscord, BsPerson, BsInstagram} from 'react-icons/bs';
 import {Stack} from "@chakra-ui/core";
 import {FeatureProps} from "framer-motion/dist/framer-motion";
 
+function PhoneCall(){
+    window.open('tel:15135555555');
+}
 export default function ContactPage() {
     return (
-        <Container bg="#9DC4FB" maxW="full" mt={0} centerContent overflow="hidden">
+        <Container bg="#FFFFFF" maxW="full" mt={0} centerContent overflow="hidden">
             <Flex>
                 <Box
-                    bg="#02054B"
+                    bg="#80B5F4"
                     color="white"
                     borderRadius="lg"
                     m={{ sm: 4, md: 16, lg: 10 }}
@@ -66,7 +69,7 @@ export default function ContactPage() {
                             <WrapItem>
                                 <Box>
                                     <Heading>Contact</Heading>
-                                    <Text mt={{ sm: 3, md: 3, lg: 5 }} color="gray.500">
+                                    <Text mt={{ sm: 3, md: 3, lg: 5 }} color="#000000" fontWeight={"bold"}>
                                         Fill up the form below to contact
                                     </Text>
                                     <Box py={{ base: 5, sm: 5, md: 8, lg: 10 }}>
@@ -78,28 +81,34 @@ export default function ContactPage() {
                                                 variant="ghost"
                                                 color="#DCE2FF"
                                                 _hover={{ border: '2px solid #1C6FEB' }}
-                                                leftIcon={<MdPhone color="#1970F1" size="20px" />}>
-                                                +1(555) 555-5555
+                                                leftIcon={<MdPhone color="#1970F1" size="20px" />}
+                                                onClick={PhoneCall}>
+                                                +1(513) 555-5555
                                             </Button>
                                             <Button
+                                                as={"a"}
                                                 size="md"
                                                 height="48px"
                                                 width="200px"
                                                 variant="ghost"
                                                 color="#DCE2FF"
                                                 _hover={{ border: '2px solid #1C6FEB' }}
-                                                leftIcon={<MdEmail color="#1970F1" size="20px" />}>
-                                                hello@abc.com
+                                                leftIcon={<MdEmail color="#1970F1" size="20px" />}
+                                                href={"mailto:support@swipet.dev"}>
+                                                support@swipet.dev
                                             </Button>
                                             <Button
+                                                as={"a"}
                                                 size="md"
                                                 height="48px"
                                                 width="200px"
                                                 variant="ghost"
                                                 color="#DCE2FF"
-                                                _hover={{ border: '2px solid #1C6FEB' }}
-                                                leftIcon={<MdLocationOn color="#1970F1" size="20px" />}>
-                                                Karnavati, India
+                                                _hover={{ border: '2px solid #FC8181' }}
+                                                leftIcon={<MdLocationOn color="#FC8181" size="20px" />}
+                                                href={"https://goo.gl/maps/DXD53fwbU7aDzku97"}
+                                                target={"_blank"}>
+                                                Cincinnati, Ohio
                                             </Button>
                                         </VStack>
                                     </Box>
@@ -113,31 +122,37 @@ export default function ContactPage() {
                                             variant="ghost"
                                             size="lg"
                                             isRound={true}
-                                            _hover={{ bg: '#0D74FF' }}
+                                            _hover={{ bg: '#EBD9D9' }}
                                             icon={<MdFacebook size="28px" />}
                                         />
                                         <IconButton
+                                            as={"a"}
                                             aria-label="github"
                                             variant="ghost"
                                             size="lg"
                                             isRound={true}
-                                            _hover={{ bg: '#0D74FF' }}
+                                            _hover={{ bg: '#EBD9D9' }}
                                             icon={<BsGithub size="28px" />}
+                                            href={"https://github.com/palepinkdot/senior-design"}
+                                            target={"_blank"}
                                         />
                                         <IconButton
-                                            aria-label="discord"
+                                            as={"a"}
+                                            aria-label="instagram"
                                             variant="ghost"
                                             size="lg"
                                             isRound={true}
-                                            _hover={{ bg: '#0D74FF' }}
-                                            icon={<BsDiscord size="28px" />}
+                                            _hover={{ bg: '#0D74FF' }} // TODO: Make sure to ask what colors for these hovers
+                                            icon={<BsInstagram size="28px" />}
+                                            href={"https://github.com/palepinkdot/senior-design"}
+                                            target={"_blank"}
                                         />
                                     </HStack>
                                 </Box>
                             </WrapItem>
                             <WrapItem>
                                 <Box bg="white" borderRadius="lg">
-                                    <Box m={8} color="#0B0E3F">
+                                    <Box m={8} color="red.300" fontWeight={"bold"}>
                                         <VStack spacing={5}>
                                             <FormControl id="name">
                                                 <FormLabel>Your Name</FormLabel>
@@ -150,7 +165,7 @@ export default function ContactPage() {
                                                 </InputGroup>
                                             </FormControl>
                                             <FormControl id="name">
-                                                <FormLabel>Mail</FormLabel>
+                                                <FormLabel>E-Mail</FormLabel>
                                                 <InputGroup borderColor="#E0E1E7">
                                                     <InputLeftElement
                                                         pointerEvents="none"
@@ -186,88 +201,6 @@ export default function ContactPage() {
                     </Box>
                 </Box>
             </Flex>
-        </Container>
-    );
-}
-
-
-const Feature = ({ text, icon, iconBg }: FeatureProps) => {
-    return (
-        <Stack direction={'row'} align={'center'}>
-            <Flex
-                w={8}
-                h={8}
-                align={'center'}
-                justify={'center'}
-                rounded={'full'}
-                bg={iconBg}>
-                {icon}
-            </Flex>
-            <Text fontWeight={600}>{text}</Text>
-        </Stack>
-    );
-};
-
-export default function SplitWithImage() {
-    return (
-        <Container maxW={'5xl'} py={12}>
-            <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
-                <Stack spacing={4}>
-                    <Text
-                        textTransform={'uppercase'}
-                        color={'blue.400'}
-                        fontWeight={600}
-                        fontSize={'sm'}
-                        bg={useColorModeValue('blue.50', 'blue.900')}
-                        p={2}
-                        alignSelf={'flex-start'}
-                        rounded={'md'}>
-                        Our Story
-                    </Text>
-                    <Heading>A digital Product design agency</Heading>
-                    <Text color={'gray.500'} fontSize={'lg'}>
-                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-                        nonumy eirmod tempor invidunt ut labore
-                    </Text>
-                    <Stack
-                        spacing={4}
-                        divider={
-                            <StackDivider
-                                borderColor={useColorModeValue('gray.100', 'gray.700')}
-                            />
-                        }>
-                        <Feature
-                            icon={
-                                <Icon as={IoAnalyticsSharp} color={'yellow.500'} w={5} h={5} />
-                            }
-                            iconBg={useColorModeValue('yellow.100', 'yellow.900')}
-                            text={'Business Planning'}
-                        />
-                        <Feature
-                            icon={<Icon as={IoLogoBitcoin} color={'green.500'} w={5} h={5} />}
-                            iconBg={useColorModeValue('green.100', 'green.900')}
-                            text={'Financial Planning'}
-                        />
-                        <Feature
-                            icon={
-                                <Icon as={IoSearchSharp} color={'purple.500'} w={5} h={5} />
-                            }
-                            iconBg={useColorModeValue('purple.100', 'purple.900')}
-                            text={'Market Analysis'}
-                        />
-                    </Stack>
-                </Stack>
-                <Flex>
-                    <Image
-                        rounded={'md'}
-                        alt={'feature image'}
-                        src={
-                            'https://images.unsplash.com/photo-1554200876-56c2f25224fa?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'
-                        }
-                        objectFit={'cover'}
-                    />
-                </Flex>
-            </SimpleGrid>
         </Container>
     );
 }
