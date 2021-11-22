@@ -1,11 +1,12 @@
 import React from "react";
 import { Layout } from "../components/Layout";
 import { withApollo } from "../utils/withApollo";
+import ContactPage from "../components/app/ContactPage";
 
 const Contact: React.FC<{}> = ({ }) => {
   return (
     <Layout>
-      <h1>Contact works.</h1>
+      <ContactPage />
     </Layout>
 
   );
