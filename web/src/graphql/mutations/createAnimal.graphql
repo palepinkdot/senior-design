@@ -1,0 +1,5 @@
+mutation CreateAnimal($options: CreateAnimalInput!) {
+  createAnimal(options: $options) {
+    ...RegularAnimalResponse
+  }
+}

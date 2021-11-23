@@ -12,6 +12,9 @@ import {
 } from "type-graphql";
 import { isAuth } from "../middleware/isAuth";
 import { MyContext } from "src/types";
+import { CreateAnimalInput } from "./CreateAnimalInput";
+import { getConnection } from "typeorm";
+import { Org } from "src/entities/Org";
 
 @InputType()
 class AnimalInput {
@@ -61,5 +64,44 @@ export class AnimalResolver {
       ...input,
       orgId: req.session.userId,
     }).save();
+  }
+  @Mutation(() => AnimalResponse)
+  async createAnimal(
+    @Arg("options") options: CreateAnimalInput,
+    @Ctx() { req }: MyContext
+  ): Promise<AnimalResponse> {
+    let animal;
+    try {
+      const newUserAvatar = "placeholder";
+      const result = await getConnection()
+        .createQueryBuilder()
+        .insert()
+        .into(Animal)
+        .values({
+          name: options.name,
+          orgId: req.session.orgId,
+          type: options.breed,
+          description: options.description,
+          imageURL: options.imageURL,
+          breed: options.breed,
+          cost: options.cost,
+        })
+        .returning("*")
+        .execute();
+      animal = result.raw[0];
+    } catch (err) {
+      if (err.code === "22007") {
+        return {
+          errors: [
+            {
+              field: "startDate",
+              message: "one of your dates is not valid",
+            },
+          ],
+        };
+      }
+    }
+
+    return { animal: animal };
   }
 }

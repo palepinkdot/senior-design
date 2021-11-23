@@ -1,0 +1,8 @@
+fragment RegularAnimalResponse on AnimalResponse {
+  errors {
+    ...AnimalError
+  }
+  animal {
+    ...RegularAnimal
+  }
+}

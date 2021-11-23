@@ -1,0 +1,4 @@
+fragment AnimalError on AnimalFieldError {
+  field
+  message
+}

@@ -1,0 +1,13 @@
+fragment RegularAnimal on Animal {
+  id
+  orgId
+  type
+  name
+  description
+  imageURL
+  breed
+  cost
+  totalLikes
+  createdAt
+  updatedAt
+}
