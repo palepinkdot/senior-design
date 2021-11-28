@@ -13,7 +13,7 @@ import {
 import NextLink from "next/link";
 import { Formik, Form } from "formik";
 import { useRouter } from "next/router";
-import React from "react";
+import React, {useState} from "react";
 import {
   MeOrgDocument,
   MeOrgQuery,
@@ -22,10 +22,13 @@ import {
 import { toErrorMap } from "../../utils/toErrorMap";
 import { InputField } from "../InputField";
 import { toOrgErrorMap } from "../../utils/toOrgErrorMap";
+import ReCAPTCHA from "react-google-recaptcha";
 
 export default function OrgRegisterCard() {
   const router = useRouter();
   const [register] = useRegisterOrgMutation();
+  const [isVerified, setIsVerified] = useState(false);
+
   return (
     <>
       <Formik
@@ -169,6 +172,17 @@ export default function OrgRegisterCard() {
                           </Link>
                         </NextLink>
                       </Stack>
+                      <Stack
+                        direction={{ base: "column", sm: "row" }}
+                        align="center"
+                        justify={"flex"}
+                        px="10"                        
+                      >
+                        <ReCAPTCHA
+                          sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+                          onChange={() => setIsVerified(true)}
+                        />
+                      </Stack>
                       <Button
                         type="submit"
                         isLoading={isSubmitting}
@@ -177,6 +191,7 @@ export default function OrgRegisterCard() {
                         _hover={{
                           bg: "red.200",
                         }}
+                        isDisabled={!isVerified}
                       >
                         Register
                       </Button>
