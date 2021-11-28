@@ -33,6 +33,7 @@ import {
 import * as Yup from "yup";
 import axios from "axios";
 import { useDropzone } from "react-dropzone";
+import { IoOptions } from "react-icons/io5";
 
 export default function AnimalForm() {
   const router = useRouter();
@@ -48,23 +49,11 @@ export default function AnimalForm() {
       .required("Your animal must have a name")
       .min(2, "name must be atleast 2 characters")
       .max(50, "cannot be more than 50 characters"),
-    bio: Yup.string()
+    description: Yup.string()
       .required("Your animal must have a bio")
       .max(500, "cannot be more than 500 characters"),
     type: Yup.string().required("Your animals must have a type"),
-    streetAddress: Yup.string().required("Your event must have an address"),
-    city: Yup.string().required("Your event must have a city"),
-    state: Yup.string().required("Your event must have a state"),
-    zipcode: Yup.string()
-      .required("Your event must have a zipcode")
-      .matches(/^[0-9]+$/, "must be only digits")
-      .min(5, "must be exactly 5 digits")
-      .max(5, "must be exactly 5 digits"),
     cost: Yup.number().min(0).required("Your event must have a cost"),
-    startDate: Yup.string().required("Your event must have a start date"),
-    startTime: Yup.string().required("Your event must have a start time"),
-    endDate: Yup.string().required("Your event must have a end date"),
-    endTime: Yup.string().required("Your event must have a end time"),
   });
 
   const imgLocs = [];
@@ -95,7 +84,6 @@ export default function AnimalForm() {
 
         imgLocs.push(imgLocation);
       });
-      alert("Images uploading...");
     };
     const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
       onDrop,
@@ -141,7 +129,7 @@ export default function AnimalForm() {
           h="5rem"
           border="4px"
           borderRadius={4}
-          borderColor="#003b4a"
+          borderColor="#fff"
           {...getRootProps()}
         >
           <input {...getInputProps()} />
@@ -155,12 +143,12 @@ export default function AnimalForm() {
   }
 
   const initialValues = {
-    name: "",
-    description: "",
-    type: "",
+    name: "Duke",
+    description: "Hi, my name's duke",
+    type: "Dog",
     orgId: "test",
     cost: 0,
-    breed: "",
+    breed: "Doggy Dog",
     imageURL: "",
   };
 
@@ -170,6 +158,8 @@ export default function AnimalForm() {
         initialValues={initialValues}
         onSubmit={async (values, { setErrors }) => {
           values.imageURL = imgLocs.toString();
+          const formattedCost = values.cost.toString();
+          values.cost = parseFloat(formattedCost);
           const response = await createAnimal({
             variables: { options: values },
           });
@@ -177,7 +167,7 @@ export default function AnimalForm() {
             console.log(response.data.createAnimal.errors);
           } else if (response.data?.createAnimal.animal) {
             // worked
-            router.push("/app/org/dashboard");
+            router.push("/app/shelter/dashboard");
           }
         }}
         validationSchema={validationSchema}
@@ -207,7 +197,7 @@ export default function AnimalForm() {
                 </GridItem>
               </SimpleGrid>
 
-              <Button
+              {/* <Button
                 href="/app/get-started"
                 p={4}
                 borderRadius="full"
@@ -218,7 +208,8 @@ export default function AnimalForm() {
                 }}
               >
                 Add Images
-              </Button>
+              </Button> */}
+              <ImageDropzone />
             </VStack>
             <VStack
               w="full"
@@ -263,7 +254,7 @@ export default function AnimalForm() {
                   />
                 </GridItem>
               </SimpleGrid>
-              <Heading size="1xl">Additional Animal Info:</Heading>
+              {/* <Heading size="1xl">Additional Animal Info:</Heading> */}
               <SimpleGrid columns={2} width="full" py={5}>
                 {/* <GridItem colSpan={1} px="5">
                   <FormControl>
