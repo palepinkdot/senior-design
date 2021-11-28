@@ -23,15 +23,13 @@ import {
 import { withApollo } from "../utils/withApollo";
 import HomeFooter from "../components/home/HomeFooter";
 
-import { OrgNavBar } from "../components/app/OrgNavBar";
-
 const AnimalUploadPage: React.FC<{}> = ({}) => {
   return (
     
     <Container maxWidth="container.3xl" padding={0}>
-        <OrgNavBar />
+        
         <HStack w="full" h="full" p={10} spacing={10} alignItems="center" bg="blue.300" bgGradient="linear(to-tl, blue.300, black)">
-          <VStack align="stretch" >
+          <VStack align="stretch" padding="20px">
             <Box as="i" color="white">
               <Heading size="3xl" alignSelf="start" as="u" >Mission:</Heading>
             </Box>
@@ -41,35 +39,51 @@ const AnimalUploadPage: React.FC<{}> = ({}) => {
           </VStack>
         </HStack>
         <HStack w="full" h="full" p={10} spacing={10} alignContent="center" bg="red.300" bgGradient="linear(to-br, red.300, black 100%)">
-          <VStack align="stretch" >
+          <VStack align="stretch" margin="20px">
             <Box as="i" color="white">
               <Heading size="3xl" alignSelf="start" as="u" >Meet the Team:</Heading>
             </Box>
-            <Box paddingTop="5">
-              <SimpleGrid columns={4} width="full" paddingBottom="5" >
-                <GridItem colSpan={1} paddingLeft="5" color="white">
-                  <img src="https://via.placeholder.com/200" />
-                  <Text fontSize="2xl" as="abbr">Kyle Marler</Text>
+            <Box paddingTop="10">
+              <SimpleGrid columns={4} width="full" paddingBottom="5" marginTop="5">
+                <GridItem colSpan={1} px="5" color="red.500" >
+                <Box height="450" width="300" bg="whitesmoke" textAlign="center" borderRadius="20"> 
+                  <Box padding="20px">
+                    <img src="https://via.placeholder.com/200" />
+                  </Box>
+                  <Text fontSize="2xl" as="abbr" fontWeight="bold">Kyle Marler</Text>
                   <br />
-                  <Text fontSize="xl" as="em">- "Great text by Kyle"</Text>
+                  <Text fontSize="1xl" as="em">- "Great text by Kyle"</Text>
+                </Box>
                 </GridItem>
-                <GridItem colSpan={1} paddingLeft="5" color="white">
-                  <img src="https://via.placeholder.com/200" />
-                  <Text fontSize="2xl" as="abbr">Max Gramman</Text>
+                <GridItem colSpan={1} px="5" color="red.500">
+                <Box height="450" width="300" bg="whitesmoke" textAlign="center" borderRadius="20"> 
+                  <Box padding="20px">
+                    <img src="https://via.placeholder.com/200" />
+                  </Box>
+                  <Text fontSize="2xl" as="abbr" fontWeight="bold">Max Gramman</Text>
                   <br />
-                  <Text fontSize="xl" as="em">- "Great text by Max"</Text>
+                  <Text fontSize="1xl" as="em">- "Great text by Max"</Text>
+                  </Box>
                 </GridItem>
-                <GridItem colSpan={1} paddingLeft="5" color="white">
-                  <img src="https://via.placeholder.com/200" />
-                  <Text fontSize="2xl" as="abbr">Paramjyot Sandhu</Text>
-                  <br />
-                  <Text fontSize="xl" as="em">- "Great text by Paramjyot"</Text>
+                <GridItem colSpan={1} px="5" color="red.500">
+                  <Box height="450" width="300" bg="whitesmoke" textAlign="center" borderRadius="20"> 
+                    <Box padding="20px">
+                      <img src="https://via.placeholder.com/200" />
+                    </Box>
+                    <Text fontSize="2xl" as="abbr" fontWeight="bold">Paramjyot Sandhu</Text>
+                    <br />
+                    <Text fontSize="1xl" as="em">- "Great text by Paramjyot"</Text>
+                  </Box> 
                 </GridItem>
-                <GridItem colSpan={1}  paddingLeft="5" color="white">
-                  <img src="https://via.placeholder.com/200" />
-                  <Text fontSize="2xl" as="abbr">Torcato Vaz</Text>
+                <GridItem colSpan={1}  px="5" color="red.500">
+                <Box height="450" width="300" bg="whitesmoke" textAlign="center" borderRadius="20"> 
+                  <Box padding="20px">
+                    <img src="https://via.placeholder.com/200" />
+                  </Box>
+                  <Text fontSize="2xl" as="abbr" fontWeight="bold">Torcato Vaz</Text>
                   <br />
-                  <Text fontSize="xl" as="em">- "Great text by Torcato"</Text>
+                  <Text fontSize="1xl" as="em">- "Great text by Torcato"</Text>
+                </Box>
                 </GridItem>            
               </SimpleGrid>
             </Box>

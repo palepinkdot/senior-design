@@ -76,7 +76,7 @@ export default function SmallCentered() {
           <GridItem colSpan={2} px="5">
             <VStack align={"flex-start"}>
               <ListHeader>Company</ListHeader>
-              <Link href={"#"}>About Us</Link>
+              <Link href={"/AboutUs"}>About Us</Link>
               <Link href={"#"}>Contact Us</Link>
             </VStack>
           </GridItem>
