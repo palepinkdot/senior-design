@@ -65,6 +65,7 @@ export default function AnimalForm() {
     const options = {
       headers: {
         "Content-Type": "image/jpeg",
+        'x-amz-acl': 'public-read',
       },
     };
 
@@ -84,6 +85,7 @@ export default function AnimalForm() {
 
         imgLocs.push(imgLocation);
       });
+      alert("Images uploading...");
     };
     const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
       onDrop,
