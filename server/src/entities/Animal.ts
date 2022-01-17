@@ -20,9 +20,9 @@ export class Animal extends BaseEntity {
   @Column()
   orgId!: string;
 
-  @Field(() => String)
-  @ManyToOne(() => Org, (org) => org.animals)
-  org!: Org;
+  // @Field(() => String)
+  // @ManyToOne(() => Org, (org) => org.animals)
+  // org!: Org;
 
   @Field()
   @Column()

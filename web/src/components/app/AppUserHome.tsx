@@ -116,6 +116,7 @@ export const AppUserHome: React.FC<LayoutProps> = ({ children, variant }) => {
           </Box>
           <Flex
             as={Button}
+           
             w="12.5vw"
             h="93vh"
             bgColor="blue.100"

@@ -51,7 +51,7 @@ interface OrgNavBarProps {}
 const Links = ["Dashboard", "Upload", "Applications"];
 
 const NavLink = ({ children }: { children: ReactNode }) => (
-  <NextLink href={`/app/shelter/${children.toString().toLowerCase()}`}>
+  <NextLink href={`/app/org/${children.toString().toLowerCase()}`}>
     <Link
       fontWeight="semibold"
       borderBottom="1px solid transparent"

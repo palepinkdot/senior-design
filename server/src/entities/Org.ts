@@ -51,9 +51,9 @@ export class Org extends BaseEntity {
   @Column({ default: "new" })
   attributes!: string;
 
-  @Field(() => String)
-  @OneToMany(() => Animal, (animal) => animal.org)
-  animals: Animal[];
+  // @Field(() => String)
+  // @OneToMany(() => Animal, (animal) => animal.org)
+  // animals: Animal[];
 
   @Field(() => String)
   @CreateDateColumn()

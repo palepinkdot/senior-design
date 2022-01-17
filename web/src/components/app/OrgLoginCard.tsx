@@ -49,7 +49,7 @@ export default function OrgLoginCard() {
             console.log(response.data.loginOrg.errors);
           } else if (response.data?.loginOrg.org) {
             // worked
-            router.push("/app");
+            router.push("/app/org-home");
           }
         }}
       >

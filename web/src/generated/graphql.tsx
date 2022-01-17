@@ -23,11 +23,16 @@ export type Animal = {
   id: Scalars['String'];
   imageURL: Scalars['String'];
   name: Scalars['String'];
-  org: Scalars['String'];
   orgId: Scalars['String'];
   totalLikes: Scalars['Float'];
   type: Scalars['String'];
   updatedAt: Scalars['String'];
+};
+
+export type AnimalFieldError = {
+  __typename?: 'AnimalFieldError';
+  field: Scalars['String'];
+  message: Scalars['String'];
 };
 
 export type AnimalInput = {
@@ -36,6 +41,22 @@ export type AnimalInput = {
   description: Scalars['String'];
   imageURL: Scalars['String'];
   name: Scalars['String'];
+  type: Scalars['String'];
+};
+
+export type AnimalResponse = {
+  __typename?: 'AnimalResponse';
+  animal?: Maybe<Animal>;
+  errors?: Maybe<Array<AnimalFieldError>>;
+};
+
+export type CreateAnimalInput = {
+  breed: Scalars['String'];
+  cost: Scalars['Float'];
+  description: Scalars['String'];
+  imageURL: Scalars['String'];
+  name: Scalars['String'];
+  orgId: Scalars['String'];
   type: Scalars['String'];
 };
 
@@ -49,6 +70,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   changeOrgPassword: OrgResponse;
   changeUserPassword: UserResponse;
+  createAnimal: AnimalResponse;
   createPost: Animal;
   forgotOrgPassword: Scalars['Boolean'];
   forgotUserPassword: Scalars['Boolean'];
@@ -71,6 +93,11 @@ export type MutationChangeOrgPasswordArgs = {
 export type MutationChangeUserPasswordArgs = {
   newPassword: Scalars['String'];
   token: Scalars['String'];
+};
+
+
+export type MutationCreateAnimalArgs = {
+  options: CreateAnimalInput;
 };
 
 
@@ -123,7 +150,6 @@ export type MutationUpdateUserInfoArgs = {
 export type Org = {
   __typename?: 'Org';
   address: Scalars['String'];
-  animals: Scalars['String'];
   attributes: Scalars['String'];
   avatarUrl: Scalars['String'];
   contactFirstname: Scalars['String'];
@@ -195,6 +221,12 @@ export type UsernamePasswordInput = {
   verifypassword: Scalars['String'];
 };
 
+export type AnimalErrorFragment = { __typename?: 'AnimalFieldError', field: string, message: string };
+
+export type RegularAnimalFragment = { __typename?: 'Animal', id: string, orgId: string, type: string, name: string, description: string, imageURL: string, breed: string, cost: number, totalLikes: number, createdAt: string, updatedAt: string };
+
+export type RegularAnimalResponseFragment = { __typename?: 'AnimalResponse', errors?: Array<{ __typename?: 'AnimalFieldError', field: string, message: string }> | null | undefined, animal?: { __typename?: 'Animal', id: string, orgId: string, type: string, name: string, description: string, imageURL: string, breed: string, cost: number, totalLikes: number, createdAt: string, updatedAt: string } | null | undefined };
+
 export type RegularOrgFragment = { __typename?: 'Org', id: string, username: string, contactFirstname: string, contactLastname: string, orgName: string, address: string, avatarUrl: string, email: string, attributes: string };
 
 export type RegularOrgErrorFragment = { __typename?: 'OrgFieldError', field: string, message: string };
@@ -222,6 +254,13 @@ export type ChangeUserPasswordMutationVariables = Exact<{
 
 
 export type ChangeUserPasswordMutation = { __typename?: 'Mutation', changeUserPassword: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', id: string, username: string, firstname: string, lastname: string, avatarUrl: string, email: string, attributes: string } | null | undefined } };
+
+export type CreateAnimalMutationVariables = Exact<{
+  options: CreateAnimalInput;
+}>;
+
+
+export type CreateAnimalMutation = { __typename?: 'Mutation', createAnimal: { __typename?: 'AnimalResponse', errors?: Array<{ __typename?: 'AnimalFieldError', field: string, message: string }> | null | undefined, animal?: { __typename?: 'Animal', id: string, orgId: string, type: string, name: string, description: string, imageURL: string, breed: string, cost: number, totalLikes: number, createdAt: string, updatedAt: string } | null | undefined } };
 
 export type ForgotOrgPasswordMutationVariables = Exact<{
   email: Scalars['String'];
@@ -296,6 +335,38 @@ export type MeUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type MeUserQuery = { __typename?: 'Query', meUser?: { __typename?: 'User', id: string, username: string, firstname: string, lastname: string, avatarUrl: string, email: string, attributes: string } | null | undefined };
 
+export const AnimalErrorFragmentDoc = gql`
+    fragment AnimalError on AnimalFieldError {
+  field
+  message
+}
+    `;
+export const RegularAnimalFragmentDoc = gql`
+    fragment RegularAnimal on Animal {
+  id
+  orgId
+  type
+  name
+  description
+  imageURL
+  breed
+  cost
+  totalLikes
+  createdAt
+  updatedAt
+}
+    `;
+export const RegularAnimalResponseFragmentDoc = gql`
+    fragment RegularAnimalResponse on AnimalResponse {
+  errors {
+    ...AnimalError
+  }
+  animal {
+    ...RegularAnimal
+  }
+}
+    ${AnimalErrorFragmentDoc}
+${RegularAnimalFragmentDoc}`;
 export const RegularOrgErrorFragmentDoc = gql`
     fragment RegularOrgError on OrgFieldError {
   field
@@ -422,6 +493,39 @@ export function useChangeUserPasswordMutation(baseOptions?: Apollo.MutationHookO
 export type ChangeUserPasswordMutationHookResult = ReturnType<typeof useChangeUserPasswordMutation>;
 export type ChangeUserPasswordMutationResult = Apollo.MutationResult<ChangeUserPasswordMutation>;
 export type ChangeUserPasswordMutationOptions = Apollo.BaseMutationOptions<ChangeUserPasswordMutation, ChangeUserPasswordMutationVariables>;
+export const CreateAnimalDocument = gql`
+    mutation CreateAnimal($options: CreateAnimalInput!) {
+  createAnimal(options: $options) {
+    ...RegularAnimalResponse
+  }
+}
+    ${RegularAnimalResponseFragmentDoc}`;
+export type CreateAnimalMutationFn = Apollo.MutationFunction<CreateAnimalMutation, CreateAnimalMutationVariables>;
+
+/**
+ * __useCreateAnimalMutation__
+ *
+ * To run a mutation, you first call `useCreateAnimalMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateAnimalMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createAnimalMutation, { data, loading, error }] = useCreateAnimalMutation({
+ *   variables: {
+ *      options: // value for 'options'
+ *   },
+ * });
+ */
+export function useCreateAnimalMutation(baseOptions?: Apollo.MutationHookOptions<CreateAnimalMutation, CreateAnimalMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateAnimalMutation, CreateAnimalMutationVariables>(CreateAnimalDocument, options);
+      }
+export type CreateAnimalMutationHookResult = ReturnType<typeof useCreateAnimalMutation>;
+export type CreateAnimalMutationResult = Apollo.MutationResult<CreateAnimalMutation>;
+export type CreateAnimalMutationOptions = Apollo.BaseMutationOptions<CreateAnimalMutation, CreateAnimalMutationVariables>;
 export const ForgotOrgPasswordDocument = gql`
     mutation ForgotOrgPassword($email: String!) {
   forgotOrgPassword(email: $email)
