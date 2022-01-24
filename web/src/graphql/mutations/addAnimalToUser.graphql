@@ -1,0 +1,3 @@
+mutation AddAnimalToUser($animalId: String!) {
+	addAnimal(animalId: $animalId)
+}
