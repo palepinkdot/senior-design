@@ -35,15 +35,6 @@ export type AnimalFieldError = {
   message: Scalars['String'];
 };
 
-export type AnimalInput = {
-  breed: Scalars['String'];
-  cost: Scalars['Float'];
-  description: Scalars['String'];
-  imageURL: Scalars['String'];
-  name: Scalars['String'];
-  type: Scalars['String'];
-};
-
 export type AnimalResponse = {
   __typename?: 'AnimalResponse';
   animal?: Maybe<Animal>;
@@ -71,7 +62,6 @@ export type Mutation = {
   changeOrgPassword: OrgResponse;
   changeUserPassword: UserResponse;
   createAnimal: AnimalResponse;
-  createPost: Animal;
   forgotOrgPassword: Scalars['Boolean'];
   forgotUserPassword: Scalars['Boolean'];
   loginOrg: OrgResponse;
@@ -98,11 +88,6 @@ export type MutationChangeUserPasswordArgs = {
 
 export type MutationCreateAnimalArgs = {
   options: CreateAnimalInput;
-};
-
-
-export type MutationCreatePostArgs = {
-  input: AnimalInput;
 };
 
 
@@ -185,12 +170,25 @@ export type OrgUsernamePasswordInput = {
   verifypassword: Scalars['String'];
 };
 
+export type PaginatedAnimals = {
+  __typename?: 'PaginatedAnimals';
+  animals: Array<Animal>;
+  hasMore: Scalars['Boolean'];
+};
+
 export type Query = {
   __typename?: 'Query';
+  animals: PaginatedAnimals;
   hello: Scalars['String'];
   helloAnimal: Scalars['String'];
   meOrg?: Maybe<Org>;
   meUser?: Maybe<User>;
+};
+
+
+export type QueryAnimalsArgs = {
+  cursor?: Maybe<Scalars['String']>;
+  limit: Scalars['Int'];
 };
 
 export type User = {
@@ -324,6 +322,14 @@ export type UpdateUserInfoMutationVariables = Exact<{
 
 
 export type UpdateUserInfoMutation = { __typename?: 'Mutation', updateUserInfo: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', id: string, username: string, firstname: string, lastname: string, avatarUrl: string, email: string, attributes: string } | null | undefined } };
+
+export type AnimalsQueryVariables = Exact<{
+  limit: Scalars['Int'];
+  cursor?: Maybe<Scalars['String']>;
+}>;
+
+
+export type AnimalsQuery = { __typename?: 'Query', animals: { __typename?: 'PaginatedAnimals', hasMore: boolean, animals: Array<{ __typename?: 'Animal', id: string, orgId: string, type: string, name: string, description: string, imageURL: string, breed: string, cost: number, totalLikes: number, createdAt: string, updatedAt: string }> } };
 
 export type MeOrgQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -818,6 +824,45 @@ export function useUpdateUserInfoMutation(baseOptions?: Apollo.MutationHookOptio
 export type UpdateUserInfoMutationHookResult = ReturnType<typeof useUpdateUserInfoMutation>;
 export type UpdateUserInfoMutationResult = Apollo.MutationResult<UpdateUserInfoMutation>;
 export type UpdateUserInfoMutationOptions = Apollo.BaseMutationOptions<UpdateUserInfoMutation, UpdateUserInfoMutationVariables>;
+export const AnimalsDocument = gql`
+    query Animals($limit: Int!, $cursor: String) {
+  animals(limit: $limit, cursor: $cursor) {
+    hasMore
+    animals {
+      ...RegularAnimal
+    }
+  }
+}
+    ${RegularAnimalFragmentDoc}`;
+
+/**
+ * __useAnimalsQuery__
+ *
+ * To run a query within a React component, call `useAnimalsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAnimalsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAnimalsQuery({
+ *   variables: {
+ *      limit: // value for 'limit'
+ *      cursor: // value for 'cursor'
+ *   },
+ * });
+ */
+export function useAnimalsQuery(baseOptions: Apollo.QueryHookOptions<AnimalsQuery, AnimalsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AnimalsQuery, AnimalsQueryVariables>(AnimalsDocument, options);
+      }
+export function useAnimalsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AnimalsQuery, AnimalsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AnimalsQuery, AnimalsQueryVariables>(AnimalsDocument, options);
+        }
+export type AnimalsQueryHookResult = ReturnType<typeof useAnimalsQuery>;
+export type AnimalsLazyQueryHookResult = ReturnType<typeof useAnimalsLazyQuery>;
+export type AnimalsQueryResult = Apollo.QueryResult<AnimalsQuery, AnimalsQueryVariables>;
 export const MeOrgDocument = gql`
     query MeOrg {
   meOrg {

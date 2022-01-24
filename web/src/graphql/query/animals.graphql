@@ -1,0 +1,8 @@
+query Animals($limit: Int!, $cursor: String) {
+	animals(limit: $limit, cursor: $cursor) {
+		hasMore
+		animals {
+			...RegularAnimal
+		}
+	}
+}

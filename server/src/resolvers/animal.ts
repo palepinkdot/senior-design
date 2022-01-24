@@ -94,7 +94,7 @@ export class AnimalResolver {
 	}
 
 	@Query(() => PaginatedAnimals)
-	async posts(@Arg("limit", () => Int) limit: number, @Arg("cursor", () => String, { nullable: true }) cursor: string | null): Promise<PaginatedAnimals> {
+	async animals(@Arg("limit", () => Int) limit: number, @Arg("cursor", () => String, { nullable: true }) cursor: string | null): Promise<PaginatedAnimals> {
 		const realLimit = Math.min(50, limit);
 		const reaLimitPlusOne = realLimit + 1;
 
@@ -107,14 +107,14 @@ export class AnimalResolver {
 		const animals = await getConnection().query(
 			`
     select a.*
-    from animals a
+    from animal a
     ${cursor ? `where a."createdAt" < $2` : ""}
-    order by p."createdAt" DESC
+    order by a."createdAt" DESC
     limit $1
     `,
 			replacements
 		);
-
+		console.log(animals);
 		return {
 			animals: animals.slice(0, realLimit),
 			hasMore: animals.length === reaLimitPlusOne,
