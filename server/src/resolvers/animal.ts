@@ -1,5 +1,5 @@
 import { Animal } from "../entities/Animal";
-import { Arg, Ctx, Field, InputType, Mutation, ObjectType, Query, Resolver, UseMiddleware } from "type-graphql";
+import { Arg, Ctx, Field, InputType, Int, Mutation, ObjectType, Query, Resolver, UseMiddleware } from "type-graphql";
 import { isAuth } from "../middleware/isAuth";
 import { MyContext } from "src/types";
 import { CreateAnimalInput } from "./CreateAnimalInput";
@@ -30,6 +30,14 @@ class AnimalFieldError {
 }
 
 @ObjectType()
+class PaginatedAnimals {
+	@Field(() => [Animal])
+	animals: Animal[];
+	@Field()
+	hasMore: boolean;
+}
+
+@ObjectType()
 class AnimalResponse {
 	@Field(() => [AnimalFieldError], { nullable: true })
 	errors?: AnimalFieldError[];
@@ -44,15 +52,8 @@ export class AnimalResolver {
 	helloAnimal() {
 		return "hello world from animals2";
 	}
-	@Mutation(() => Animal)
-	@UseMiddleware(isAuth)
-	async createPost(@Arg("input") input: AnimalInput, @Ctx() { req }: MyContext): Promise<Animal> {
-		return Animal.create({
-			...input,
-			orgId: req.session.userId,
-		}).save();
-	}
 	@Mutation(() => AnimalResponse)
+	@UseMiddleware(isAuth)
 	async createAnimal(@Arg("options") options: CreateAnimalInput, @Ctx() { req }: MyContext): Promise<AnimalResponse> {
 		console.log(req.session.orgId);
 		console.log(req.session.userId);
@@ -90,5 +91,33 @@ export class AnimalResolver {
 		}
 
 		return { animal: animal };
+	}
+
+	@Query(() => PaginatedAnimals)
+	async posts(@Arg("limit", () => Int) limit: number, @Arg("cursor", () => String, { nullable: true }) cursor: string | null): Promise<PaginatedAnimals> {
+		const realLimit = Math.min(50, limit);
+		const reaLimitPlusOne = realLimit + 1;
+
+		const replacements: any[] = [reaLimitPlusOne];
+
+		if (cursor) {
+			replacements.push(new Date(parseInt(cursor)));
+		}
+
+		const animals = await getConnection().query(
+			`
+    select a.*
+    from animals a
+    ${cursor ? `where a."createdAt" < $2` : ""}
+    order by p."createdAt" DESC
+    limit $1
+    `,
+			replacements
+		);
+
+		return {
+			animals: animals.slice(0, realLimit),
+			hasMore: animals.length === reaLimitPlusOne,
+		};
 	}
 }
