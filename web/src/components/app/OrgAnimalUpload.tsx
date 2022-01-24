@@ -1,264 +1,172 @@
-import {
-  Flex,
-  Box,
-  Stack,
-  Heading,
-  Text,
-  ButtonGroup,
-  VStack,
-  GridItem,
-  Image,
-  Grid,
-  HStack,
-  StackItem,
-  Container,
-  SimpleGrid,
-  Button,
-} from "@chakra-ui/react";
+import { Flex, Box, Stack, Heading, Text, ButtonGroup, VStack, GridItem, Image, Grid, HStack, StackItem, Container, SimpleGrid, Button } from "@chakra-ui/react";
 import { Formik } from "formik";
 import { useRouter } from "next/router";
 import React from "react";
-import {
-  useCreateAnimalMutation,
-  useMeOrgQuery,
-} from "../../generated/graphql";
+import { useCreateAnimalMutation, useMeOrgQuery } from "../../generated/graphql";
 import { isServer } from "../../utils/isServer";
-import {
-  InputControl,
-  NumberInputControl,
-  SelectControl,
-  SubmitButton,
-  TextareaControl,
-} from "formik-chakra-ui";
+import { InputControl, NumberInputControl, SelectControl, SubmitButton, TextareaControl } from "formik-chakra-ui";
 import * as Yup from "yup";
 import axios from "axios";
 import { useDropzone } from "react-dropzone";
 import { IoOptions } from "react-icons/io5";
 
 export default function AnimalForm() {
-  const router = useRouter();
+	const router = useRouter();
 
-  const [createAnimal] = useCreateAnimalMutation();
+	const [createAnimal] = useCreateAnimalMutation();
 
-  const { data, loading } = useMeOrgQuery({
-    skip: isServer(),
-  });
+	const { data, loading } = useMeOrgQuery({
+		skip: isServer(),
+	});
 
-  const validationSchema = Yup.object({
-    name: Yup.string()
-      .required("Your animal must have a name")
-      .min(2, "name must be atleast 2 characters")
-      .max(50, "cannot be more than 50 characters"),
-    description: Yup.string()
-      .required("Your animal must have a bio")
-      .max(500, "cannot be more than 500 characters"),
-    type: Yup.string().required("Your animals must have a type"),
-    cost: Yup.number().min(0).required("Your event must have a cost"),
-  });
+	const validationSchema = Yup.object({
+		name: Yup.string().required("Your animal must have a name").min(2, "name must be atleast 2 characters").max(50, "cannot be more than 50 characters"),
+		description: Yup.string().required("Your animal must have a bio").max(500, "cannot be more than 500 characters"),
+		type: Yup.string().required("Your animals must have a type"),
+		cost: Yup.number().min(0).required("Your event must have a cost"),
+	});
 
-  const imgLocs = [];
+	const imgLocs = [];
 
-  function ImageDropzone() {
-    const AWS_API_ENDPOINT =
-      "https://ohevjs7i77.execute-api.us-east-2.amazonaws.com/default/getPreSignedURLswipet";
+	function ImageDropzone() {
+		const AWS_API_ENDPOINT = "https://ohevjs7i77.execute-api.us-east-2.amazonaws.com/default/getPreSignedURLswipet";
 
-    const options = {
-      headers: {
-        "Content-Type": "image/jpeg",
-        'x-amz-acl': 'public-read',
-      },
-    };
+		const options = {
+			headers: {
+				"Content-Type": "image/jpeg",
+				"x-amz-acl": "public-read",
+			},
+		};
 
-    let imagePreview = <Text>No files uploaded</Text>;
-    const onDrop = (acceptedFiles) => {
-      acceptedFiles.forEach(async (file) => {
-        const response = await axios.get(AWS_API_ENDPOINT);
-        const signedUrl = response.data["uploadURL"];
-        const imgLocation =
-          "https://swipet.s3.us-east-2.amazonaws.com/" + response.data["Key"];
+		let imagePreview = <Text>No files uploaded</Text>;
+		const onDrop = (acceptedFiles) => {
+			acceptedFiles.forEach(async (file) => {
+				const response = await axios.get(AWS_API_ENDPOINT);
+				const signedUrl = response.data["uploadURL"];
+				const imgLocation = "https://swipet.s3.us-east-2.amazonaws.com/" + response.data["Key"];
 
-        const result = await axios.put(signedUrl, file, {
-          headers: {
-            "Content-Type": "image/jpeg",
-          },
-        });
+				const result = await axios.put(signedUrl, file, {
+					headers: {
+						"Content-Type": "image/jpeg",
+					},
+				});
 
-        imgLocs.push(imgLocation);
-      });
-      alert("Images uploading...");
-    };
-    const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
-      onDrop,
-    });
+				imgLocs.push(imgLocation);
+			});
+			alert("Images uploading...");
+		};
+		const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
+			onDrop,
+		});
 
-    let gallery = null;
+		let gallery = null;
 
-    gallery = imgLocs.map((url) => (
-      <StackItem
-        key={url}
-        display="flex"
-        flexDirection="column"
-        justifyContent="center"
-        alignItems="center"
-        color="white"
-        height="100px"
-        w="100px"
-        borderRadius="4px"
-        transition="all 500ms"
-        overflow="hidden"
-        backgroundSize="cover"
-        backgroundPosition="center"
-        backgroundRepeat="center"
-      >
-        <Image w="100px" src={url} />
-      </StackItem>
-    ));
+		gallery = imgLocs.map((url) => (
+			<StackItem
+				key={url}
+				display="flex"
+				flexDirection="column"
+				justifyContent="center"
+				alignItems="center"
+				color="white"
+				height="100px"
+				w="100px"
+				borderRadius="4px"
+				transition="all 500ms"
+				overflow="hidden"
+				backgroundSize="cover"
+				backgroundPosition="center"
+				backgroundRepeat="center"
+			>
+				<Image w="100px" src={url} />
+			</StackItem>
+		));
 
-    if (gallery != null) {
-      imagePreview = gallery;
-    } else if (gallery == null) {
-      imagePreview = <Text>No files uploaded</Text>;
-    } else {
-      imagePreview = <Text>No files uploaded</Text>;
-    }
+		if (gallery != null) {
+			imagePreview = gallery;
+		} else if (gallery == null) {
+			imagePreview = <Text>No files uploaded</Text>;
+		} else {
+			imagePreview = <Text>No files uploaded</Text>;
+		}
 
-    return (
-      <>
-        <Flex
-          justifyContent="center"
-          alignItems="center"
-          w="100%"
-          h="5rem"
-          border="4px"
-          borderRadius={4}
-          borderColor="#fff"
-          {...getRootProps()}
-        >
-          <input {...getInputProps()} />
-          <p>Drag 'n' drop some files here, or click to select files</p>
-        </Flex>
-        <HStack justifyContent="center" wrap="wrap">
-          {imagePreview}
-        </HStack>
-      </>
-    );
-  }
+		return (
+			<>
+				<Flex justifyContent="center" alignItems="center" w="100%" h="5rem" border="4px" borderRadius={4} borderColor="#fff" {...getRootProps()}>
+					<input {...getInputProps()} />
+					<p>Drag 'n' drop some files here, or click to select files</p>
+				</Flex>
+				<HStack justifyContent="center" wrap="wrap">
+					{imagePreview}
+				</HStack>
+			</>
+		);
+	}
 
-  const initialValues = {
-    name: "Duke",
-    description: "Hi, my name's duke",
-    type: "Dog",
-    orgId: "test",
-    cost: 0,
-    breed: "Doggy Dog",
-    imageURL: "",
-  };
+	const initialValues = {
+		name: "Duke",
+		description: "Hi, my name's duke",
+		type: "Dog",
+		orgId: "test",
+		cost: 0,
+		breed: "Doggy Dog",
+		imageURL: "",
+	};
 
-  return (
-    <Container maxWidth="container.3xl" padding={0}>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={async (values, { setErrors }) => {
-          values.imageURL = imgLocs.toString();
-          const formattedCost = values.cost.toString();
-          values.cost = parseFloat(formattedCost);
-          const response = await createAnimal({
-            variables: { options: values },
-          });
-          if (response.data?.createAnimal.errors) {
-            console.log(response.data.createAnimal.errors);
-          } else if (response.data?.createAnimal.animal) {
-            // worked
-            router.push("/app/shelter/dashboard");
-          }
-        }}
-        validationSchema={validationSchema}
-      >
-        {({ handleSubmit }) => (
-          <Flex h="100vh" w="100h" as="form" onSubmit={handleSubmit as any}>
-            <VStack
-              w="full"
-              h="full"
-              p={10}
-              spacing={10}
-              alignItems="center"
-              bg="blue.300"
-            >
-              <SimpleGrid
-                columns={3}
-                width="full"
-                marginLeft="5"
-                paddingBottom="5"
-              >
-                <GridItem colSpan={3} px="5">
-                  {/* <Carousel>
-                  <SlideOne />
-                  <SlideTwo />
-                  <SlideThree />
-                </Carousel> */}
-                </GridItem>
-              </SimpleGrid>
-
-              {/* <Button
-                href="/app/get-started"
-                p={4}
-                borderRadius="full"
-                textAlign="center"
-                bgColor="#FFFFFF"
-                _active={{
-                  transform: "scale(0.95)",
-                }}
-              >
-                Add Images
-              </Button> */}
-              <ImageDropzone />
-            </VStack>
-            <VStack
-              w="full"
-              h="full"
-              p={10}
-              spacing={10}
-              alignItems="flex-start"
-            >
-              <Heading size="1xl">Primary Info:</Heading>
-              <SimpleGrid columns={3} width="full" paddingBottom="5">
-                <GridItem colSpan={1} px="5">
-                  <SelectControl
-                    label="Type"
-                    name="type"
-                    placeholder="Type of Animal"
-                  >
-                    <option value="cat">Cat</option>
-                    <option value="dog">Dog</option>
-                    <option value="turtle">Turtle</option>
-                    <option value="hamster">Hamster</option>
-                  </SelectControl>
-                </GridItem>
-                <GridItem colSpan={1} px="5">
-                  <InputControl
-                    label="Name"
-                    name="name"
-                    helperText="Animal Name"
-                  />
-                </GridItem>
-                <GridItem colSpan={1} px="5">
-                  <NumberInputControl
-                    name="cost"
-                    label="Cost *"
-                    helperText="If the pet is free, set 0."
-                  />
-                </GridItem>
-                <GridItem colSpan={3} px="5" paddingTop="5">
-                  <TextareaControl
-                    name="description"
-                    label="Bio *"
-                    helperText="No more than 500 characters."
-                  />
-                </GridItem>
-              </SimpleGrid>
-              {/* <Heading size="1xl">Additional Animal Info:</Heading> */}
-              <SimpleGrid columns={2} width="full" py={5}>
-                {/* <GridItem colSpan={1} px="5">
+	return (
+		<Container maxWidth="container.3xl" padding={0}>
+			<Formik
+				initialValues={initialValues}
+				onSubmit={async (values, { setErrors }) => {
+					values.orgId = data.meOrg?.id;
+					values.imageURL = imgLocs.toString();
+					console.log(values);
+					const formattedCost = values.cost.toString();
+					values.cost = parseFloat(formattedCost);
+					const response = await createAnimal({
+						variables: { options: values },
+					});
+					if (response.data?.createAnimal.errors) {
+						console.log(response.data.createAnimal.errors);
+					} else if (response.data?.createAnimal.animal) {
+						// worked
+						router.push("/app/org-home");
+					}
+				}}
+				validationSchema={validationSchema}
+			>
+				{({ handleSubmit }) => (
+					<Flex h="100vh" w="100h" as="form" onSubmit={handleSubmit as any}>
+						<VStack w="full" h="full" p={10} spacing={10} alignItems="center" bg="blue.300">
+							<SimpleGrid columns={3} width="full" marginLeft="5" paddingBottom="5">
+								<GridItem colSpan={3} px="5"></GridItem>
+							</SimpleGrid>
+							<ImageDropzone />
+						</VStack>
+						<VStack w="full" h="full" p={10} spacing={10} alignItems="flex-start">
+							<Heading size="1xl">Primary Info:</Heading>
+							<SimpleGrid columns={3} width="full" paddingBottom="5">
+								<GridItem colSpan={1} px="5">
+									<SelectControl label="Type" name="type" placeholder="Type of Animal">
+										<option value="cat">Cat</option>
+										<option value="dog">Dog</option>
+										<option value="turtle">Turtle</option>
+										<option value="hamster">Hamster</option>
+									</SelectControl>
+								</GridItem>
+								<GridItem colSpan={1} px="5">
+									<InputControl label="Name" name="name" helperText="Animal Name" />
+								</GridItem>
+								<GridItem colSpan={1} px="5">
+									<NumberInputControl name="cost" label="Cost *" helperText="If the pet is free, set 0." />
+								</GridItem>
+								<GridItem colSpan={3} px="5" paddingTop="5">
+									<TextareaControl name="description" label="Bio *" helperText="No more than 500 characters." />
+								</GridItem>
+							</SimpleGrid>
+							{/* <Heading size="1xl">Additional Animal Info:</Heading> */}
+							<SimpleGrid columns={2} width="full" py={5}>
+								{/* <GridItem colSpan={1} px="5">
                   <FormControl>
                     <FormLabel>
                       <b>Size</b>
@@ -315,18 +223,18 @@ export default function AnimalForm() {
                     <Input placeholder="Agency contact information (email, phone, etc.)" />
                   </FormControl>
                 </GridItem> */}
-              </SimpleGrid>
-              <SimpleGrid columns={3} width="full">
-                <GridItem colSpan={3} px="5">
-                  <ButtonGroup w="100%">
-                    <SubmitButton w="100%">Submit</SubmitButton>
-                  </ButtonGroup>
-                </GridItem>
-              </SimpleGrid>
-            </VStack>
-          </Flex>
-        )}
-      </Formik>
-    </Container>
-  );
+							</SimpleGrid>
+							<SimpleGrid columns={3} width="full">
+								<GridItem colSpan={3} px="5">
+									<ButtonGroup w="100%">
+										<SubmitButton w="100%">Submit</SubmitButton>
+									</ButtonGroup>
+								</GridItem>
+							</SimpleGrid>
+						</VStack>
+					</Flex>
+				)}
+			</Formik>
+		</Container>
+	);
 }
