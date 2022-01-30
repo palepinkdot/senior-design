@@ -1,4 +1,4 @@
-import { Match } from "src/entities/Match";
+import { Match } from "../entities/Match";
 import { Arg, Field, Mutation, ObjectType, Query, Resolver } from "type-graphql";
 import { getConnection, getConnectionOptions } from "typeorm";
 
@@ -26,7 +26,7 @@ export class MatchResolver {
 		return "Hello from the Match resolver";
 	}
 
-	@Mutation(() => MatchResponse) async createMatch(@Arg("animalId") animalId: any, @Arg("userId") userId: any): Promise<MatchResponse> {
+	@Mutation(() => MatchResponse) async createMatch(@Arg("animalId") animalId: string, @Arg("userId") userId: string): Promise<MatchResponse> {
 		let match;
 		try {
 			const result = await getConnection()
