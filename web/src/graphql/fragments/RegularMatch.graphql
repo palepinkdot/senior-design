@@ -1,0 +1,5 @@
+fragment RegularMatch on Match {
+  matchId
+  animalId
+  userId
+}

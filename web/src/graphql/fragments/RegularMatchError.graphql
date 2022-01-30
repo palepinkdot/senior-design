@@ -1,0 +1,4 @@
+fragment RegularMatchError on MatchFieldError {
+  field
+  message
+}

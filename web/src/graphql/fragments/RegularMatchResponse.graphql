@@ -1,0 +1,8 @@
+fragment RegularMatchResponse on MatchResponse {
+  errors {
+    ...RegularMatchError
+  }
+  match {
+    ...RegularMatch
+  }
+}
