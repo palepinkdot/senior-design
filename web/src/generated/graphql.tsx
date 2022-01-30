@@ -243,13 +243,6 @@ export type RegularUserErrorFragment = { __typename?: 'FieldError', field: strin
 
 export type RegularUserResponseFragment = { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', id: string, username: string, firstname: string, lastname: string, avatarUrl: string, email: string, attributes: string } | null | undefined };
 
-export type AddAnimalToUserMutationVariables = Exact<{
-  animalId: Scalars['String'];
-}>;
-
-
-export type AddAnimalToUserMutation = { __typename?: 'Mutation', addAnimal: boolean };
-
 export type ChangeOrgPasswordMutationVariables = Exact<{
   token: Scalars['String'];
   newPassword: Scalars['String'];
@@ -444,37 +437,6 @@ export const RegularUserResponseFragmentDoc = gql`
 }
     ${RegularUserErrorFragmentDoc}
 ${RegularUserFragmentDoc}`;
-export const AddAnimalToUserDocument = gql`
-    mutation AddAnimalToUser($animalId: String!) {
-  addAnimal(animalId: $animalId)
-}
-    `;
-export type AddAnimalToUserMutationFn = Apollo.MutationFunction<AddAnimalToUserMutation, AddAnimalToUserMutationVariables>;
-
-/**
- * __useAddAnimalToUserMutation__
- *
- * To run a mutation, you first call `useAddAnimalToUserMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useAddAnimalToUserMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [addAnimalToUserMutation, { data, loading, error }] = useAddAnimalToUserMutation({
- *   variables: {
- *      animalId: // value for 'animalId'
- *   },
- * });
- */
-export function useAddAnimalToUserMutation(baseOptions?: Apollo.MutationHookOptions<AddAnimalToUserMutation, AddAnimalToUserMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<AddAnimalToUserMutation, AddAnimalToUserMutationVariables>(AddAnimalToUserDocument, options);
-      }
-export type AddAnimalToUserMutationHookResult = ReturnType<typeof useAddAnimalToUserMutation>;
-export type AddAnimalToUserMutationResult = Apollo.MutationResult<AddAnimalToUserMutation>;
-export type AddAnimalToUserMutationOptions = Apollo.BaseMutationOptions<AddAnimalToUserMutation, AddAnimalToUserMutationVariables>;
 export const ChangeOrgPasswordDocument = gql`
     mutation ChangeOrgPassword($token: String!, $newPassword: String!) {
   changeOrgPassword(token: $token, newPassword: $newPassword) {

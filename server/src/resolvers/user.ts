@@ -239,23 +239,6 @@ export class UserResolver {
 	}
 
 	@Mutation(() => Boolean)
-	async addAnimal(@Arg("animalId") animalId: string, @Ctx() { req }: MyContext) {
-		if (!req.session.userId) {
-			return null;
-		}
-		const user = User.findOne(req.session.userId);
-
-		console.log(animalId);
-		try {
-			const result = await getConnection().createQueryBuilder().update(User).set({});
-		} catch (error) {
-			return false;
-		}
-
-		return true;
-	}
-
-	@Mutation(() => Boolean)
 	logout(@Ctx() { req, res }: MyContext) {
 		return new Promise((resolve) =>
 			req.session.destroy((err) => {
