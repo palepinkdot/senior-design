@@ -1,7 +1,7 @@
 import { Box, Button, Flex, Grid } from "@chakra-ui/react";
 import React, { useMemo, useState } from "react";
-import { IoCheckmark, IoChevronBack, IoChevronForward, IoClose } from "react-icons/io5";
-import { useAnimalsQuery, useMeUserQuery } from "../../generated/graphql";
+import { IoCheckmark, IoChevronBack, IoChevronForward, IoClose, IoOptions } from "react-icons/io5";
+import { useAnimalsQuery, useCreateAnimalMutation, useCreateMatchMutation, useMeUserQuery } from "../../generated/graphql";
 import { isServer } from "../../utils/isServer";
 import { WrapperVariant } from "../Wrapper";
 import { AnimalCard } from "./AnimalCard";
@@ -25,6 +25,7 @@ export const AppUserHome: React.FC<LayoutProps> = ({ children, variant }) => {
 	const { data: meData, loading: meLoading } = useMeUserQuery({
 		skip: isServer(),
 	});
+	const [match] = useCreateMatchMutation();
 	const {
 		data: animalData,
 		error: animalError,
@@ -68,6 +69,15 @@ export const AppUserHome: React.FC<LayoutProps> = ({ children, variant }) => {
 		setDislike(false);
 	}
 
+	function matchUser(userId: string, animalId: string) {
+		match({
+			variables: {
+				userId: userId,
+				animalId: animalId,
+			},
+		});
+	}
+
 	if (meLoading || animalLoading) {
 		return <HashLoader />;
 	} else if (meData && meData.meUser.attributes == "new") {
@@ -96,7 +106,16 @@ export const AppUserHome: React.FC<LayoutProps> = ({ children, variant }) => {
 						{animalData!.animals.animals.map((e) => {
 							console.log(e);
 							return (
-								<TinderCard key={e.id} flickOnSwipe={true} onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen("fooBar")} preventSwipe={["up", "down"]}>
+								<TinderCard
+									key={e.id}
+									flickOnSwipe={true}
+									onSwipe={() => {
+										onSwipe;
+										matchUser(meData.meUser.id, e.id);
+									}}
+									onCardLeftScreen={() => onCardLeftScreen("fooBar")}
+									preventSwipe={["up", "down"]}
+								>
 									<AnimalCard data={e} />
 								</TinderCard>
 							);

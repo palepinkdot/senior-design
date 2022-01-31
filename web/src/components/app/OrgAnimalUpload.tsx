@@ -23,7 +23,7 @@ export default function AnimalForm() {
 		name: Yup.string().required("Your animal must have a name").min(2, "name must be atleast 2 characters").max(50, "cannot be more than 50 characters"),
 		description: Yup.string().required("Your animal must have a bio").max(500, "cannot be more than 500 characters"),
 		type: Yup.string().required("Your animals must have a type"),
-		cost: Yup.number().min(0).required("Your event must have a cost"),
+		cost: Yup.number().min(0).required("Your animal must have a cost"),
 	});
 
 	const imgLocs = [];

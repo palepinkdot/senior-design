@@ -57,12 +57,33 @@ export type FieldError = {
   message: Scalars['String'];
 };
 
+export type Match = {
+  __typename?: 'Match';
+  animalId: Scalars['String'];
+  createdAt: Scalars['String'];
+  matchId: Scalars['String'];
+  updatedAt: Scalars['String'];
+  userId: Scalars['String'];
+};
+
+export type MatchFieldError = {
+  __typename?: 'MatchFieldError';
+  field: Scalars['String'];
+  message: Scalars['String'];
+};
+
+export type MatchResponse = {
+  __typename?: 'MatchResponse';
+  errors?: Maybe<Array<MatchFieldError>>;
+  match?: Maybe<Match>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
-  addAnimal: Scalars['Boolean'];
   changeOrgPassword: OrgResponse;
   changeUserPassword: UserResponse;
   createAnimal: AnimalResponse;
+  createMatch: MatchResponse;
   forgotOrgPassword: Scalars['Boolean'];
   forgotUserPassword: Scalars['Boolean'];
   loginOrg: OrgResponse;
@@ -72,11 +93,6 @@ export type Mutation = {
   registerUser: UserResponse;
   updateOrgInfo: OrgResponse;
   updateUserInfo: UserResponse;
-};
-
-
-export type MutationAddAnimalArgs = {
-  animalId: Scalars['String'];
 };
 
 
@@ -94,6 +110,12 @@ export type MutationChangeUserPasswordArgs = {
 
 export type MutationCreateAnimalArgs = {
   options: CreateAnimalInput;
+};
+
+
+export type MutationCreateMatchArgs = {
+  animalId: Scalars['String'];
+  userId: Scalars['String'];
 };
 
 
@@ -187,6 +209,7 @@ export type Query = {
   animals: PaginatedAnimals;
   hello: Scalars['String'];
   helloAnimal: Scalars['String'];
+  helloMatch: Scalars['String'];
   meOrg?: Maybe<Org>;
   meUser?: Maybe<User>;
 };
@@ -231,6 +254,12 @@ export type RegularAnimalFragment = { __typename?: 'Animal', id: string, orgId: 
 
 export type RegularAnimalResponseFragment = { __typename?: 'AnimalResponse', errors?: Array<{ __typename?: 'AnimalFieldError', field: string, message: string }> | null | undefined, animal?: { __typename?: 'Animal', id: string, orgId: string, type: string, name: string, description: string, imageURL: string, breed: string, cost: number, totalLikes: number, createdAt: string, updatedAt: string } | null | undefined };
 
+export type RegularMatchFragment = { __typename?: 'Match', matchId: string, animalId: string, userId: string };
+
+export type RegularMatchErrorFragment = { __typename?: 'MatchFieldError', field: string, message: string };
+
+export type RegularMatchResponseFragment = { __typename?: 'MatchResponse', errors?: Array<{ __typename?: 'MatchFieldError', field: string, message: string }> | null | undefined, match?: { __typename?: 'Match', matchId: string, animalId: string, userId: string } | null | undefined };
+
 export type RegularOrgFragment = { __typename?: 'Org', id: string, username: string, contactFirstname: string, contactLastname: string, orgName: string, address: string, avatarUrl: string, email: string, attributes: string };
 
 export type RegularOrgErrorFragment = { __typename?: 'OrgFieldError', field: string, message: string };
@@ -265,6 +294,14 @@ export type CreateAnimalMutationVariables = Exact<{
 
 
 export type CreateAnimalMutation = { __typename?: 'Mutation', createAnimal: { __typename?: 'AnimalResponse', errors?: Array<{ __typename?: 'AnimalFieldError', field: string, message: string }> | null | undefined, animal?: { __typename?: 'Animal', id: string, orgId: string, type: string, name: string, description: string, imageURL: string, breed: string, cost: number, totalLikes: number, createdAt: string, updatedAt: string } | null | undefined } };
+
+export type CreateMatchMutationVariables = Exact<{
+  userId: Scalars['String'];
+  animalId: Scalars['String'];
+}>;
+
+
+export type CreateMatchMutation = { __typename?: 'Mutation', createMatch: { __typename?: 'MatchResponse', errors?: Array<{ __typename?: 'MatchFieldError', field: string, message: string }> | null | undefined, match?: { __typename?: 'Match', matchId: string, animalId: string, userId: string } | null | undefined } };
 
 export type ForgotOrgPasswordMutationVariables = Exact<{
   email: Scalars['String'];
@@ -379,6 +416,30 @@ export const RegularAnimalResponseFragmentDoc = gql`
 }
     ${AnimalErrorFragmentDoc}
 ${RegularAnimalFragmentDoc}`;
+export const RegularMatchErrorFragmentDoc = gql`
+    fragment RegularMatchError on MatchFieldError {
+  field
+  message
+}
+    `;
+export const RegularMatchFragmentDoc = gql`
+    fragment RegularMatch on Match {
+  matchId
+  animalId
+  userId
+}
+    `;
+export const RegularMatchResponseFragmentDoc = gql`
+    fragment RegularMatchResponse on MatchResponse {
+  errors {
+    ...RegularMatchError
+  }
+  match {
+    ...RegularMatch
+  }
+}
+    ${RegularMatchErrorFragmentDoc}
+${RegularMatchFragmentDoc}`;
 export const RegularOrgErrorFragmentDoc = gql`
     fragment RegularOrgError on OrgFieldError {
   field
@@ -538,6 +599,40 @@ export function useCreateAnimalMutation(baseOptions?: Apollo.MutationHookOptions
 export type CreateAnimalMutationHookResult = ReturnType<typeof useCreateAnimalMutation>;
 export type CreateAnimalMutationResult = Apollo.MutationResult<CreateAnimalMutation>;
 export type CreateAnimalMutationOptions = Apollo.BaseMutationOptions<CreateAnimalMutation, CreateAnimalMutationVariables>;
+export const CreateMatchDocument = gql`
+    mutation CreateMatch($userId: String!, $animalId: String!) {
+  createMatch(userId: $userId, animalId: $animalId) {
+    ...RegularMatchResponse
+  }
+}
+    ${RegularMatchResponseFragmentDoc}`;
+export type CreateMatchMutationFn = Apollo.MutationFunction<CreateMatchMutation, CreateMatchMutationVariables>;
+
+/**
+ * __useCreateMatchMutation__
+ *
+ * To run a mutation, you first call `useCreateMatchMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateMatchMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createMatchMutation, { data, loading, error }] = useCreateMatchMutation({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *      animalId: // value for 'animalId'
+ *   },
+ * });
+ */
+export function useCreateMatchMutation(baseOptions?: Apollo.MutationHookOptions<CreateMatchMutation, CreateMatchMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateMatchMutation, CreateMatchMutationVariables>(CreateMatchDocument, options);
+      }
+export type CreateMatchMutationHookResult = ReturnType<typeof useCreateMatchMutation>;
+export type CreateMatchMutationResult = Apollo.MutationResult<CreateMatchMutation>;
+export type CreateMatchMutationOptions = Apollo.BaseMutationOptions<CreateMatchMutation, CreateMatchMutationVariables>;
 export const ForgotOrgPasswordDocument = gql`
     mutation ForgotOrgPassword($email: String!) {
   forgotOrgPassword(email: $email)

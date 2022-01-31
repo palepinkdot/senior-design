@@ -53,7 +53,6 @@ export class AnimalResolver {
 		return "hello world from animals2";
 	}
 	@Mutation(() => AnimalResponse)
-	@UseMiddleware(isAuth)
 	async createAnimal(@Arg("options") options: CreateAnimalInput, @Ctx() { req }: MyContext): Promise<AnimalResponse> {
 		console.log(req.session.orgId);
 		console.log(req.session.userId);
