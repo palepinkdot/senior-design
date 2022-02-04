@@ -1,0 +1,5 @@
+mutation CreateMatch($userId: String!, $animalId: String!) {
+	createMatch(userId: $userId, animalId: $animalId) {
+		...RegularMatchResponse
+	}
+}
