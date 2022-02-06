@@ -8,7 +8,7 @@ import { useApolloClient } from "@apollo/client";
 
 interface HomeNavBarProps {}
 
-const Links = ["Shelters", "Contact", "Shop"];
+const Links = ["Shelters", "Contact", "Shop", "Applications"];
 
 const NavLink = ({ children }: { children: ReactNode }) => (
 	<NextLink href={`/${children.toString().toLowerCase()}`}>
