@@ -62,7 +62,7 @@ export class MatchResolver {
 	}
 
 	@Query(() => PaginatedMatch)
-	async matches(@Arg("userId", () => Int) userId: string, @Arg("limit", () => Int) limit: number, @Arg("cursor", () => String, { nullable: true }) cursor: string | null): Promise<PaginatedMatch> {
+	async matches(@Arg("userId", () => String) userId: string, @Arg("limit", () => Int) limit: number, @Arg("cursor", () => String, { nullable: true }) cursor: string | null): Promise<PaginatedMatch> {
 		const realLimit = Math.min(50, limit);
 		const reaLimitPlusOne = realLimit + 1;
 

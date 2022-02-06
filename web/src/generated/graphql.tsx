@@ -204,12 +204,20 @@ export type PaginatedAnimals = {
   hasMore: Scalars['Boolean'];
 };
 
+export type PaginatedMatch = {
+  __typename?: 'PaginatedMatch';
+  hasMore: Scalars['Boolean'];
+  matches: Array<Match>;
+};
+
 export type Query = {
   __typename?: 'Query';
   animals: PaginatedAnimals;
+  animalsPerShelter: Scalars['Int'];
   hello: Scalars['String'];
   helloAnimal: Scalars['String'];
   helloMatch: Scalars['String'];
+  matches: PaginatedMatch;
   meOrg?: Maybe<Org>;
   meUser?: Maybe<User>;
 };
@@ -218,6 +226,18 @@ export type Query = {
 export type QueryAnimalsArgs = {
   cursor?: Maybe<Scalars['String']>;
   limit: Scalars['Int'];
+};
+
+
+export type QueryAnimalsPerShelterArgs = {
+  orgId: Scalars['String'];
+};
+
+
+export type QueryMatchesArgs = {
+  cursor?: Maybe<Scalars['String']>;
+  limit: Scalars['Int'];
+  userId: Scalars['String'];
 };
 
 export type User = {
@@ -373,6 +393,15 @@ export type AnimalsQueryVariables = Exact<{
 
 
 export type AnimalsQuery = { __typename?: 'Query', animals: { __typename?: 'PaginatedAnimals', hasMore: boolean, animals: Array<{ __typename?: 'Animal', id: string, orgId: string, type: string, name: string, description: string, imageURL: string, breed: string, cost: number, totalLikes: number, createdAt: string, updatedAt: string }> } };
+
+export type MatchesQueryVariables = Exact<{
+  userId: Scalars['String'];
+  limit: Scalars['Int'];
+  cursor?: Maybe<Scalars['String']>;
+}>;
+
+
+export type MatchesQuery = { __typename?: 'Query', matches: { __typename?: 'PaginatedMatch', hasMore: boolean, matches: Array<{ __typename?: 'Match', matchId: string, animalId: string, userId: string }> } };
 
 export type MeOrgQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -964,6 +993,46 @@ export function useAnimalsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<An
 export type AnimalsQueryHookResult = ReturnType<typeof useAnimalsQuery>;
 export type AnimalsLazyQueryHookResult = ReturnType<typeof useAnimalsLazyQuery>;
 export type AnimalsQueryResult = Apollo.QueryResult<AnimalsQuery, AnimalsQueryVariables>;
+export const MatchesDocument = gql`
+    query Matches($userId: String!, $limit: Int!, $cursor: String) {
+  matches(userId: $userId, limit: $limit, cursor: $cursor) {
+    hasMore
+    matches {
+      ...RegularMatch
+    }
+  }
+}
+    ${RegularMatchFragmentDoc}`;
+
+/**
+ * __useMatchesQuery__
+ *
+ * To run a query within a React component, call `useMatchesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMatchesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMatchesQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *      limit: // value for 'limit'
+ *      cursor: // value for 'cursor'
+ *   },
+ * });
+ */
+export function useMatchesQuery(baseOptions: Apollo.QueryHookOptions<MatchesQuery, MatchesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<MatchesQuery, MatchesQueryVariables>(MatchesDocument, options);
+      }
+export function useMatchesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MatchesQuery, MatchesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<MatchesQuery, MatchesQueryVariables>(MatchesDocument, options);
+        }
+export type MatchesQueryHookResult = ReturnType<typeof useMatchesQuery>;
+export type MatchesLazyQueryHookResult = ReturnType<typeof useMatchesLazyQuery>;
+export type MatchesQueryResult = Apollo.QueryResult<MatchesQuery, MatchesQueryVariables>;
 export const MeOrgDocument = gql`
     query MeOrg {
   meOrg {
