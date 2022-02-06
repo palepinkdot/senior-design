@@ -120,7 +120,7 @@ export class AnimalResolver {
 		};
 	}
 
-	@Query()
+	@Query(() => Int)
 	async animalsPerShelter(@Arg("orgId") orgId: string) {
 		const animals: number = await getConnection().query(
 			`
