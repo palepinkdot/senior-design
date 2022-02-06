@@ -119,4 +119,17 @@ export class AnimalResolver {
 			hasMore: animals.length === reaLimitPlusOne,
 		};
 	}
+
+	@Query()
+	async animalsPerShelter(@Arg("orgId") orgId: string) {
+		const animals: number = await getConnection().query(
+			`
+    select count a.*
+    from animal a
+    where a."orgId" == ${orgId}
+    `
+		);
+		console.log(animals);
+		return animals;
+	}
 }
