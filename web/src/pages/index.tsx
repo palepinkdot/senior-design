@@ -51,6 +51,7 @@ const Index: React.FC<{}> = ({}) => {
                 fontSize="1.2rem"
                 fontWeight="bold"
                 textTransform="uppercase"
+                id="getStarted"
               >
                 Get Started!
               </Text>

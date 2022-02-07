@@ -31,10 +31,10 @@ const AnimalUploadPage: React.FC<{}> = ({}) => {
         <HStack w="full" h="full" p={10} spacing={10} alignItems="center" bg="blue.300" bgGradient="linear(to-tl, blue.300, black)">
           <VStack align="stretch" padding="20px">
             <Box as="i" color="white">
-              <Heading size="3xl" alignSelf="start" as="u" >Mission:</Heading>
+              <Heading id="mission" size="3xl" alignSelf="start" as="u" >Mission:</Heading>
             </Box>
             <Box px="50" paddingTop="5">
-              <Text color="whitesmoke" fontSize="2xl" fontWeight="semibold" align="center">Swipet is a web-based platform connecting people looking to adopt pets with animals from shelters. Upon signing up, users are able to browse a diverse catalog of animals housed in local animal rescue shelters. Swipet brings local sheltered animals to the fingertips of everyday users. General users (adopters) are able to filter and sort animals based on a variety of attributes. Organizations (shelters) are able to post, monitor activity, and review adoption applications of these sheltered animals. The objective of Swipet is to bring sheltered animals into the hands of adopters. This is accomplished by clean and attractive interface that caters to both adopters and animal rescue shelters/organizations. </Text>
+              <Text id="missionText" color="whitesmoke" fontSize="2xl" fontWeight="semibold" align="center">Swipet is a web-based platform connecting people looking to adopt pets with animals from shelters. Upon signing up, users are able to browse a diverse catalog of animals housed in local animal rescue shelters. Swipet brings local sheltered animals to the fingertips of everyday users. General users (adopters) are able to filter and sort animals based on a variety of attributes. Organizations (shelters) are able to post, monitor activity, and review adoption applications of these sheltered animals. The objective of Swipet is to bring sheltered animals into the hands of adopters. This is accomplished by clean and attractive interface that caters to both adopters and animal rescue shelters/organizations. </Text>
             </Box>
           </VStack>
         </HStack>
