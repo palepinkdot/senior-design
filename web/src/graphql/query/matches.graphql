@@ -1,0 +1,8 @@
+query Matches($userId: String!, $limit: Int!, $cursor: String) {
+	matches(userId: $userId, limit: $limit, cursor: $cursor) {
+		hasMore
+		matches {
+			...RegularMatch
+		}
+	}
+}
