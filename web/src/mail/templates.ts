@@ -2,7 +2,7 @@
 
 export const MailTemplates = () => {
 
-  const acceptedMSG = {
+  const acceptedMSG_ADO = {
     to: "torcatobvaz@gmail.com", //replace with adopter user email
     from: "swipet.dev@gmail.com",
     subject: "Your Pet Adoption Application was Accepted",
@@ -10,7 +10,7 @@ export const MailTemplates = () => {
     html: "<strong>You have helped find a new home, thank you! </strong>",
   };
 
-  const pendingMSG = {
+  const pendingMSG_ADO = {
     to: "torcatobvaz@gmail.com", //replace with adopter user email
     from: "swipet.dev@gmail.com",
     subject: "Your Pet Adoption Application is Pending",
@@ -18,12 +18,20 @@ export const MailTemplates = () => {
     html: "<strong>Thank you!</strong>",
   };
 
-  const rejectedMSG = {
+  const rejectedMSG_ADO = {
     to: "torcatobvaz@gmail.com", //replace with adopter user email
     from: "swipet.dev@gmail.com",
     subject: "Your Pet Adoption Application was Rejected",
     text: "We apologize to inform you that your pet adoption application has been rejected by the shelter.",
     html: "<strong>Your search does not have to end here!</strong>",
+  };
+
+  const appReceivedMSG_ORG = {
+    to: "torcatobvaz@gmail.com", //replace with org/shelter email
+    from: "swipet.dev@gmail.com",
+    subject: "Adopeter has Requested to Adopt a Pet",
+    text: "Good news! An adopter is interested in adopting an animal from your shelter. Please login into swipet and review the application",
+    html: "<strong>Thank you!</strong>",
   };
 };
 
