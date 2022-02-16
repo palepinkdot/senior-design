@@ -167,6 +167,7 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet }) => {
               as="a"
               href="#"
               alignItems="center"
+              onClick={onClose}
               py={3}
               borderRadius="full"
               transition="all 0.2s cubic-bezier(.08,.52,.52,1)"
