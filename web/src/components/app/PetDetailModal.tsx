@@ -32,6 +32,7 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet }) => {
   return (
     <>
       <Box
+        cursor={'pointer'}
         onClick={onOpen}
         as="a"
         p={4}

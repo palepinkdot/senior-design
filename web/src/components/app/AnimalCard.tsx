@@ -65,6 +65,7 @@ export const AnimalCard: React.FC<AnimalDataProps> = ({ data }) => {
         <PetDetailModal pet={data} />
         &nbsp;
         <Box
+        cursor={'pointer'}
         as="a"
         p={4}
         borderRadius="full"
