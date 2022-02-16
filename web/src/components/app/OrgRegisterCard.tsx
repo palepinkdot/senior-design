@@ -8,12 +8,10 @@ import { MeOrgDocument, MeOrgQuery, useRegisterOrgMutation } from "../../generat
 import { toErrorMap } from "../../utils/toErrorMap";
 import { InputField } from "../InputField";
 import { toOrgErrorMap } from "../../utils/toOrgErrorMap";
-import ReCAPTCHA from "react-google-recaptcha";
 
 export default function OrgRegisterCard() {
 	const router = useRouter();
 	const [register] = useRegisterOrgMutation();
-	const [isVerified, setIsVerified] = useState(false);
 
 	return (
 		<>
@@ -115,10 +113,7 @@ export default function OrgRegisterCard() {
 												<NextLink href="/app/org-first-login">
 													<Link color={"grey.400"}>already have an account?</Link>
 												</NextLink>
-											</Stack>
-											<Stack direction={{ base: "column", sm: "row" }} align="center" justify={"flex"} px="10">
-												<ReCAPTCHA sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" onChange={() => setIsVerified(true)} />
-											</Stack>
+											</Stack>											
 											<Button
 												type="submit"
 												isLoading={isSubmitting}
@@ -127,7 +122,6 @@ export default function OrgRegisterCard() {
 												_hover={{
 													bg: "red.200",
 												}}
-												isDisabled={!isVerified}
 											>
 												Register
 											</Button>
