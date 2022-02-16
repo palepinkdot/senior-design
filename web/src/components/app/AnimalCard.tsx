@@ -59,9 +59,11 @@ export const AnimalCard: React.FC<AnimalDataProps> = ({ data }) => {
             h="66vh"
             bgImage={data.imageURL}
             borderRadius="20px"
+            alignContent="center"
           ></Box>
         </HStack>
         &nbsp;
+        <HStack>
         <PetDetailModal pet={data} />
         &nbsp;
         <Box
@@ -90,6 +92,7 @@ export const AnimalCard: React.FC<AnimalDataProps> = ({ data }) => {
           Adopt Now
         </Text>
       </Box>
+      </HStack>
       &nbsp;
       </Box>
     );
