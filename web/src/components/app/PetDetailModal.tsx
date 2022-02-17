@@ -32,6 +32,7 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet }) => {
   return (
     <>
       <Box
+        cursor="pointer"
         onClick={onOpen}
         as="a"
         p={4}
@@ -167,6 +168,7 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet }) => {
               as="a"
               href="#"
               alignItems="center"
+              onClick={onClose}
               py={3}
               borderRadius="full"
               transition="all 0.2s cubic-bezier(.08,.52,.52,1)"
