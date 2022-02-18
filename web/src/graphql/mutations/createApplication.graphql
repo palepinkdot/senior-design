@@ -1,0 +1,5 @@
+mutation CreateApplication($animalId: String!, $userId: String!, $status: String!) {
+    createApplication(animalId: String!, $userId: String!, $status: String!) {
+        ...RegularApplicationResponse
+    }
+}

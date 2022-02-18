@@ -21,6 +21,7 @@ import { Animal } from "./entities/Animal";
 import { AnimalResolver } from "./resolvers/animal";
 import { MatchResolver } from "./resolvers/match";
 import { Match } from "./entities/Match";
+import {ApplicationResolver} from "./resolvers/application";
 
 const main = async () => {
 	console.log("🐾 Starting Swipet API...");
@@ -64,7 +65,7 @@ const main = async () => {
 
 	const apolloServer = new ApolloServer({
 		schema: await buildSchema({
-			resolvers: [HelloResolver, UserResolver, OrgResolver, AnimalResolver, MatchResolver],
+			resolvers: [HelloResolver, UserResolver, OrgResolver, AnimalResolver, MatchResolver, ApplicationResolver],
 			validate: false,
 		}),
 		context: ({ req, res }): MyContext => ({ req, res, redis }),

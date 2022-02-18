@@ -41,6 +41,18 @@ export type AnimalResponse = {
   errors?: Maybe<Array<AnimalFieldError>>;
 };
 
+export type ApplicationFieldError = {
+  __typename?: 'ApplicationFieldError';
+  field: Scalars['String'];
+  message: Scalars['String'];
+};
+
+export type ApplicationResponse = {
+  __typename?: 'ApplicationResponse';
+  application?: Maybe<Org>;
+  errors?: Maybe<Array<ApplicationFieldError>>;
+};
+
 export type CreateAnimalInput = {
   breed: Scalars['String'];
   cost: Scalars['Float'];
@@ -83,6 +95,7 @@ export type Mutation = {
   changeOrgPassword: OrgResponse;
   changeUserPassword: UserResponse;
   createAnimal: AnimalResponse;
+  createApplication: ApplicationResponse;
   createMatch: MatchResponse;
   forgotOrgPassword: Scalars['Boolean'];
   forgotUserPassword: Scalars['Boolean'];
