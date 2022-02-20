@@ -75,10 +75,10 @@ export class MatchResolver {
 		const matches = await getConnection().query(
 			`
     select m.*
-    from matches m
-	where m."userId" == ${userId}
+    from match m
+	where m."userId" = '${userId}'
     ${cursor ? `where a."createdAt" < $2` : ""}
-    order by a."createdAt" DESC
+    order by m."createdAt" DESC
     limit $1
     `,
 			replacements
