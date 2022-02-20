@@ -21,12 +21,10 @@ import {
 } from "../../generated/graphql";
 import { toErrorMap } from "../../utils/toErrorMap";
 import { InputField } from "../InputField";
-import ReCAPTCHA from "react-google-recaptcha";
 
 export default function AdoRegisterCard() {
   const router = useRouter();
   const [register] = useRegisterUserMutation();
-  const [isVerified, setIsVerified] = useState(false);
 
   return (
     <>
@@ -139,17 +137,6 @@ export default function AdoRegisterCard() {
                         <NextLink href="/app/ado/login">
                           <Link color={"grey.400"}>already have one?</Link>
                         </NextLink>
-                      </Stack>
-                      <Stack
-                        direction={{ base: "column", sm: "row" }}
-                        align="center"
-                        justify={"flex"}
-                        px="10"                        
-                      >
-                        <ReCAPTCHA
-                          sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
-                          onChange={() => setIsVerified(true)}
-                        />
                       </Stack>                      
                       <Button
                         type="submit"
@@ -158,8 +145,7 @@ export default function AdoRegisterCard() {
                         color={"white"}
                         _hover={{
                           bg: "blue.200",
-                        }}
-                        isDisabled={!isVerified}
+                        }}                        
                       >
                         Register
                       </Button>
