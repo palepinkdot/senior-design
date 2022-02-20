@@ -45,13 +45,13 @@ export const AnimalCard: React.FC<AnimalDataProps> = ({ data }) => {
       >
         <HStack justify="space-around" w={"100%"} h={"100%"}>
           <VStack alignItems="left">
-            <Text fontSize="md">{data.breed}</Text>
+            <Text fontSize="md">{data.type}</Text>
             <Heading fontSize="5xl" fontWeight="900">
               {data.name}
             </Heading>
             <Text fontSize="lg">4 years old</Text>
             <Text fontSize="md" as="i">
-              fee: $1200
+              fee: ${data.cost}
             </Text>
           </VStack>
           <Box

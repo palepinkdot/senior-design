@@ -20,6 +20,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
+import {useMeOrgQuery } from "../../generated/graphql";
 // import { withApollo } from "../utils/withApollo";
 
 interface PetDetailModalProps {
@@ -27,6 +28,8 @@ interface PetDetailModalProps {
 }
 
 export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet }) => {
+  const { data: orgData, loading: orgLoading } = useMeOrgQuery({});
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [size, setSize] = React.useState("full");
   return (
@@ -92,13 +95,13 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet }) => {
                   </Box>
                 </HStack>
                 <VStack alignItems="left">
-                  <Text fontSize="md">{pet.breed}</Text>
+                  <Text fontSize="md">{pet.type}</Text>
                   <Heading fontSize="5xl" fontWeight="900">
                     {pet.name}
                   </Heading>
                   <Text fontSize="lg">4 years old</Text>
                   <Text fontSize="md" as="i">
-                    fee: $180
+                    fee: ${pet.cost}
                   </Text>
                 </VStack>
               </VStack>
@@ -152,8 +155,9 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet }) => {
                         Agency <br /> Information:
                       </Heading>
                       <VStack align="left">
-                        <Text fontSize="md"> 513-123-1234 </Text>
-                        <Text fontSize="md"> sheltername@gmail.com </Text>
+                        <Text fontSize="md"> {orgData.meOrg.orgName} </Text>
+                        <Text fontSize="md"> {orgData.meOrg.email} </Text>
+                        <Text fontSize="md"> {orgData.meOrg.address} </Text>
                       </VStack>
                     </HStack>
                   </VStack>
