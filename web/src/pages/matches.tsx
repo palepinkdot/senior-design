@@ -20,13 +20,29 @@ import { NotAllowedIcon, CheckCircleIcon, WarningIcon } from '@chakra-ui/icons'
 import { AppNavBar } from "../components/app/AppNavBar";
 import HomeFooter from "../components/home/HomeFooter";
 import { withApollo } from "../utils/withApollo";
-import {useMatchesQuery, useMeUserQuery } from "../generated/graphql";
+import {useMatchesQuery, useMeUserQuery, useAnimalsQuery } from "../generated/graphql";
 import { isServer } from "../utils/isServer";
 
 const Matches: React.FC<{}> = ({ }) => {
   const { data: meData, loading: meLoading } = useMeUserQuery({
     skip: isServer(),
   });
+  console.log(meData.meUser.id);
+  const { data: matchData, error: matchError } = useMatchesQuery({
+    variables: {
+    userId: meData.meUser.id,
+    limit: 100,
+    },
+    });
+    console.log(matchData.matches.matches);
+    const { data: animalsData, error: animalsError } = useAnimalsQuery({
+        variables: {
+          limit: 10,
+          cursor: null,
+        },
+      });
+      console.log("animalsData");
+      console.log(animalsData);
 
   return (
     <div>

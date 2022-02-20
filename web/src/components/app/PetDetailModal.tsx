@@ -155,9 +155,7 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet }) => {
                         Agency <br /> Information:
                       </Heading>
                       <VStack align="left">
-                        <Text fontSize="md"> {orgData.meOrg.orgName} </Text>
-                        <Text fontSize="md"> {orgData.meOrg.email} </Text>
-                        <Text fontSize="md"> {orgData.meOrg.address} </Text>
+                       
                       </VStack>
                     </HStack>
                   </VStack>
