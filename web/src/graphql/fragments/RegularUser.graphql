@@ -1,10 +1,11 @@
 fragment RegularUser on User {
-  id
-  username
-  firstname
-  lastname
-  avatarUrl
-  email
-
-  attributes
+	id
+	username
+	firstname
+	lastname
+	avatarUrl
+	email
+	phone
+	zip
+	attributes
 }
