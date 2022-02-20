@@ -8,6 +8,8 @@ import {
   Image,
   VStack,
   HStack,
+  AspectRatio,
+  Center,
 } from "@chakra-ui/react";
 import { PetDetailModal } from "./PetDetailModal";
 
@@ -29,22 +31,23 @@ export const AnimalCard: React.FC<AnimalDataProps> = ({ data }) => {
     // background-size: cover;
     // background-position: center;
     return (
+      <Center 
+        verticalAlign={"center"}
+        justifyContent="center"
+        mb="25rem"
+        >
       <Box
         key={data.id}
         display="flex"
         alignItems="center"
-        alignSelf="center"
-        justifyContent="space-evenly"
+        justifyContent="center"
         flexDirection="column"
         boxShadow="xl"
         borderRadius="20px"
-        bgColor="white"
-        position="relative"
-        mb="10rem"
-        mt="5rem"
+        bgColor="white"        
       >
-        <HStack justify="space-around" w={"100%"} h={"100%"}>
-          <VStack alignItems="left">
+        <HStack mt="80px" display={"flex"}>
+          <VStack alignItems="left" p="6">
             <Text fontSize="md">{data.breed}</Text>
             <Heading fontSize="5xl" fontWeight="900">
               {data.name}
@@ -54,16 +57,19 @@ export const AnimalCard: React.FC<AnimalDataProps> = ({ data }) => {
               fee: $1200
             </Text>
           </VStack>
-          <Box
-            w="33vw"
-            h="66vh"
-            bgImage={data.imageURL}
+          <Image
+            maxW="550px"
+            w={"70%"}
+            src={data.imageURL}
             borderRadius="20px"
-            alignContent="center"
-          ></Box>
+            alignItems="center"
+            justifyContent="center"
+            display="flex"
+          >
+          </Image>
         </HStack>
         &nbsp;
-        <HStack>
+        <HStack pt="5">
         <PetDetailModal pet={data} />
         &nbsp;
         <Box
@@ -95,6 +101,41 @@ export const AnimalCard: React.FC<AnimalDataProps> = ({ data }) => {
       </HStack>
       &nbsp;
       </Box>
+      </Center>
     );
   }
 };
+
+
+
+
+
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//

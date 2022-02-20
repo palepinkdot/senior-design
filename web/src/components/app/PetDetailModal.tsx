@@ -74,12 +74,13 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet }) => {
             >
               <VStack p={6} alignItems="left">
                 <HStack>
-                  <Box
-                    h="275px"
-                    w="450px"
-                    bgImage={pet.imageURL}
+                  <Image
+                    // h="245px"
+                    // w="350px"
+                    w="85%"
+                    src={pet.imageURL}
                     borderRadius="20px"
-                  ></Box>
+                  ></Image>
                   <Box>
                     <VStack spacing={20}>
                       <Icon as={ChevronUpIcon} w={12} h={12} color="blue.50" />
