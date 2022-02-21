@@ -1,0 +1,8 @@
+fragment RegularAnimal on Application {
+    id
+    animalId
+    userId
+    status
+    createdAt
+    updatedAt
+}

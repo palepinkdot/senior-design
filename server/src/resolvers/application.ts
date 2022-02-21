@@ -12,6 +12,17 @@ import { v4 } from "uuid";
 import { getConnection } from "typeorm";
 import {Application} from "../entities/Application";
 
+
+@InputType()
+class ApplicationInput {
+    @Field()
+    animalId: string;
+    @Field()
+    userId: string;
+    @Field()
+    status: string;
+}
+
 @ObjectType()
 class ApplicationFieldError {
     @Field()
@@ -36,8 +47,7 @@ export class ApplicationResolver {
         return "hello world from application";
     }
     @Mutation(() => ApplicationResponse)
-    async createApplication(@Arg("animalId") animalId: string,
-                            @Arg("status") status: string, @Ctx() { req }: MyContext): Promise<ApplicationResponse> {
+    async createApplication(@Arg("options") options: ApplicationInput, @Ctx() { req }: MyContext): Promise<ApplicationResponse> {
         console.log(req.session.userId);
 
         let application;
@@ -47,9 +57,9 @@ export class ApplicationResolver {
                 .insert()
                 .into(Application)
                 .values({
-                    animalId: animalId,
-                    userId: req.session.userId,
-                    status: status,
+                    animalId: options.animalId,
+                    userId: options.userId,
+                    status: options.status,
                 })
                 .returning("*")
                 .execute();
