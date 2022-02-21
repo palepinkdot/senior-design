@@ -1,0 +1,7 @@
+query AnimalByID($id: String!) {
+	animalByID(id: $id) {
+		animal {
+			...RegularMatch
+		}
+	}
+}
