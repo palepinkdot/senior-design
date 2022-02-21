@@ -2,7 +2,7 @@ fragment RegularApplicationResponse on ApplicationResponse {
     errors {
         ...ApplicationError
     }
-    animal {
+    application {
         ...RegularApplication
     }
 }
