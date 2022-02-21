@@ -21,6 +21,7 @@ import { Animal } from "./entities/Animal";
 import { AnimalResolver } from "./resolvers/animal";
 import { MatchResolver } from "./resolvers/match";
 import { Match } from "./entities/Match";
+import { Application } from "./entities/Application"
 import {ApplicationResolver} from "./resolvers/application";
 
 const main = async () => {
@@ -30,7 +31,7 @@ const main = async () => {
 		url: process.env.DATABASE_URL,
 		logging: true,
 		migrations: [path.join(__dirname, "./migrations/*")],
-		entities: [User, Org, Animal, Match],
+		entities: [User, Org, Animal, Match, Application],
 		synchronize: true,
 	});
 	await conn.runMigrations();

@@ -1,4 +1,4 @@
-fragment RegularAnimal on Application {
+fragment RegularApplication on Application {
     id
     animalId
     userId
