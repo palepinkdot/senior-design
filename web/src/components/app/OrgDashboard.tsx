@@ -5,10 +5,11 @@ import { useMeOrgQuery } from "../../generated/graphql";
 import { isServer } from "../../utils/isServer";
 import { useRouter } from "next/router";
 import ApplicationCard from "../dashboard/ApplicationCard";
-
 import OrgFirstLoginCard from "./OrgFirstLoginCard";
 import { OrgNavBar } from "./OrgNavBar";
 import TableAnimals from "../dashboard/TableAnimals";
+import TableApplications from "../dashboard/TableApplications";
+import HomeFooter from "../home/HomeFooter";
 
 export default function OrgDashboard() {
 	const router = useRouter();
@@ -24,9 +25,8 @@ export default function OrgDashboard() {
 		return (
 			<>
 				<OrgNavBar />
-
 				{/* Column 2 */}
-				<Flex w="55%" p="3%" flexDir="column" overflow="hidden" minH="100vh">
+				<Flex w="55%" p="3%" flexDir="column" overflow="auto" minH="100vh" height={"100%"}>
 					<Heading fontWeight="bold" display={"inline-flex"}>
 						{data.meOrg.orgName}
 					</Heading>
@@ -36,8 +36,8 @@ export default function OrgDashboard() {
 					<Text fontWeight={"bold"} display={"inline-flex"}>
 						Quick Stats
 					</Text>
-					<Flex w={"100%"} p={"3%"} pr={"1%"} minH={"20vh"} mt={4} display={"inline-flex"} overflow={"hidden"}>
-						<Flex flexDir={"row"} overflow={"hidden"} display={"column"} flex={3}>
+					<Flex w={"100%"} p={"3%"} pr={"1%"} minH={"20vh"} mt={4} display={"inline-flex"} overflow={"auto"}>
+						<Flex flexDir={"row"} overflow={"auto"} display={"column"} flex={3}>
 							<Text fontWeight={"normal"} mb={4} fontSize={"12"}>
 								Total Applications
 							</Text>
@@ -77,18 +77,7 @@ export default function OrgDashboard() {
 						</TabList>
 						<TabPanels>
 							<TabPanel>
-								<Stack w={"100%"} h={"100%"} display={"inline-flex"} overflow={"auto"}>
-									<HStack>
-										<ApplicationCard />
-										<ApplicationCard />
-										<ApplicationCard />
-									</HStack>
-									<HStack>
-										<ApplicationCard />
-										<ApplicationCard />
-										<ApplicationCard />
-									</HStack>
-								</Stack>
+								<TableApplications />
 							</TabPanel>
 							<TabPanel>
 								<TableAnimals />
@@ -110,8 +99,6 @@ export default function OrgDashboard() {
 						</Stack>
 					</Flex>
 				</Flex>
-				{/* Column 3 */}
-				<Flex w="35%" bgColor="#F5F5F5" p="3%" flexDir="column" overflow="hidden"></Flex>
 			</>
 		);
 	} else {

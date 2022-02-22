@@ -32,6 +32,7 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet }) => {
   return (
     <>
       <Box
+        cursor="pointer"
         onClick={onOpen}
         as="a"
         p={4}
@@ -73,12 +74,13 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet }) => {
             >
               <VStack p={6} alignItems="left">
                 <HStack>
-                  <Box
-                    h="275px"
-                    w="450px"
-                    bgImage={pet.imageURL}
+                  <Image
+                    // h="245px"
+                    // w="350px"
+                    w="85%"
+                    src={pet.imageURL}
                     borderRadius="20px"
-                  ></Box>
+                  ></Image>
                   <Box>
                     <VStack spacing={20}>
                       <Icon as={ChevronUpIcon} w={12} h={12} color="blue.50" />
@@ -167,6 +169,7 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet }) => {
               as="a"
               href="#"
               alignItems="center"
+              onClick={onClose}
               py={3}
               borderRadius="full"
               transition="all 0.2s cubic-bezier(.08,.52,.52,1)"

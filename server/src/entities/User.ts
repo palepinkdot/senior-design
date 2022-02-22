@@ -23,6 +23,12 @@ export class User extends BaseEntity {
 	@Column()
 	avatarUrl: string;
 
+	@Field(() => String)
+	phone: string;
+
+	@Field(() => String)
+	zip: string;
+
 	@Field()
 	@Column({ unique: true })
 	email!: string;
