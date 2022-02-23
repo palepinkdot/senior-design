@@ -212,6 +212,7 @@ export type PaginatedMatch = {
 
 export type Query = {
   __typename?: 'Query';
+  animalByID: Animal;
   animals: PaginatedAnimals;
   animalsPerShelter: Scalars['Int'];
   hello: Scalars['String'];
@@ -220,6 +221,11 @@ export type Query = {
   matches: PaginatedMatch;
   meOrg?: Maybe<Org>;
   meUser?: Maybe<User>;
+};
+
+
+export type QueryAnimalByIdArgs = {
+  id: Scalars['String'];
 };
 
 
@@ -385,6 +391,13 @@ export type UpdateUserInfoMutationVariables = Exact<{
 
 
 export type UpdateUserInfoMutation = { __typename?: 'Mutation', updateUserInfo: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', id: string, username: string, firstname: string, lastname: string, avatarUrl: string, email: string, attributes: string } | null | undefined } };
+
+export type AnimalByIdQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type AnimalByIdQuery = { __typename?: 'Query', animalByID: { __typename?: 'Animal', id: string, orgId: string, type: string, name: string, description: string, imageURL: string, breed: string, cost: number, totalLikes: number, createdAt: string, updatedAt: string } };
 
 export type AnimalsQueryVariables = Exact<{
   limit: Scalars['Int'];
@@ -954,6 +967,41 @@ export function useUpdateUserInfoMutation(baseOptions?: Apollo.MutationHookOptio
 export type UpdateUserInfoMutationHookResult = ReturnType<typeof useUpdateUserInfoMutation>;
 export type UpdateUserInfoMutationResult = Apollo.MutationResult<UpdateUserInfoMutation>;
 export type UpdateUserInfoMutationOptions = Apollo.BaseMutationOptions<UpdateUserInfoMutation, UpdateUserInfoMutationVariables>;
+export const AnimalByIdDocument = gql`
+    query AnimalByID($id: String!) {
+  animalByID(id: $id) {
+    ...RegularAnimal
+  }
+}
+    ${RegularAnimalFragmentDoc}`;
+
+/**
+ * __useAnimalByIdQuery__
+ *
+ * To run a query within a React component, call `useAnimalByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAnimalByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAnimalByIdQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useAnimalByIdQuery(baseOptions: Apollo.QueryHookOptions<AnimalByIdQuery, AnimalByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AnimalByIdQuery, AnimalByIdQueryVariables>(AnimalByIdDocument, options);
+      }
+export function useAnimalByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AnimalByIdQuery, AnimalByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AnimalByIdQuery, AnimalByIdQueryVariables>(AnimalByIdDocument, options);
+        }
+export type AnimalByIdQueryHookResult = ReturnType<typeof useAnimalByIdQuery>;
+export type AnimalByIdLazyQueryHookResult = ReturnType<typeof useAnimalByIdLazyQuery>;
+export type AnimalByIdQueryResult = Apollo.QueryResult<AnimalByIdQuery, AnimalByIdQueryVariables>;
 export const AnimalsDocument = gql`
     query Animals($limit: Int!, $cursor: String) {
   animals(limit: $limit, cursor: $cursor) {

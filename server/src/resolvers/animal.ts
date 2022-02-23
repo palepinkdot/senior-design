@@ -132,4 +132,21 @@ export class AnimalResolver {
 		console.log(animals);
 		return animals;
 	}
+
+	@Query(() => Animal)
+	async animalByID(@Arg("id", () => String) id: string) {
+		const animal: number = await getConnection().query(
+			`
+		select a.*
+		from animal a
+		where a."id" = '${id}'
+		`
+		);
+		console.log(animal);
+		return animal;
+	}
 }
+
+
+
+
