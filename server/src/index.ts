@@ -74,8 +74,37 @@ const main = async () => {
 	app.use(graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }));
 	apolloServer.applyMiddleware({ app, cors: false });
 	app.listen(parseInt(process.env.PORT), () => {
-		console.log("🚀 Swipet API started on " + process.env.CORS_DOMAIN + ":" + process.env.PORT);
+		console.log("🚀 Swipet API started on deez " + process.env.CORS_DOMAIN + ":" + process.env.PORT);
 	});
+
+	console.log("testing sendgrid")
+
+	const sgMail = require('@sendgrid/mail')
+
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+
+    console.log("Sendgrid API Key retrieved");
+
+
+    const acceptedMSG_ADO = {
+        to: "torcatobvaz@gmail.com", //replace with adopter user email
+        from: "swipet.dev@gmail.com",
+        subject: "Your Pet Adoption Application was Accepted",
+        text: "Congratulations! Please pick up your new pet at the Shelter",
+        html: "<strong>You have helped find a new home, thank you! </strong>",
+      };
+
+      console.log(sgMail);
+
+      sgMail
+      .send(acceptedMSG_ADO)
+      .then(() => {}, (error: { response: { body: any; }; }) => {
+        console.error(error);
+    
+        if (error.response) {
+          console.error(error.response.body)
+        }
+      });
 };
 
 main().catch((err) => {
