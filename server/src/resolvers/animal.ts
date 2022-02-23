@@ -135,13 +135,11 @@ export class AnimalResolver {
 
 	@Query(() => Animal)
 	async animalByID(@Arg("id", () => String) id: string) {
-		const animal: number = await getConnection().query(
-			`
-		select a.*
-		from animal a
-		where a."id" = '${id}'
-		`
-		);
+		const animal = await getConnection().createQueryBuilder()
+															.select("animal")
+															.from(Animal, "animal")
+															.where("animal.id = :id", {id: id})
+															.getOne();
 		console.log(animal);
 		return animal;
 	}
