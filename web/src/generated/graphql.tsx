@@ -221,6 +221,7 @@ export type Query = {
   matches: PaginatedMatch;
   meOrg?: Maybe<Org>;
   meUser?: Maybe<User>;
+  orgByID: Org;
 };
 
 
@@ -244,6 +245,11 @@ export type QueryMatchesArgs = {
   cursor?: Maybe<Scalars['String']>;
   limit: Scalars['Int'];
   userId: Scalars['String'];
+};
+
+
+export type QueryOrgByIdArgs = {
+  id: Scalars['String'];
 };
 
 export type User = {
@@ -425,6 +431,13 @@ export type MeUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type MeUserQuery = { __typename?: 'Query', meUser?: { __typename?: 'User', id: string, username: string, firstname: string, lastname: string, avatarUrl: string, email: string, attributes: string } | null | undefined };
+
+export type OrgByIdQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type OrgByIdQuery = { __typename?: 'Query', orgByID: { __typename?: 'Org', id: string, username: string, contactFirstname: string, contactLastname: string, orgName: string, address: string, avatarUrl: string, email: string, attributes: string } };
 
 export const AnimalErrorFragmentDoc = gql`
     fragment AnimalError on AnimalFieldError {
@@ -1149,6 +1162,41 @@ export function useMeUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeU
 export type MeUserQueryHookResult = ReturnType<typeof useMeUserQuery>;
 export type MeUserLazyQueryHookResult = ReturnType<typeof useMeUserLazyQuery>;
 export type MeUserQueryResult = Apollo.QueryResult<MeUserQuery, MeUserQueryVariables>;
+export const OrgByIdDocument = gql`
+    query OrgByID($id: String!) {
+  orgByID(id: $id) {
+    ...RegularOrg
+  }
+}
+    ${RegularOrgFragmentDoc}`;
+
+/**
+ * __useOrgByIdQuery__
+ *
+ * To run a query within a React component, call `useOrgByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useOrgByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useOrgByIdQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useOrgByIdQuery(baseOptions: Apollo.QueryHookOptions<OrgByIdQuery, OrgByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<OrgByIdQuery, OrgByIdQueryVariables>(OrgByIdDocument, options);
+      }
+export function useOrgByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<OrgByIdQuery, OrgByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<OrgByIdQuery, OrgByIdQueryVariables>(OrgByIdDocument, options);
+        }
+export type OrgByIdQueryHookResult = ReturnType<typeof useOrgByIdQuery>;
+export type OrgByIdLazyQueryHookResult = ReturnType<typeof useOrgByIdLazyQuery>;
+export type OrgByIdQueryResult = Apollo.QueryResult<OrgByIdQuery, OrgByIdQueryVariables>;
 
       export interface PossibleTypesResultData {
         possibleTypes: {

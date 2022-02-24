@@ -1,0 +1,5 @@
+query OrgByID($id: String!) {
+	orgByID(id: $id) {					
+			...RegularOrg
+	}
+}
