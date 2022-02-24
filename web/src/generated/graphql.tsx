@@ -41,6 +41,34 @@ export type AnimalResponse = {
   errors?: Maybe<Array<AnimalFieldError>>;
 };
 
+export type Application = {
+  __typename?: 'Application';
+  animalId: Scalars['String'];
+  createdAt: Scalars['String'];
+  id: Scalars['String'];
+  status: Scalars['String'];
+  updatedAt: Scalars['String'];
+  userId: Scalars['String'];
+};
+
+export type ApplicationFieldError = {
+  __typename?: 'ApplicationFieldError';
+  field: Scalars['String'];
+  message: Scalars['String'];
+};
+
+export type ApplicationInput = {
+  animalId: Scalars['String'];
+  status: Scalars['String'];
+  userId: Scalars['String'];
+};
+
+export type ApplicationResponse = {
+  __typename?: 'ApplicationResponse';
+  application?: Maybe<Application>;
+  errors?: Maybe<Array<ApplicationFieldError>>;
+};
+
 export type CreateAnimalInput = {
   breed: Scalars['String'];
   cost: Scalars['Float'];
@@ -83,6 +111,7 @@ export type Mutation = {
   changeOrgPassword: OrgResponse;
   changeUserPassword: UserResponse;
   createAnimal: AnimalResponse;
+  createApplication: ApplicationResponse;
   createMatch: MatchResponse;
   forgotOrgPassword: Scalars['Boolean'];
   forgotUserPassword: Scalars['Boolean'];
@@ -110,6 +139,11 @@ export type MutationChangeUserPasswordArgs = {
 
 export type MutationCreateAnimalArgs = {
   options: CreateAnimalInput;
+};
+
+
+export type MutationCreateApplicationArgs = {
+  options: ApplicationInput;
 };
 
 
@@ -217,6 +251,7 @@ export type Query = {
   animalsPerShelter: Scalars['Int'];
   hello: Scalars['String'];
   helloAnimal: Scalars['String'];
+  helloApplication: Scalars['String'];
   helloMatch: Scalars['String'];
   matches: PaginatedMatch;
   meOrg?: Maybe<Org>;
@@ -284,9 +319,15 @@ export type UsernamePasswordInput = {
 
 export type AnimalErrorFragment = { __typename?: 'AnimalFieldError', field: string, message: string };
 
+export type ApplicationErrorFragment = { __typename?: 'ApplicationFieldError', field: string, message: string };
+
 export type RegularAnimalFragment = { __typename?: 'Animal', id: string, orgId: string, type: string, name: string, description: string, imageURL: string, breed: string, cost: number, totalLikes: number, createdAt: string, updatedAt: string };
 
 export type RegularAnimalResponseFragment = { __typename?: 'AnimalResponse', errors?: Array<{ __typename?: 'AnimalFieldError', field: string, message: string }> | null | undefined, animal?: { __typename?: 'Animal', id: string, orgId: string, type: string, name: string, description: string, imageURL: string, breed: string, cost: number, totalLikes: number, createdAt: string, updatedAt: string } | null | undefined };
+
+export type RegularApplicationFragment = { __typename?: 'Application', id: string, animalId: string, userId: string, status: string, createdAt: string, updatedAt: string };
+
+export type RegularApplicationResponseFragment = { __typename?: 'ApplicationResponse', errors?: Array<{ __typename?: 'ApplicationFieldError', field: string, message: string }> | null | undefined, application?: { __typename?: 'Application', id: string, animalId: string, userId: string, status: string, createdAt: string, updatedAt: string } | null | undefined };
 
 export type RegularMatchFragment = { __typename?: 'Match', matchId: string, animalId: string, userId: string };
 
@@ -473,6 +514,33 @@ export const RegularAnimalResponseFragmentDoc = gql`
 }
     ${AnimalErrorFragmentDoc}
 ${RegularAnimalFragmentDoc}`;
+export const ApplicationErrorFragmentDoc = gql`
+    fragment ApplicationError on ApplicationFieldError {
+  field
+  message
+}
+    `;
+export const RegularApplicationFragmentDoc = gql`
+    fragment RegularApplication on Application {
+  id
+  animalId
+  userId
+  status
+  createdAt
+  updatedAt
+}
+    `;
+export const RegularApplicationResponseFragmentDoc = gql`
+    fragment RegularApplicationResponse on ApplicationResponse {
+  errors {
+    ...ApplicationError
+  }
+  application {
+    ...RegularApplication
+  }
+}
+    ${ApplicationErrorFragmentDoc}
+${RegularApplicationFragmentDoc}`;
 export const RegularMatchErrorFragmentDoc = gql`
     fragment RegularMatchError on MatchFieldError {
   field

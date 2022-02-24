@@ -1,0 +1,8 @@
+fragment RegularApplication on Application {
+    id
+    animalId
+    userId
+    status
+    createdAt
+    updatedAt
+}

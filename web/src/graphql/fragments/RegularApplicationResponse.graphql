@@ -1,0 +1,8 @@
+fragment RegularApplicationResponse on ApplicationResponse {
+    errors {
+        ...ApplicationError
+    }
+    application {
+        ...RegularApplication
+    }
+}
