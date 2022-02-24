@@ -121,7 +121,7 @@ export default function OrgRegisterCard() {
 												color={"white"}
 												_hover={{
 													bg: "red.200",
-												}}												
+												}}
 											>
 												Register
 											</Button>

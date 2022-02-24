@@ -261,8 +261,10 @@ export type User = {
   firstname: Scalars['String'];
   id: Scalars['String'];
   lastname: Scalars['String'];
+  phone: Scalars['String'];
   updatedAt: Scalars['String'];
   username: Scalars['String'];
+  zip: Scalars['String'];
 };
 
 export type UserResponse = {
@@ -298,11 +300,11 @@ export type RegularOrgErrorFragment = { __typename?: 'OrgFieldError', field: str
 
 export type RegularOrgResponseFragment = { __typename?: 'OrgResponse', errors?: Array<{ __typename?: 'OrgFieldError', field: string, message: string }> | null | undefined, org?: { __typename?: 'Org', id: string, username: string, contactFirstname: string, contactLastname: string, orgName: string, address: string, avatarUrl: string, email: string, attributes: string } | null | undefined };
 
-export type RegularUserFragment = { __typename?: 'User', id: string, username: string, firstname: string, lastname: string, avatarUrl: string, email: string, attributes: string };
+export type RegularUserFragment = { __typename?: 'User', id: string, username: string, firstname: string, lastname: string, avatarUrl: string, email: string, phone: string, zip: string, attributes: string };
 
 export type RegularUserErrorFragment = { __typename?: 'FieldError', field: string, message: string };
 
-export type RegularUserResponseFragment = { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', id: string, username: string, firstname: string, lastname: string, avatarUrl: string, email: string, attributes: string } | null | undefined };
+export type RegularUserResponseFragment = { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', id: string, username: string, firstname: string, lastname: string, avatarUrl: string, email: string, phone: string, zip: string, attributes: string } | null | undefined };
 
 export type ChangeOrgPasswordMutationVariables = Exact<{
   token: Scalars['String'];
@@ -318,7 +320,7 @@ export type ChangeUserPasswordMutationVariables = Exact<{
 }>;
 
 
-export type ChangeUserPasswordMutation = { __typename?: 'Mutation', changeUserPassword: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', id: string, username: string, firstname: string, lastname: string, avatarUrl: string, email: string, attributes: string } | null | undefined } };
+export type ChangeUserPasswordMutation = { __typename?: 'Mutation', changeUserPassword: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', id: string, username: string, firstname: string, lastname: string, avatarUrl: string, email: string, phone: string, zip: string, attributes: string } | null | undefined } };
 
 export type CreateAnimalMutationVariables = Exact<{
   options: CreateAnimalInput;
@@ -363,7 +365,7 @@ export type LoginUserMutationVariables = Exact<{
 }>;
 
 
-export type LoginUserMutation = { __typename?: 'Mutation', loginUser: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', id: string, username: string, firstname: string, lastname: string, avatarUrl: string, email: string, attributes: string } | null | undefined } };
+export type LoginUserMutation = { __typename?: 'Mutation', loginUser: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', id: string, username: string, firstname: string, lastname: string, avatarUrl: string, email: string, phone: string, zip: string, attributes: string } | null | undefined } };
 
 export type LogoutUserMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -382,7 +384,7 @@ export type RegisterUserMutationVariables = Exact<{
 }>;
 
 
-export type RegisterUserMutation = { __typename?: 'Mutation', registerUser: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', id: string, username: string, firstname: string, lastname: string, avatarUrl: string, email: string, attributes: string } | null | undefined } };
+export type RegisterUserMutation = { __typename?: 'Mutation', registerUser: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', id: string, username: string, firstname: string, lastname: string, avatarUrl: string, email: string, phone: string, zip: string, attributes: string } | null | undefined } };
 
 export type UpdateOrgInfoMutationVariables = Exact<{
   options: Scalars['String'];
@@ -396,7 +398,7 @@ export type UpdateUserInfoMutationVariables = Exact<{
 }>;
 
 
-export type UpdateUserInfoMutation = { __typename?: 'Mutation', updateUserInfo: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', id: string, username: string, firstname: string, lastname: string, avatarUrl: string, email: string, attributes: string } | null | undefined } };
+export type UpdateUserInfoMutation = { __typename?: 'Mutation', updateUserInfo: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', id: string, username: string, firstname: string, lastname: string, avatarUrl: string, email: string, phone: string, zip: string, attributes: string } | null | undefined } };
 
 export type AnimalByIdQueryVariables = Exact<{
   id: Scalars['String'];
@@ -430,7 +432,7 @@ export type MeOrgQuery = { __typename?: 'Query', meOrg?: { __typename?: 'Org', i
 export type MeUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MeUserQuery = { __typename?: 'Query', meUser?: { __typename?: 'User', id: string, username: string, firstname: string, lastname: string, avatarUrl: string, email: string, attributes: string } | null | undefined };
+export type MeUserQuery = { __typename?: 'Query', meUser?: { __typename?: 'User', id: string, username: string, firstname: string, lastname: string, avatarUrl: string, email: string, phone: string, zip: string, attributes: string } | null | undefined };
 
 export type OrgByIdQueryVariables = Exact<{
   id: Scalars['String'];
@@ -539,6 +541,8 @@ export const RegularUserFragmentDoc = gql`
   lastname
   avatarUrl
   email
+  phone
+  zip
   attributes
 }
     `;
