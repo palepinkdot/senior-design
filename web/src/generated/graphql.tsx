@@ -313,19 +313,21 @@ export type UsernamePasswordInput = {
   firstname: Scalars['String'];
   lastname: Scalars['String'];
   password: Scalars['String'];
+  phone: Scalars['String'];
   username: Scalars['String'];
   verifypassword: Scalars['String'];
+  zip: Scalars['String'];
 };
 
 export type AnimalErrorFragment = { __typename?: 'AnimalFieldError', field: string, message: string };
-
-export type ApplicationErrorFragment = { __typename?: 'ApplicationFieldError', field: string, message: string };
 
 export type RegularAnimalFragment = { __typename?: 'Animal', id: string, orgId: string, type: string, name: string, description: string, imageURL: string, breed: string, cost: number, totalLikes: number, createdAt: string, updatedAt: string };
 
 export type RegularAnimalResponseFragment = { __typename?: 'AnimalResponse', errors?: Array<{ __typename?: 'AnimalFieldError', field: string, message: string }> | null | undefined, animal?: { __typename?: 'Animal', id: string, orgId: string, type: string, name: string, description: string, imageURL: string, breed: string, cost: number, totalLikes: number, createdAt: string, updatedAt: string } | null | undefined };
 
 export type RegularApplicationFragment = { __typename?: 'Application', id: string, animalId: string, userId: string, status: string, createdAt: string, updatedAt: string };
+
+export type RegularApplicationErrorFragment = { __typename?: 'ApplicationFieldError', field: string, message: string };
 
 export type RegularApplicationResponseFragment = { __typename?: 'ApplicationResponse', errors?: Array<{ __typename?: 'ApplicationFieldError', field: string, message: string }> | null | undefined, application?: { __typename?: 'Application', id: string, animalId: string, userId: string, status: string, createdAt: string, updatedAt: string } | null | undefined };
 
@@ -514,8 +516,8 @@ export const RegularAnimalResponseFragmentDoc = gql`
 }
     ${AnimalErrorFragmentDoc}
 ${RegularAnimalFragmentDoc}`;
-export const ApplicationErrorFragmentDoc = gql`
-    fragment ApplicationError on ApplicationFieldError {
+export const RegularApplicationErrorFragmentDoc = gql`
+    fragment RegularApplicationError on ApplicationFieldError {
   field
   message
 }
@@ -533,13 +535,13 @@ export const RegularApplicationFragmentDoc = gql`
 export const RegularApplicationResponseFragmentDoc = gql`
     fragment RegularApplicationResponse on ApplicationResponse {
   errors {
-    ...ApplicationError
+    ...RegularApplicationError
   }
   application {
     ...RegularApplication
   }
 }
-    ${ApplicationErrorFragmentDoc}
+    ${RegularApplicationErrorFragmentDoc}
 ${RegularApplicationFragmentDoc}`;
 export const RegularMatchErrorFragmentDoc = gql`
     fragment RegularMatchError on MatchFieldError {
