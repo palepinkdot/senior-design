@@ -57,12 +57,6 @@ export type ApplicationFieldError = {
   message: Scalars['String'];
 };
 
-export type ApplicationInput = {
-  animalId: Scalars['String'];
-  status: Scalars['String'];
-  userId: Scalars['String'];
-};
-
 export type ApplicationResponse = {
   __typename?: 'ApplicationResponse';
   application?: Maybe<Application>;
@@ -77,6 +71,12 @@ export type CreateAnimalInput = {
   name: Scalars['String'];
   orgId: Scalars['String'];
   type: Scalars['String'];
+};
+
+export type CreateApplicationInput = {
+  animalId: Scalars['String'];
+  status: Scalars['String'];
+  userId: Scalars['String'];
 };
 
 export type FieldError = {
@@ -143,7 +143,7 @@ export type MutationCreateAnimalArgs = {
 
 
 export type MutationCreateApplicationArgs = {
-  options: ApplicationInput;
+  options: CreateApplicationInput;
 };
 
 
@@ -371,6 +371,13 @@ export type CreateAnimalMutationVariables = Exact<{
 
 
 export type CreateAnimalMutation = { __typename?: 'Mutation', createAnimal: { __typename?: 'AnimalResponse', errors?: Array<{ __typename?: 'AnimalFieldError', field: string, message: string }> | null | undefined, animal?: { __typename?: 'Animal', id: string, orgId: string, type: string, name: string, description: string, imageURL: string, breed: string, cost: number, totalLikes: number, createdAt: string, updatedAt: string } | null | undefined } };
+
+export type CreateApplicationMutationVariables = Exact<{
+  options: CreateApplicationInput;
+}>;
+
+
+export type CreateApplicationMutation = { __typename?: 'Mutation', createApplication: { __typename?: 'ApplicationResponse', errors?: Array<{ __typename?: 'ApplicationFieldError', field: string, message: string }> | null | undefined, application?: { __typename?: 'Application', id: string, animalId: string, userId: string, status: string, createdAt: string, updatedAt: string } | null | undefined } };
 
 export type CreateMatchMutationVariables = Exact<{
   userId: Scalars['String'];
@@ -728,6 +735,39 @@ export function useCreateAnimalMutation(baseOptions?: Apollo.MutationHookOptions
 export type CreateAnimalMutationHookResult = ReturnType<typeof useCreateAnimalMutation>;
 export type CreateAnimalMutationResult = Apollo.MutationResult<CreateAnimalMutation>;
 export type CreateAnimalMutationOptions = Apollo.BaseMutationOptions<CreateAnimalMutation, CreateAnimalMutationVariables>;
+export const CreateApplicationDocument = gql`
+    mutation CreateApplication($options: CreateApplicationInput!) {
+  createApplication(options: $options) {
+    ...RegularApplicationResponse
+  }
+}
+    ${RegularApplicationResponseFragmentDoc}`;
+export type CreateApplicationMutationFn = Apollo.MutationFunction<CreateApplicationMutation, CreateApplicationMutationVariables>;
+
+/**
+ * __useCreateApplicationMutation__
+ *
+ * To run a mutation, you first call `useCreateApplicationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateApplicationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createApplicationMutation, { data, loading, error }] = useCreateApplicationMutation({
+ *   variables: {
+ *      options: // value for 'options'
+ *   },
+ * });
+ */
+export function useCreateApplicationMutation(baseOptions?: Apollo.MutationHookOptions<CreateApplicationMutation, CreateApplicationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateApplicationMutation, CreateApplicationMutationVariables>(CreateApplicationDocument, options);
+      }
+export type CreateApplicationMutationHookResult = ReturnType<typeof useCreateApplicationMutation>;
+export type CreateApplicationMutationResult = Apollo.MutationResult<CreateApplicationMutation>;
+export type CreateApplicationMutationOptions = Apollo.BaseMutationOptions<CreateApplicationMutation, CreateApplicationMutationVariables>;
 export const CreateMatchDocument = gql`
     mutation CreateMatch($userId: String!, $animalId: String!) {
   createMatch(userId: $userId, animalId: $animalId) {
