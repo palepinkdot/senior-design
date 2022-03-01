@@ -41,6 +41,34 @@ export type AnimalResponse = {
   errors?: Maybe<Array<AnimalFieldError>>;
 };
 
+export type Application = {
+  __typename?: 'Application';
+  animalId: Scalars['String'];
+  createdAt: Scalars['String'];
+  id: Scalars['String'];
+  status: Scalars['String'];
+  updatedAt: Scalars['String'];
+  userId: Scalars['String'];
+};
+
+export type ApplicationFieldError = {
+  __typename?: 'ApplicationFieldError';
+  field: Scalars['String'];
+  message: Scalars['String'];
+};
+
+export type ApplicationInput = {
+  animalId: Scalars['String'];
+  status: Scalars['String'];
+  userId: Scalars['String'];
+};
+
+export type ApplicationResponse = {
+  __typename?: 'ApplicationResponse';
+  application?: Maybe<Application>;
+  errors?: Maybe<Array<ApplicationFieldError>>;
+};
+
 export type CreateAnimalInput = {
   breed: Scalars['String'];
   cost: Scalars['Float'];
@@ -83,6 +111,7 @@ export type Mutation = {
   changeOrgPassword: OrgResponse;
   changeUserPassword: UserResponse;
   createAnimal: AnimalResponse;
+  createApplication: ApplicationResponse;
   createMatch: MatchResponse;
   forgotOrgPassword: Scalars['Boolean'];
   forgotUserPassword: Scalars['Boolean'];
@@ -110,6 +139,11 @@ export type MutationChangeUserPasswordArgs = {
 
 export type MutationCreateAnimalArgs = {
   options: CreateAnimalInput;
+};
+
+
+export type MutationCreateApplicationArgs = {
+  options: ApplicationInput;
 };
 
 
@@ -212,14 +246,22 @@ export type PaginatedMatch = {
 
 export type Query = {
   __typename?: 'Query';
+  animalByID: Animal;
   animals: PaginatedAnimals;
   animalsPerShelter: Scalars['Int'];
   hello: Scalars['String'];
   helloAnimal: Scalars['String'];
+  helloApplication: Scalars['String'];
   helloMatch: Scalars['String'];
   matches: PaginatedMatch;
   meOrg?: Maybe<Org>;
   meUser?: Maybe<User>;
+  orgByID: Org;
+};
+
+
+export type QueryAnimalByIdArgs = {
+  id: Scalars['String'];
 };
 
 
@@ -238,6 +280,11 @@ export type QueryMatchesArgs = {
   cursor?: Maybe<Scalars['String']>;
   limit: Scalars['Int'];
   userId: Scalars['String'];
+};
+
+
+export type QueryOrgByIdArgs = {
+  id: Scalars['String'];
 };
 
 export type User = {
@@ -266,8 +313,10 @@ export type UsernamePasswordInput = {
   firstname: Scalars['String'];
   lastname: Scalars['String'];
   password: Scalars['String'];
+  phone: Scalars['String'];
   username: Scalars['String'];
   verifypassword: Scalars['String'];
+  zip: Scalars['String'];
 };
 
 export type AnimalErrorFragment = { __typename?: 'AnimalFieldError', field: string, message: string };
@@ -275,6 +324,12 @@ export type AnimalErrorFragment = { __typename?: 'AnimalFieldError', field: stri
 export type RegularAnimalFragment = { __typename?: 'Animal', id: string, orgId: string, type: string, name: string, description: string, imageURL: string, breed: string, cost: number, totalLikes: number, createdAt: string, updatedAt: string };
 
 export type RegularAnimalResponseFragment = { __typename?: 'AnimalResponse', errors?: Array<{ __typename?: 'AnimalFieldError', field: string, message: string }> | null | undefined, animal?: { __typename?: 'Animal', id: string, orgId: string, type: string, name: string, description: string, imageURL: string, breed: string, cost: number, totalLikes: number, createdAt: string, updatedAt: string } | null | undefined };
+
+export type RegularApplicationFragment = { __typename?: 'Application', id: string, animalId: string, userId: string, status: string, createdAt: string, updatedAt: string };
+
+export type RegularApplicationErrorFragment = { __typename?: 'ApplicationFieldError', field: string, message: string };
+
+export type RegularApplicationResponseFragment = { __typename?: 'ApplicationResponse', errors?: Array<{ __typename?: 'ApplicationFieldError', field: string, message: string }> | null | undefined, application?: { __typename?: 'Application', id: string, animalId: string, userId: string, status: string, createdAt: string, updatedAt: string } | null | undefined };
 
 export type RegularMatchFragment = { __typename?: 'Match', matchId: string, animalId: string, userId: string };
 
@@ -388,6 +443,13 @@ export type UpdateUserInfoMutationVariables = Exact<{
 
 export type UpdateUserInfoMutation = { __typename?: 'Mutation', updateUserInfo: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', id: string, username: string, firstname: string, lastname: string, avatarUrl: string, email: string, phone: string, zip: string, attributes: string } | null | undefined } };
 
+export type AnimalByIdQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type AnimalByIdQuery = { __typename?: 'Query', animalByID: { __typename?: 'Animal', id: string, orgId: string, type: string, name: string, description: string, imageURL: string, breed: string, cost: number, totalLikes: number, createdAt: string, updatedAt: string } };
+
 export type AnimalsQueryVariables = Exact<{
   limit: Scalars['Int'];
   cursor?: Maybe<Scalars['String']>;
@@ -414,6 +476,13 @@ export type MeUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type MeUserQuery = { __typename?: 'Query', meUser?: { __typename?: 'User', id: string, username: string, firstname: string, lastname: string, avatarUrl: string, email: string, phone: string, zip: string, attributes: string } | null | undefined };
+
+export type OrgByIdQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type OrgByIdQuery = { __typename?: 'Query', orgByID: { __typename?: 'Org', id: string, username: string, contactFirstname: string, contactLastname: string, orgName: string, address: string, avatarUrl: string, email: string, attributes: string } };
 
 export const AnimalErrorFragmentDoc = gql`
     fragment AnimalError on AnimalFieldError {
@@ -447,6 +516,33 @@ export const RegularAnimalResponseFragmentDoc = gql`
 }
     ${AnimalErrorFragmentDoc}
 ${RegularAnimalFragmentDoc}`;
+export const RegularApplicationErrorFragmentDoc = gql`
+    fragment RegularApplicationError on ApplicationFieldError {
+  field
+  message
+}
+    `;
+export const RegularApplicationFragmentDoc = gql`
+    fragment RegularApplication on Application {
+  id
+  animalId
+  userId
+  status
+  createdAt
+  updatedAt
+}
+    `;
+export const RegularApplicationResponseFragmentDoc = gql`
+    fragment RegularApplicationResponse on ApplicationResponse {
+  errors {
+    ...RegularApplicationError
+  }
+  application {
+    ...RegularApplication
+  }
+}
+    ${RegularApplicationErrorFragmentDoc}
+${RegularApplicationFragmentDoc}`;
 export const RegularMatchErrorFragmentDoc = gql`
     fragment RegularMatchError on MatchFieldError {
   field
@@ -958,6 +1054,41 @@ export function useUpdateUserInfoMutation(baseOptions?: Apollo.MutationHookOptio
 export type UpdateUserInfoMutationHookResult = ReturnType<typeof useUpdateUserInfoMutation>;
 export type UpdateUserInfoMutationResult = Apollo.MutationResult<UpdateUserInfoMutation>;
 export type UpdateUserInfoMutationOptions = Apollo.BaseMutationOptions<UpdateUserInfoMutation, UpdateUserInfoMutationVariables>;
+export const AnimalByIdDocument = gql`
+    query AnimalByID($id: String!) {
+  animalByID(id: $id) {
+    ...RegularAnimal
+  }
+}
+    ${RegularAnimalFragmentDoc}`;
+
+/**
+ * __useAnimalByIdQuery__
+ *
+ * To run a query within a React component, call `useAnimalByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAnimalByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAnimalByIdQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useAnimalByIdQuery(baseOptions: Apollo.QueryHookOptions<AnimalByIdQuery, AnimalByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AnimalByIdQuery, AnimalByIdQueryVariables>(AnimalByIdDocument, options);
+      }
+export function useAnimalByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AnimalByIdQuery, AnimalByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AnimalByIdQuery, AnimalByIdQueryVariables>(AnimalByIdDocument, options);
+        }
+export type AnimalByIdQueryHookResult = ReturnType<typeof useAnimalByIdQuery>;
+export type AnimalByIdLazyQueryHookResult = ReturnType<typeof useAnimalByIdLazyQuery>;
+export type AnimalByIdQueryResult = Apollo.QueryResult<AnimalByIdQuery, AnimalByIdQueryVariables>;
 export const AnimalsDocument = gql`
     query Animals($limit: Int!, $cursor: String) {
   animals(limit: $limit, cursor: $cursor) {
@@ -1105,6 +1236,41 @@ export function useMeUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeU
 export type MeUserQueryHookResult = ReturnType<typeof useMeUserQuery>;
 export type MeUserLazyQueryHookResult = ReturnType<typeof useMeUserLazyQuery>;
 export type MeUserQueryResult = Apollo.QueryResult<MeUserQuery, MeUserQueryVariables>;
+export const OrgByIdDocument = gql`
+    query OrgByID($id: String!) {
+  orgByID(id: $id) {
+    ...RegularOrg
+  }
+}
+    ${RegularOrgFragmentDoc}`;
+
+/**
+ * __useOrgByIdQuery__
+ *
+ * To run a query within a React component, call `useOrgByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useOrgByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useOrgByIdQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useOrgByIdQuery(baseOptions: Apollo.QueryHookOptions<OrgByIdQuery, OrgByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<OrgByIdQuery, OrgByIdQueryVariables>(OrgByIdDocument, options);
+      }
+export function useOrgByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<OrgByIdQuery, OrgByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<OrgByIdQuery, OrgByIdQueryVariables>(OrgByIdDocument, options);
+        }
+export type OrgByIdQueryHookResult = ReturnType<typeof useOrgByIdQuery>;
+export type OrgByIdLazyQueryHookResult = ReturnType<typeof useOrgByIdLazyQuery>;
+export type OrgByIdQueryResult = Apollo.QueryResult<OrgByIdQuery, OrgByIdQueryVariables>;
 
       export interface PossibleTypesResultData {
         possibleTypes: {

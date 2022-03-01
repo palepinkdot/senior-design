@@ -165,12 +165,23 @@ export class OrgResolver {
   @Query(() => Org, { nullable: true })
   meOrg(@Ctx() { req }: MyContext) {
     // you are not logged in
-    if (!req.session.orgId) {
+    if (!req.session.userId) {
       return null;
     }
 
-    return Org.findOne(req.session.orgId);
+    return Org.findOne(req.session.userId);
   }
+
+	@Query(() => Org)
+	async orgByID(@Arg("id", () => String) id: string) {
+		const org = await getConnection().createQueryBuilder()
+															.select("org")
+															.from(Org, "org")
+															.where("org.id = :id", {id: id})
+															.getOne();
+		console.log(org);
+		return org;
+	}
 
   @Mutation(() => OrgResponse)
   async registerOrg(

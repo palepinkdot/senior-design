@@ -13,10 +13,9 @@ import HomeFooter from "../home/HomeFooter";
 
 export default function OrgDashboard() {
 	const router = useRouter();
-	const { data, loading } = useMeOrgQuery({
+	const { data : data, loading : loading, error: error } = useMeOrgQuery({
 		skip: isServer(),
-	});
-
+	});	
 	if (loading) {
 		return <HashLoader />;
 	} else if (data && data.meOrg?.attributes == "new") {

@@ -132,4 +132,19 @@ export class AnimalResolver {
 		console.log(animals);
 		return animals;
 	}
+
+	@Query(() => Animal)
+	async animalByID(@Arg("id", () => String) id: string) {
+		const animal = await getConnection().createQueryBuilder()
+															.select("animal")
+															.from(Animal, "animal")
+															.where("animal.id = :id", {id: id})
+															.getOne();
+		console.log(animal);
+		return animal;
+	}
 }
+
+
+
+

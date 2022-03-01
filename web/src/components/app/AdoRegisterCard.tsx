@@ -9,8 +9,8 @@ import { toErrorMap } from "../../utils/toErrorMap";
 import { InputField } from "../InputField";
 
 export default function AdoRegisterCard() {
-	const router = useRouter();
-	const [register] = useRegisterUserMutation();
+  const router = useRouter();
+  const [register] = useRegisterUserMutation();
 
 	return (
 		<>

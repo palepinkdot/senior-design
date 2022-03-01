@@ -27,7 +27,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Build Front End
-        run: yarn build
+        run: yarn tsc
   test-dev-api:
     name: Test API Build
     runs-on: ubuntu-latest

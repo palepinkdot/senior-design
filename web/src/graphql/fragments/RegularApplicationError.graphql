@@ -1,0 +1,4 @@
+fragment RegularApplicationError on ApplicationFieldError {
+	field
+	message
+}
