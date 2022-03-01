@@ -18,14 +18,15 @@ import { Application } from "../../../../server/src/entities/Application";
 import {
     MeUserDocument,
     MeUserQuery,
-    createApplicationMutation,
+    useCreateApplicationMutation
 } from "../../generated/graphql";
+
 import { toErrorMap } from "../../utils/toErrorMap";
 import { InputField } from "../InputField";
 
-export default function CreateApplication() {
+export default function CreateApplicationEntity() {
     const router = useRouter();
-    const [createAplicaiton] = createApplicationMutation();
+    const [createApplication] = useCreateApplicationMutation();
     const [isVerified, setIsVerified] = useState(false);
 
     return (
@@ -38,7 +39,7 @@ export default function CreateApplication() {
                     bg: "blue.200",
                 }}
                 isDisabled={!isVerified}
-                onCLick={() => createApplicationMutation()}
+                onCLick={() => createApplication()}
             >
                 Submit Application
             </Button>

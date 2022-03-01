@@ -11,17 +11,8 @@ import { MyContext } from "../types";
 import { v4 } from "uuid";
 import { getConnection } from "typeorm";
 import {Application} from "../entities/Application";
+import { CreateApplicationInput } from "./CreateApplicationInput";
 
-
-@InputType()
-class ApplicationInput {
-    @Field()
-    animalId: string;
-    @Field()
-    userId: string;
-    @Field()
-    status: string;
-}
 
 @ObjectType()
 class ApplicationFieldError {
@@ -47,7 +38,7 @@ export class ApplicationResolver {
         return "hello world from application";
     }
     @Mutation(() => ApplicationResponse)
-    async createApplication(@Arg("options") options: ApplicationInput, @Ctx() { req }: MyContext): Promise<ApplicationResponse> {
+    async createApplication(@Arg("options") options: CreateApplicationInput, @Ctx() { req }: MyContext): Promise<ApplicationResponse> {
         console.log(req.session.userId);
 
         let application;
