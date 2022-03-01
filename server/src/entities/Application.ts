@@ -8,6 +8,7 @@ import {
     PrimaryGeneratedColumn,
     UpdateDateColumn,
 } from "typeorm";
+import { Org } from "./Org";
 
 @ObjectType()
 @Entity()
