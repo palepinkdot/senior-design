@@ -181,6 +181,8 @@ export class UserResolver {
 					firstname: options.firstname,
 					lastname: options.lastname,
 					username: options.username,
+					phone: options.phone,
+					zip: options.zip,
 					email: options.email,
 					avatarUrl: newUserAvatar,
 					password: hashedPassword,
