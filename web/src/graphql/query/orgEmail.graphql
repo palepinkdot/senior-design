@@ -1,0 +1,5 @@
+query OrgEmail($email: String!) {
+	OrgEmail(email: $email) {					
+			...RegularOrg
+	}
+}
