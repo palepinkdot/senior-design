@@ -165,11 +165,11 @@ export class OrgResolver {
   @Query(() => Org, { nullable: true })
   meOrg(@Ctx() { req }: MyContext) {
     // you are not logged in
-    if (!req.session.userId) {
+    if (!req.session.orgId) {
       return null;
     }
 
-    return Org.findOne(req.session.userId);
+    return Org.findOne(req.session.orgId);
   }
 
 	@Query(() => Org)

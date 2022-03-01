@@ -78,6 +78,8 @@ const main = async () => {
 	app.listen(parseInt(process.env.PORT), () => {
 		console.log("🚀 Swipet API started on " + process.env.CORS_DOMAIN + ":" + process.env.PORT);
 	});
+
+	
 };
 
 main().catch((err) => {
