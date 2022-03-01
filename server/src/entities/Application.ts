@@ -4,11 +4,9 @@ import {
     Column,
     CreateDateColumn,
     Entity,
-    ManyToOne,
     PrimaryGeneratedColumn,
     UpdateDateColumn,
 } from "typeorm";
-import { Org } from "./Org";
 
 @ObjectType()
 @Entity()
