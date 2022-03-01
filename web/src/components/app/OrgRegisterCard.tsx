@@ -110,7 +110,7 @@ export default function OrgRegisterCard() {
 
 										<Stack spacing={10}>
 											<Stack direction={{ base: "column", sm: "row" }} align={"start"} justify={"flex-end"}>
-												<NextLink href="/app/org-first-login">
+												<NextLink href="/app/org/login">
 													<Link color={"grey.400"}>already have an account?</Link>
 												</NextLink>
 											</Stack>											
