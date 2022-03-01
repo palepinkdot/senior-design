@@ -184,6 +184,8 @@ export class UserResolver {
 					email: options.email,
 					avatarUrl: newUserAvatar,
 					password: hashedPassword,
+					phone: options.phone,
+					zip: options.zip
 				})
 				.returning("*")
 				.execute();
