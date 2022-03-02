@@ -23,4 +23,16 @@ export class CreateAnimalInput {
 
   @Field()
   cost!: number;
+
+  @Field()
+  size!: string;
+
+  @Field()
+  vaccines!: string;
+
+  @Field()
+  goodToKnow!: string;
+
+  @Field()
+  agencyEmail!: string;
 }
