@@ -76,7 +76,6 @@ export type CreateAnimalInput = {
 export type CreateApplicationInput = {
   animalId: Scalars['String'];
   status: Scalars['String'];
-  userId: Scalars['String'];
 };
 
 export type FieldError = {
