@@ -329,9 +329,9 @@ export type UsernamePasswordInput = {
 
 export type AnimalErrorFragment = { __typename?: 'AnimalFieldError', field: string, message: string };
 
-export type RegularAnimalFragment = { __typename?: 'Animal', id: string, orgId: string, type: string, name: string, description: string, imageURL: string, breed: string, cost: number, totalLikes: number, createdAt: string, updatedAt: string };
+export type RegularAnimalFragment = { __typename?: 'Animal', id: string, orgId: string, type: string, name: string, description: string, imageURL: string, breed: string, cost: number, totalLikes: number, createdAt: string, updatedAt: string, size: string, vaccines: string, goodToKnow: string, agencyEmail: string };
 
-export type RegularAnimalResponseFragment = { __typename?: 'AnimalResponse', errors?: Array<{ __typename?: 'AnimalFieldError', field: string, message: string }> | null | undefined, animal?: { __typename?: 'Animal', id: string, orgId: string, type: string, name: string, description: string, imageURL: string, breed: string, cost: number, totalLikes: number, createdAt: string, updatedAt: string } | null | undefined };
+export type RegularAnimalResponseFragment = { __typename?: 'AnimalResponse', errors?: Array<{ __typename?: 'AnimalFieldError', field: string, message: string }> | null | undefined, animal?: { __typename?: 'Animal', id: string, orgId: string, type: string, name: string, description: string, imageURL: string, breed: string, cost: number, totalLikes: number, createdAt: string, updatedAt: string, size: string, vaccines: string, goodToKnow: string, agencyEmail: string } | null | undefined };
 
 export type RegularApplicationFragment = { __typename?: 'Application', id: string, animalId: string, userId: string, status: string, createdAt: string, updatedAt: string };
 
@@ -378,7 +378,7 @@ export type CreateAnimalMutationVariables = Exact<{
 }>;
 
 
-export type CreateAnimalMutation = { __typename?: 'Mutation', createAnimal: { __typename?: 'AnimalResponse', errors?: Array<{ __typename?: 'AnimalFieldError', field: string, message: string }> | null | undefined, animal?: { __typename?: 'Animal', id: string, orgId: string, type: string, name: string, description: string, imageURL: string, breed: string, cost: number, totalLikes: number, createdAt: string, updatedAt: string } | null | undefined } };
+export type CreateAnimalMutation = { __typename?: 'Mutation', createAnimal: { __typename?: 'AnimalResponse', errors?: Array<{ __typename?: 'AnimalFieldError', field: string, message: string }> | null | undefined, animal?: { __typename?: 'Animal', id: string, orgId: string, type: string, name: string, description: string, imageURL: string, breed: string, cost: number, totalLikes: number, createdAt: string, updatedAt: string, size: string, vaccines: string, goodToKnow: string, agencyEmail: string } | null | undefined } };
 
 export type CreateApplicationMutationVariables = Exact<{
   options: CreateApplicationInput;
@@ -463,7 +463,7 @@ export type AnimalByIdQueryVariables = Exact<{
 }>;
 
 
-export type AnimalByIdQuery = { __typename?: 'Query', animalByID: { __typename?: 'Animal', id: string, orgId: string, type: string, name: string, description: string, imageURL: string, breed: string, cost: number, totalLikes: number, createdAt: string, updatedAt: string } };
+export type AnimalByIdQuery = { __typename?: 'Query', animalByID: { __typename?: 'Animal', id: string, orgId: string, type: string, name: string, description: string, imageURL: string, breed: string, cost: number, totalLikes: number, createdAt: string, updatedAt: string, size: string, vaccines: string, goodToKnow: string, agencyEmail: string } };
 
 export type AnimalsQueryVariables = Exact<{
   limit: Scalars['Int'];
@@ -471,7 +471,7 @@ export type AnimalsQueryVariables = Exact<{
 }>;
 
 
-export type AnimalsQuery = { __typename?: 'Query', animals: { __typename?: 'PaginatedAnimals', hasMore: boolean, animals: Array<{ __typename?: 'Animal', id: string, orgId: string, type: string, name: string, description: string, imageURL: string, breed: string, cost: number, totalLikes: number, createdAt: string, updatedAt: string }> } };
+export type AnimalsQuery = { __typename?: 'Query', animals: { __typename?: 'PaginatedAnimals', hasMore: boolean, animals: Array<{ __typename?: 'Animal', id: string, orgId: string, type: string, name: string, description: string, imageURL: string, breed: string, cost: number, totalLikes: number, createdAt: string, updatedAt: string, size: string, vaccines: string, goodToKnow: string, agencyEmail: string }> } };
 
 export type MatchesQueryVariables = Exact<{
   userId: Scalars['String'];
@@ -518,6 +518,10 @@ export const RegularAnimalFragmentDoc = gql`
   totalLikes
   createdAt
   updatedAt
+  size
+  vaccines
+  goodToKnow
+  agencyEmail
 }
     `;
 export const RegularAnimalResponseFragmentDoc = gql`
