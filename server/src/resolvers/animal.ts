@@ -94,6 +94,10 @@ export class AnimalResolver {
           imageURL: options.imageURL,
           breed: options.breed,
           cost: options.cost,
+          size: options.size,
+          vaccines: options.vaccines,
+          goodToKnow: options.goodToKnow,
+          agencyEmail: options.agencyEmail,
         })
         .returning("*")
         .execute();
