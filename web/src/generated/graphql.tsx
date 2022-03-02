@@ -16,17 +16,21 @@ export type Scalars = {
 
 export type Animal = {
   __typename?: 'Animal';
+  agencyEmail: Scalars['String'];
   breed: Scalars['String'];
   cost: Scalars['Float'];
   createdAt: Scalars['String'];
   description: Scalars['String'];
+  goodToKnow: Scalars['String'];
   id: Scalars['String'];
   imageURL: Scalars['String'];
   name: Scalars['String'];
   orgId: Scalars['String'];
+  size: Scalars['String'];
   totalLikes: Scalars['Float'];
   type: Scalars['String'];
   updatedAt: Scalars['String'];
+  vaccines: Scalars['String'];
 };
 
 export type AnimalFieldError = {
@@ -64,13 +68,17 @@ export type ApplicationResponse = {
 };
 
 export type CreateAnimalInput = {
+  agencyEmail: Scalars['String'];
   breed: Scalars['String'];
   cost: Scalars['Float'];
   description: Scalars['String'];
+  goodToKnow: Scalars['String'];
   imageURL: Scalars['String'];
   name: Scalars['String'];
   orgId: Scalars['String'];
+  size: Scalars['String'];
   type: Scalars['String'];
+  vaccines: Scalars['String'];
 };
 
 export type CreateApplicationInput = {
