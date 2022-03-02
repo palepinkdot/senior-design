@@ -118,3 +118,4 @@ export const AnimalCard: React.FC<AnimalDataProps> = ({data}) => {
             </Center>
         );
     }
+};
