@@ -10,4 +10,8 @@ fragment RegularAnimal on Animal {
   totalLikes
   createdAt
   updatedAt
+  size
+  vaccines
+  goodToKnow
+  agencyEmail
 }

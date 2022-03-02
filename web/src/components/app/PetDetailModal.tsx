@@ -154,7 +154,7 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet }) => {
                     </HStack>
                     <HStack alignItems="center" spacing="115px">
                       <Heading fontSize="lg" fontWeight="550">
-                        Agency <br /> Information:
+                        Agency <br /> Email:
                       </Heading>
                       <VStack align="left">
                        
