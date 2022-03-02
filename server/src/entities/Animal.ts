@@ -49,6 +49,22 @@ export class Animal extends BaseEntity {
   cost!: number;
 
   @Field()
+  @Column()
+  size!: string;
+
+  @Field()
+  @Column()
+  vaccines!: string;
+
+  @Field()
+  @Column()
+  goodToKnow!: string;
+
+  @Field()
+  @Column()
+  agencyEmail!: string;
+
+  @Field()
   @Column({ default: 0 })
   totalLikes!: number;
 
