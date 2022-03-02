@@ -49,7 +49,7 @@ export class ApplicationResolver {
                 .into(Application)
                 .values({
                     animalId: options.animalId,
-                    userId: options.userId,
+                    userId: req.session.userId,
                     status: options.status,
                 })
                 .returning("*")
