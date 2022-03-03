@@ -26,9 +26,10 @@ import {useCreateApplicationMutation} from "../../generated/graphql";
 
 interface PetDetailModalProps {
   pet;
+  showAdopt?: boolean;
 }
 
-export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet}) => {
+export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet, showAdopt = true }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [size, setSize] = React.useState("full");
   const [createApplication] = useCreateApplicationMutation();
@@ -163,7 +164,8 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet}) => {
             </Flex>
           </ModalBody>
 
-          <ModalFooter>            
+          <ModalFooter>
+            { showAdopt ?
             <Box
               as="a"              
               alignItems="center"
@@ -210,7 +212,8 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet}) => {
               >
                 Adopt Now
               </Text>
-            </Box>
+            </Box> : null
+            }
             <Button
               colorScheme="gray"
               mr={6}
