@@ -3,6 +3,7 @@ import {
     Mutation,
     Arg,
     Field,
+    Int,
     Ctx,
     ObjectType,
     Query, InputType,
@@ -30,13 +31,49 @@ class ApplicationResponse {
     @Field(() => Application, { nullable: true })
     application?: Application;
 }
-
+@ObjectType()
+class PaginatedApplication {
+	@Field(() => [Application])
+	applications: Application[];
+	@Field()
+	hasMore: boolean;
+}
 @Resolver()
 export class ApplicationResolver {
     @Query(() => String)
     helloApplication() {
         return "hello world from application";
     }
+
+    @Query(() => PaginatedApplication)
+	async applications(@Arg("userId", () => String) userId: string, @Arg("limit", () => Int) limit: number, @Arg("cursor", () => String, { nullable: true }) cursor: string | null): Promise<PaginatedApplication> {
+		const realLimit = Math.min(50, limit);
+		const reaLimitPlusOne = realLimit + 1;
+
+		const replacements: any[] = [reaLimitPlusOne];
+
+		if (cursor) {
+			replacements.push(new Date(parseInt(cursor)));
+		}
+
+		const applications = await getConnection().query(
+			`
+    select a.*
+    from application a
+	where a."userId" = '${userId}'
+    ${cursor ? `where a."createdAt" < $2` : ""}
+    order by a."createdAt" DESC
+    limit $1
+    `,
+			replacements
+		);
+		console.log(applications);
+		return {
+			applications: applications.slice(0, realLimit),
+			hasMore: applications.length === reaLimitPlusOne,
+		};
+	}
+
     @Mutation(() => ApplicationResponse)
     async createApplication(@Arg("options") options: CreateApplicationInput, @Ctx() { req }: MyContext): Promise<ApplicationResponse> {
         console.log(req.session.userId);
