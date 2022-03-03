@@ -259,14 +259,14 @@ export default function AnimalForm() {
                     helperText="covid, rabies, etc."
                   />
                 </GridItem>
-				<GridItem colSpan={2} px="4" paddingTop="5">
+								<GridItem colSpan={2} px="4" paddingTop="5">
                   <TextareaControl
                     name="goodToKnow"
                     label="Good To Know"
                     helperText="animal personality"
                   />
                 </GridItem>
-				<GridItem colSpan={2} px="4" paddingTop="5">
+								<GridItem colSpan={2} px="4" paddingTop="5">
                   <TextareaControl
                     name="agencyEmail"
                     label="Agency Email"

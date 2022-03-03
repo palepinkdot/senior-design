@@ -28,8 +28,6 @@ interface PetDetailModalProps {
 }
 
 export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet }) => {
-  const { data: orgData, loading: orgLoading } = useMeOrgQuery({});
-
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [size, setSize] = React.useState("full");
   return (
@@ -81,7 +79,7 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet }) => {
                     // h="245px"
                     // w="350px"
                     w="85%"
-                    src={pet.imageURL}
+                    src={pet?.imageURL}
                     borderRadius="20px"
                   ></Image>
                   <Box>
@@ -97,13 +95,13 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet }) => {
                   </Box>
                 </HStack>
                 <VStack alignItems="left">
-                  <Text fontSize="md">{pet.type}</Text>
+                  <Text fontSize="md">{pet?.type}</Text>
                   <Heading fontSize="5xl" fontWeight="900">
-                    {pet.name}
+                    {pet?.name}
                   </Heading>
                   <Text fontSize="lg">4 years old</Text>
                   <Text fontSize="md" as="i">
-                    fee: ${pet.cost}
+                    fee: ${pet?.cost}
                   </Text>
                 </VStack>
               </VStack>
@@ -119,7 +117,7 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet }) => {
                   <Heading fontSize="2xl" fontWeight="900">
                     Bio
                   </Heading>
-                  <Text fontSize="lg">{pet.description}</Text>
+                  <Text fontSize="lg">{pet?.description}</Text>
                   <Heading fontSize="2xl" fontWeight="900">
                     Animal Information
                   </Heading>
@@ -135,30 +133,25 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet }) => {
                       <Heading fontSize="lg" fontWeight="400">
                         Size:
                       </Heading>
-                      <Text fontSize="md"> Small - 15lbs </Text>
+                      <Text fontSize="md">{pet?.size}</Text>
                     </HStack>
                     <HStack alignItems="center" spacing="112px">
                       <Heading fontSize="lg" fontWeight="400">
                         Vaccine Info:
                       </Heading>
-                      <Text fontSize="md"> pfizer SARS-19 Vaccine </Text>
+                      <Text fontSize="md">{pet?.vaccines}</Text>
                     </HStack>
                     <HStack alignItems="center" spacing="142px">
                       <Heading fontSize="lg" fontWeight="400">
                         Good to Know:
                       </Heading>
-                      <Text fontSize="md">
-                        {" "}
-                        Other important info such as time in shelter and yah{" "}
-                      </Text>
+                      <Text fontSize="md">{pet?.goodToKnow}</Text>
                     </HStack>
                     <HStack alignItems="center" spacing="115px">
                       <Heading fontSize="lg" fontWeight="550">
-                        Agency <br /> Email:
+                        Agency Email:
                       </Heading>
-                      <VStack align="left">
-                       
-                      </VStack>
+                      <Text fontSize="md">{pet?.agencyEmail}</Text>
                     </HStack>
                   </VStack>
                 </VStack>
