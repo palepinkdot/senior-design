@@ -20,8 +20,24 @@ import { NotAllowedIcon, CheckCircleIcon, WarningIcon } from '@chakra-ui/icons'
 import { AppNavBar } from "../components/app/AppNavBar";
 import HomeFooter from "../components/home/HomeFooter";
 import { withApollo } from "../utils/withApollo";
+import { useApplicationsQuery, useMeUserQuery } from "../generated/graphql";
+import { isServer } from "../utils/isServer";
+import { ApplicationsTable } from "../components/app/ApplicationsTable";
 
 const Applications: React.FC<{}> = ({ }) => {
+    // get user
+    const { data: meData, loading: meLoading } = useMeUserQuery({
+      skip: isServer(),
+    });
+  
+    // get all matches for that user
+    const { data: applications, loading: appsLoading, error: appsError } = useApplicationsQuery({
+      variables: {
+        userId: meData?.meUser.id,
+        limit: 100,
+      },
+    });
+    console.log(applications);
   return (
     <div>
       <AppNavBar />      
@@ -40,38 +56,7 @@ const Applications: React.FC<{}> = ({ }) => {
                 <Th color="white" textAlign="center"><Heading as='h4' size='md'>Status</Heading></Th>
               </Tr>
             </Thead>
-            <Tbody>
-              <Tr>
-                <Td textAlign="center">ABC Shelter</Td>
-                <Td textAlign="center">Dog</Td>
-                <Td textAlign="center"><WarningIcon w={8} h={8} color="yellow.400" /> Under Review </Td>
-              </Tr>
-              <Tr>
-                <Td textAlign="center">XYZ Shelter</Td>
-                <Td textAlign="center">Cat</Td>
-                <Td textAlign="center"><CheckCircleIcon w={8} h={8} color="green.400" /> Accepted! Schedule Visit Now</Td>
-              </Tr>
-              <Tr>
-                <Td textAlign="center">Some Stable</Td>
-                <Td textAlign="center">Horse</Td>
-                <Td textAlign="center"><NotAllowedIcon w={8} h={8} color="red.400" /> Rejected </Td>
-              </Tr>
-              <Tr>
-                <Td textAlign="center">ABC Shelter</Td>
-                <Td textAlign="center">Dog</Td>
-                <Td textAlign="center"><WarningIcon w={8} h={8} color="yellow.400" /> Under Review </Td>
-              </Tr>
-              <Tr>
-                <Td textAlign="center">XYZ Shelter</Td>
-                <Td textAlign="center">Cat</Td>
-                <Td textAlign="center"><CheckCircleIcon w={8} h={8} color="green.400" /> Accepted! Schedule Visit Now</Td>
-              </Tr>
-              <Tr>
-                <Td textAlign="center">Some Stable</Td>
-                <Td textAlign="center">Horse</Td>
-                <Td textAlign="center"><NotAllowedIcon w={8} h={8} color="red.400" /> Rejected </Td>
-              </Tr>
-            </Tbody>
+            {!appsLoading ? <ApplicationsTable data={applications}></ApplicationsTable> : null}            
           </Table>
         </HStack>
       </Flex>
