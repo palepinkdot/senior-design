@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -21,15 +21,19 @@ import {
 } from "@chakra-ui/react";
 import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 import {useMeOrgQuery } from "../../generated/graphql";
+import {useCreateApplicationMutation} from "../../generated/graphql";
 // import { withApollo } from "../utils/withApollo";
 
 interface PetDetailModalProps {
   pet;
 }
 
-export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet }) => {
+export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [size, setSize] = React.useState("full");
+  const [createApplication] = useCreateApplicationMutation();
+  const [count, setCount] = useState(0);
+
   return (
     <>
       <Box
@@ -159,12 +163,30 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet }) => {
             </Flex>
           </ModalBody>
 
-          <ModalFooter>
+          <ModalFooter>            
             <Box
-              as="a"
-              href="#"
+              as="a"              
               alignItems="center"
-              onClick={onClose}
+              onClick={async () => {
+                console.log(count);
+                if (count == 0) {
+                    let values = {
+                        animalId: pet.id,
+                        status: "Waiting"
+                    }
+                    const response = await createApplication({
+                        variables: {options: values},
+                    });
+                    if (response.data?.createApplication.errors) {
+                        console.log(response.data?.createApplication.errors)
+                    } else if (response.data?.createApplication.application) {
+                        // worked
+                        setCount(count + 1);
+                        console.log("AdoptNow: " + count);
+                    }
+                }
+                onClose();
+            }}
               py={3}
               borderRadius="full"
               transition="all 0.2s cubic-bezier(.08,.52,.52,1)"
