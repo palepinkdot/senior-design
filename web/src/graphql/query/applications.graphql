@@ -1,0 +1,8 @@
+query Applications($userId: String!, $limit: Int!, $cursor: String) {
+	applications(userId: $userId, limit: $limit, cursor: $cursor) {
+		hasMore
+		applications {
+			...RegularApplication
+		}
+	}
+}
