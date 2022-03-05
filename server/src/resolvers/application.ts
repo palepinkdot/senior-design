@@ -13,6 +13,7 @@ import { v4 } from "uuid";
 import { getConnection } from "typeorm";
 import {Application} from "../entities/Application";
 import { CreateApplicationInput } from "./CreateApplicationInput";
+import {Org} from "../entities/Org";
 
 
 @ObjectType()
@@ -106,6 +107,44 @@ export class ApplicationResolver {
         }
 
         return { application: application };
+    }
+    @Mutation(() => ApplicationResponse)
+    async updateApplicationStatus(
+        @Arg("applicationId") applicationId: string,
+        @Arg("status") status: string,
+        @Ctx() { req }: MyContext
+    ): Promise<ApplicationResponse> {
+        const updatedApplication = await Application.findOne({
+            where: { id: applicationId },
+        });
+
+
+        let application;
+        try {
+            const result = await Application.update(
+                { id: applicationId },
+                {
+                    status: status,
+                }
+            );
+            application = result.raw[0];
+        } catch (err) {
+            if (err.code === "23505") {
+                return {
+                    errors: [
+                        {
+                            field: "status",
+                            message: "application could not be updated",
+                        },
+                    ],
+                };
+            }
+        }
+
+        // log in user after change password
+        req.session.orgId = updatedApplication?.id;
+
+        return { application };
     }
 
     @Query(() => PaginatedApplication)
