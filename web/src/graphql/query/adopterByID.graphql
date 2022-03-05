@@ -1,0 +1,5 @@
+query AdopterByID($id: String!) {
+	adopterByID(id: $id) {					
+			...RegularUser
+	}
+}

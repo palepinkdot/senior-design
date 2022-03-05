@@ -259,9 +259,11 @@ export type PaginatedMatch = {
 
 export type Query = {
   __typename?: 'Query';
+  adopterByID: User;
   animalByID: Animal;
   animals: PaginatedAnimals;
-  animalsPerShelter: Scalars['Int'];
+  animalsPerShelter: PaginatedAnimals;
+  applicationPerShelter: PaginatedApplication;
   applications: PaginatedApplication;
   hello: Scalars['String'];
   helloAnimal: Scalars['String'];
@@ -271,6 +273,11 @@ export type Query = {
   meOrg?: Maybe<Org>;
   meUser?: Maybe<User>;
   orgByID: Org;
+};
+
+
+export type QueryAdopterByIdArgs = {
+  id: Scalars['String'];
 };
 
 
@@ -287,6 +294,13 @@ export type QueryAnimalsArgs = {
 
 export type QueryAnimalsPerShelterArgs = {
   orgId: Scalars['String'];
+};
+
+
+export type QueryApplicationPerShelterArgs = {
+  animalIds: Array<Scalars['String']>;
+  cursor?: Maybe<Scalars['String']>;
+  limit: Scalars['Int'];
 };
 
 
@@ -471,6 +485,13 @@ export type UpdateUserInfoMutationVariables = Exact<{
 
 export type UpdateUserInfoMutation = { __typename?: 'Mutation', updateUserInfo: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', id: string, username: string, firstname: string, lastname: string, avatarUrl: string, email: string, phone: string, zip: string, attributes: string } | null | undefined } };
 
+export type AdopterByIdQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type AdopterByIdQuery = { __typename?: 'Query', adopterByID: { __typename?: 'User', id: string, username: string, firstname: string, lastname: string, avatarUrl: string, email: string, phone: string, zip: string, attributes: string } };
+
 export type AnimalByIdQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
@@ -485,6 +506,22 @@ export type AnimalsQueryVariables = Exact<{
 
 
 export type AnimalsQuery = { __typename?: 'Query', animals: { __typename?: 'PaginatedAnimals', hasMore: boolean, animals: Array<{ __typename?: 'Animal', id: string, orgId: string, type: string, name: string, description: string, imageURL: string, breed: string, cost: number, totalLikes: number, createdAt: string, updatedAt: string, size: string, vaccines: string, goodToKnow: string, agencyEmail: string }> } };
+
+export type AnimalsPerShelterQueryVariables = Exact<{
+  orgId: Scalars['String'];
+}>;
+
+
+export type AnimalsPerShelterQuery = { __typename?: 'Query', animalsPerShelter: { __typename?: 'PaginatedAnimals', hasMore: boolean, animals: Array<{ __typename?: 'Animal', id: string, orgId: string, type: string, name: string, description: string, imageURL: string, breed: string, cost: number, totalLikes: number, createdAt: string, updatedAt: string, size: string, vaccines: string, goodToKnow: string, agencyEmail: string }> } };
+
+export type ApplicationPerShelterQueryVariables = Exact<{
+  limit: Scalars['Int'];
+  cursor?: Maybe<Scalars['String']>;
+  animalIds: Array<Scalars['String']> | Scalars['String'];
+}>;
+
+
+export type ApplicationPerShelterQuery = { __typename?: 'Query', applicationPerShelter: { __typename?: 'PaginatedApplication', hasMore: boolean, applications: Array<{ __typename?: 'Application', id: string, animalId: string, userId: string, status: string, createdAt: string, updatedAt: string }> } };
 
 export type ApplicationsQueryVariables = Exact<{
   userId: Scalars['String'];
@@ -1128,6 +1165,41 @@ export function useUpdateUserInfoMutation(baseOptions?: Apollo.MutationHookOptio
 export type UpdateUserInfoMutationHookResult = ReturnType<typeof useUpdateUserInfoMutation>;
 export type UpdateUserInfoMutationResult = Apollo.MutationResult<UpdateUserInfoMutation>;
 export type UpdateUserInfoMutationOptions = Apollo.BaseMutationOptions<UpdateUserInfoMutation, UpdateUserInfoMutationVariables>;
+export const AdopterByIdDocument = gql`
+    query AdopterByID($id: String!) {
+  adopterByID(id: $id) {
+    ...RegularUser
+  }
+}
+    ${RegularUserFragmentDoc}`;
+
+/**
+ * __useAdopterByIdQuery__
+ *
+ * To run a query within a React component, call `useAdopterByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAdopterByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAdopterByIdQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useAdopterByIdQuery(baseOptions: Apollo.QueryHookOptions<AdopterByIdQuery, AdopterByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AdopterByIdQuery, AdopterByIdQueryVariables>(AdopterByIdDocument, options);
+      }
+export function useAdopterByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AdopterByIdQuery, AdopterByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AdopterByIdQuery, AdopterByIdQueryVariables>(AdopterByIdDocument, options);
+        }
+export type AdopterByIdQueryHookResult = ReturnType<typeof useAdopterByIdQuery>;
+export type AdopterByIdLazyQueryHookResult = ReturnType<typeof useAdopterByIdLazyQuery>;
+export type AdopterByIdQueryResult = Apollo.QueryResult<AdopterByIdQuery, AdopterByIdQueryVariables>;
 export const AnimalByIdDocument = gql`
     query AnimalByID($id: String!) {
   animalByID(id: $id) {
@@ -1202,6 +1274,84 @@ export function useAnimalsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<An
 export type AnimalsQueryHookResult = ReturnType<typeof useAnimalsQuery>;
 export type AnimalsLazyQueryHookResult = ReturnType<typeof useAnimalsLazyQuery>;
 export type AnimalsQueryResult = Apollo.QueryResult<AnimalsQuery, AnimalsQueryVariables>;
+export const AnimalsPerShelterDocument = gql`
+    query AnimalsPerShelter($orgId: String!) {
+  animalsPerShelter(orgId: $orgId) {
+    hasMore
+    animals {
+      ...RegularAnimal
+    }
+  }
+}
+    ${RegularAnimalFragmentDoc}`;
+
+/**
+ * __useAnimalsPerShelterQuery__
+ *
+ * To run a query within a React component, call `useAnimalsPerShelterQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAnimalsPerShelterQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAnimalsPerShelterQuery({
+ *   variables: {
+ *      orgId: // value for 'orgId'
+ *   },
+ * });
+ */
+export function useAnimalsPerShelterQuery(baseOptions: Apollo.QueryHookOptions<AnimalsPerShelterQuery, AnimalsPerShelterQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AnimalsPerShelterQuery, AnimalsPerShelterQueryVariables>(AnimalsPerShelterDocument, options);
+      }
+export function useAnimalsPerShelterLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AnimalsPerShelterQuery, AnimalsPerShelterQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AnimalsPerShelterQuery, AnimalsPerShelterQueryVariables>(AnimalsPerShelterDocument, options);
+        }
+export type AnimalsPerShelterQueryHookResult = ReturnType<typeof useAnimalsPerShelterQuery>;
+export type AnimalsPerShelterLazyQueryHookResult = ReturnType<typeof useAnimalsPerShelterLazyQuery>;
+export type AnimalsPerShelterQueryResult = Apollo.QueryResult<AnimalsPerShelterQuery, AnimalsPerShelterQueryVariables>;
+export const ApplicationPerShelterDocument = gql`
+    query ApplicationPerShelter($limit: Int!, $cursor: String, $animalIds: [String!]!) {
+  applicationPerShelter(limit: $limit, cursor: $cursor, animalIds: $animalIds) {
+    hasMore
+    applications {
+      ...RegularApplication
+    }
+  }
+}
+    ${RegularApplicationFragmentDoc}`;
+
+/**
+ * __useApplicationPerShelterQuery__
+ *
+ * To run a query within a React component, call `useApplicationPerShelterQuery` and pass it any options that fit your needs.
+ * When your component renders, `useApplicationPerShelterQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useApplicationPerShelterQuery({
+ *   variables: {
+ *      limit: // value for 'limit'
+ *      cursor: // value for 'cursor'
+ *      animalIds: // value for 'animalIds'
+ *   },
+ * });
+ */
+export function useApplicationPerShelterQuery(baseOptions: Apollo.QueryHookOptions<ApplicationPerShelterQuery, ApplicationPerShelterQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ApplicationPerShelterQuery, ApplicationPerShelterQueryVariables>(ApplicationPerShelterDocument, options);
+      }
+export function useApplicationPerShelterLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ApplicationPerShelterQuery, ApplicationPerShelterQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ApplicationPerShelterQuery, ApplicationPerShelterQueryVariables>(ApplicationPerShelterDocument, options);
+        }
+export type ApplicationPerShelterQueryHookResult = ReturnType<typeof useApplicationPerShelterQuery>;
+export type ApplicationPerShelterLazyQueryHookResult = ReturnType<typeof useApplicationPerShelterLazyQuery>;
+export type ApplicationPerShelterQueryResult = Apollo.QueryResult<ApplicationPerShelterQuery, ApplicationPerShelterQueryVariables>;
 export const ApplicationsDocument = gql`
     query Applications($userId: String!, $limit: Int!, $cursor: String) {
   applications(userId: $userId, limit: $limit, cursor: $cursor) {

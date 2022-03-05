@@ -1,0 +1,8 @@
+query ApplicationPerShelter($limit: Int!, $cursor: String, $animalIds:[String!]!) {
+	applicationPerShelter(limit: $limit, cursor: $cursor, animalIds: $animalIds) {
+		hasMore
+		applications {
+			...RegularApplication
+		}
+	}
+}

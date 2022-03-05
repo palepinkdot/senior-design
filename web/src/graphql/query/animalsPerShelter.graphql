@@ -1,3 +1,8 @@
-query AnimalsPerShelter() {
-	animalsPerShelter
+query AnimalsPerShelter($orgId: String!) {
+	animalsPerShelter(orgId: $orgId) {
+		hasMore
+		animals {
+			...RegularAnimal
+		}
+	}
 }
