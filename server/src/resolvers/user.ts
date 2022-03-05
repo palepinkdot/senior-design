@@ -150,6 +150,17 @@ export class UserResolver {
 		return User.findOne(req.session.userId);
 	}
 
+	@Query(() => User)
+	async adopterByID(@Arg("id", () => String) id: string) {
+		const user = await getConnection().createQueryBuilder()
+															.select("user")
+															.from(User, "user")
+															.where("user.id = :id", {id: id})
+															.getOne();
+		console.log(user);
+		return user;
+	}
+
 	@Mutation(() => UserResponse)
 	async registerUser(@Arg("options") options: UsernamePasswordInput, @Ctx() { req }: MyContext): Promise<UserResponse> {
 		const errors = validateRegisterUser(options);
