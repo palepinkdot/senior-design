@@ -127,6 +127,7 @@ export type Mutation = {
   logout: Scalars['Boolean'];
   registerOrg: OrgResponse;
   registerUser: UserResponse;
+  updateApplicationStatus: ApplicationResponse;
   updateOrgInfo: OrgResponse;
   updateUserInfo: UserResponse;
 };
@@ -189,6 +190,12 @@ export type MutationRegisterOrgArgs = {
 
 export type MutationRegisterUserArgs = {
   options: UsernamePasswordInput;
+};
+
+
+export type MutationUpdateApplicationStatusArgs = {
+  applicationId: Scalars['String'];
+  status: Scalars['String'];
 };
 
 
@@ -356,6 +363,8 @@ export type UsernamePasswordInput = {
 
 export type AnimalErrorFragment = { __typename?: 'AnimalFieldError', field: string, message: string };
 
+export type ApplicationErrorFragment = { __typename?: 'ApplicationFieldError', field: string, message: string };
+
 export type RegularAnimalFragment = { __typename?: 'Animal', id: string, orgId: string, type: string, name: string, description: string, imageURL: string, breed: string, cost: number, totalLikes: number, createdAt: string, updatedAt: string, size: string, vaccines: string, goodToKnow: string, agencyEmail: string };
 
 export type RegularAnimalResponseFragment = { __typename?: 'AnimalResponse', errors?: Array<{ __typename?: 'AnimalFieldError', field: string, message: string }> | null | undefined, animal?: { __typename?: 'Animal', id: string, orgId: string, type: string, name: string, description: string, imageURL: string, breed: string, cost: number, totalLikes: number, createdAt: string, updatedAt: string, size: string, vaccines: string, goodToKnow: string, agencyEmail: string } | null | undefined };
@@ -471,6 +480,14 @@ export type RegisterUserMutationVariables = Exact<{
 
 export type RegisterUserMutation = { __typename?: 'Mutation', registerUser: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', id: string, username: string, firstname: string, lastname: string, avatarUrl: string, email: string, phone: string, zip: string, attributes: string } | null | undefined } };
 
+export type UpdateApplicationStatusMutationVariables = Exact<{
+  applicationId: Scalars['String'];
+  status: Scalars['String'];
+}>;
+
+
+export type UpdateApplicationStatusMutation = { __typename?: 'Mutation', updateApplicationStatus: { __typename?: 'ApplicationResponse', errors?: Array<{ __typename?: 'ApplicationFieldError', field: string, message: string }> | null | undefined, application?: { __typename?: 'Application', id: string, animalId: string, userId: string, status: string, createdAt: string, updatedAt: string } | null | undefined } };
+
 export type UpdateOrgInfoMutationVariables = Exact<{
   options: Scalars['String'];
 }>;
@@ -558,6 +575,12 @@ export type OrgByIdQueryVariables = Exact<{
 
 export type OrgByIdQuery = { __typename?: 'Query', orgByID: { __typename?: 'Org', id: string, username: string, contactFirstname: string, contactLastname: string, orgName: string, address: string, avatarUrl: string, email: string, attributes: string } };
 
+export const ApplicationErrorFragmentDoc = gql`
+    fragment ApplicationError on ApplicationFieldError {
+  field
+  message
+}
+    `;
 export const AnimalErrorFragmentDoc = gql`
     fragment AnimalError on AnimalFieldError {
   field
@@ -1099,6 +1122,40 @@ export function useRegisterUserMutation(baseOptions?: Apollo.MutationHookOptions
 export type RegisterUserMutationHookResult = ReturnType<typeof useRegisterUserMutation>;
 export type RegisterUserMutationResult = Apollo.MutationResult<RegisterUserMutation>;
 export type RegisterUserMutationOptions = Apollo.BaseMutationOptions<RegisterUserMutation, RegisterUserMutationVariables>;
+export const UpdateApplicationStatusDocument = gql`
+    mutation UpdateApplicationStatus($applicationId: String!, $status: String!) {
+  updateApplicationStatus(applicationId: $applicationId, status: $status) {
+    ...RegularApplicationResponse
+  }
+}
+    ${RegularApplicationResponseFragmentDoc}`;
+export type UpdateApplicationStatusMutationFn = Apollo.MutationFunction<UpdateApplicationStatusMutation, UpdateApplicationStatusMutationVariables>;
+
+/**
+ * __useUpdateApplicationStatusMutation__
+ *
+ * To run a mutation, you first call `useUpdateApplicationStatusMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateApplicationStatusMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateApplicationStatusMutation, { data, loading, error }] = useUpdateApplicationStatusMutation({
+ *   variables: {
+ *      applicationId: // value for 'applicationId'
+ *      status: // value for 'status'
+ *   },
+ * });
+ */
+export function useUpdateApplicationStatusMutation(baseOptions?: Apollo.MutationHookOptions<UpdateApplicationStatusMutation, UpdateApplicationStatusMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateApplicationStatusMutation, UpdateApplicationStatusMutationVariables>(UpdateApplicationStatusDocument, options);
+      }
+export type UpdateApplicationStatusMutationHookResult = ReturnType<typeof useUpdateApplicationStatusMutation>;
+export type UpdateApplicationStatusMutationResult = Apollo.MutationResult<UpdateApplicationStatusMutation>;
+export type UpdateApplicationStatusMutationOptions = Apollo.BaseMutationOptions<UpdateApplicationStatusMutation, UpdateApplicationStatusMutationVariables>;
 export const UpdateOrgInfoDocument = gql`
     mutation UpdateOrgInfo($options: String!) {
   updateOrgInfo(options: $options) {
