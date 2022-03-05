@@ -22,6 +22,7 @@ import {useMatchesQuery, useMeUserQuery, useAnimalByIdQuery, useMeOrgQuery, useA
 import { isServer } from "../../utils/isServer";
 import { ShelterTableApplications } from "../dashboard/ShelterTableApplications";
 import { OrgNavBar } from "./OrgNavBar";
+import { ShelterTableAdoName } from "../dashboard/ShelterTableAdoName";
 
 
 export default function OrgApplicationListView() {
@@ -81,15 +82,10 @@ export default function OrgApplicationListView() {
                                       variables: {
                                         id: e.animalId,
                                       },
-                                    });
-                                    const {data: adopterData, error: adopterError} = useAdopterByIdQuery({
-                                      variables: {
-                                          id: e.userId,
-                                      }
-                                    });
+                                    });                                    
                               return (                    
                                   <Tr>
-                                      <Td><Text fontSize="xl" as="b" textTransform={"capitalize"}>{adopterData !== undefined ? adopterData?.adopterByID.firstname : "Can't Load Adopter Name."}</Text></Td>
+                                      <ShelterTableAdoName userId={e.userId} />                                      
                                       <Td><Text fontSize="xl" as="b" textTransform={"capitalize"}>{animalData !== undefined ? animalData?.animalByID.name : "Can't Load Pet Name."}</Text></Td>
                                       <Td>{e.status}</Td>
                                       <Td>
