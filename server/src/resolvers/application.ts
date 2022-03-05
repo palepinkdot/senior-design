@@ -108,4 +108,31 @@ export class ApplicationResolver {
         return { application: application };
     }
 
+    @Query(() => PaginatedApplication)
+	async applicationPerShelter(@Arg("limit", () => Int) limit: number, @Arg("cursor", () => String, { nullable: true }) cursor: string | null, @Arg("animalIds", () => [String]) animalIds: [string]): Promise<PaginatedApplication> {
+		const realLimit = Math.min(50, limit);
+		const reaLimitPlusOne = realLimit + 1;
+
+		const replacements: any[] = [reaLimitPlusOne];
+
+		if (cursor) {
+			replacements.push(new Date(parseInt(cursor)));
+		}
+
+		const applications = await getConnection().query(
+			`
+            select a.*
+            from application a
+            where a."animalId" IN ('${animalIds.join("','")}')
+            order by a."createdAt" DESC
+            limit $1
+    `,
+			replacements
+		);
+		console.log(applications);
+		return {
+			applications: applications.slice(0, realLimit),
+			hasMore: applications.length === reaLimitPlusOne,
+		};
+	}
 }
