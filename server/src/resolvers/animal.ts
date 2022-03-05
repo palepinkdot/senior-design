@@ -149,17 +149,20 @@ export class AnimalResolver {
     };
   }
 
-  @Query(() => Int)
+  @Query(() => PaginatedAnimals)
   async animalsPerShelter(@Arg("orgId") orgId: string) {
-    const animals: number = await getConnection().query(
+    const animals = await getConnection().query(
       `
-    select count a.*
+    select a.*
     from animal a
-    where a."orgId" == ${orgId}
+    where a."orgId" = '${orgId}'
     `
     );
     console.log(animals);
-    return animals;
+    return {
+      animals: animals,
+      hasMore: false,
+    };
   }
 
   @Query(() => Animal)
