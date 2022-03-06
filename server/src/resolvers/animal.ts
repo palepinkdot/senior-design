@@ -88,7 +88,7 @@ export class AnimalResolver {
         .into(Animal)
         .values({
           name: options.name,
-          orgId: req.session.userId,
+          orgId: req.session.orgId,
           type: options.breed,
           description: options.description,
           imageURL: options.imageURL,
