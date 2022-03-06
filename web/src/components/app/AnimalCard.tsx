@@ -28,19 +28,24 @@ export const AnimalCard: React.FC<AnimalDataProps> = ({data}) => {
             <Center
                 verticalAlign={"center"}
                 justifyContent="center"
-                mb="25rem"
+                // mb="100rem"
+                mt="5%"
             >
                 <Box
                     key={data.id}
                     display="flex"
                     alignItems="center"
+                    alignSelf="center"
+                    verticalAlign="center"
                     justifyContent="center"
                     flexDirection="column"
                     boxShadow="xl"
                     borderRadius="20px"
                     bgColor="white"
+                    mb="100rem"
+                    
                 >
-                    <HStack mt="80px" display={"flex"}>
+                    <HStack mt="" display={"flex"}>
                         <VStack alignItems="left" p="6">
                             <Text fontSize="md">{data.type}</Text>
                             <Heading fontSize="5xl" fontWeight="900">
