@@ -27,7 +27,7 @@ RUN cd web && yarn build && yarn install --production --ignore-scripts --prefer-
 
 # Production image, copy all the files and run next
 FROM node:16-alpine AS runner
-WORKDIR /app/web
+WORKDIR /app
 RUN echo $(ls -1 /app)
 
 ENV NODE_ENV production
