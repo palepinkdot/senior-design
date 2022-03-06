@@ -14,7 +14,7 @@ COPY web ./web
 COPY server ./server
 RUN ls -a
 RUN pwd
-COPY --from=deps /app/node_modules ./node_modules
+COPY --from=deps /app/web/node_modules ./web/node_modules
 RUN pwd
 RUN cd server && yarn tsc 
 RUN cd ../app
