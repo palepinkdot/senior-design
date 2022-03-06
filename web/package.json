@@ -45,6 +45,7 @@
 		"react-tinder-card": "^1.4.5",
 		"styled-components": "^5.3.3",
 		"type-graphql": "^1.1.1",
+		"typeorm": "^0.2.45",
 		"uuidv4": "^6.2.12",
 		"yup": "^0.32.11"
 	},

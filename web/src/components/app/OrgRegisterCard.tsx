@@ -52,9 +52,7 @@ export default function OrgRegisterCard() {
 						<Flex minH={"100vh"} align={"center"} justify={"center"} bg="blue.100">
 							<Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
 								<Stack align={"center"}>
-									<Heading fontSize={"4xl"} align={"center"}>
-										Create your Organization/Shelter account
-									</Heading>
+									<Heading fontSize={"4xl"}>Create your Organization/Shelter account</Heading>
 									<Text fontSize={"lg"} color={"gray.600"}>
 										to enjoy all of our member <Link color={"blue.400"}>features</Link> ✌️
 									</Text>
@@ -113,7 +111,7 @@ export default function OrgRegisterCard() {
 												<NextLink href="/app/org/login">
 													<Link color={"grey.400"}>already have an account?</Link>
 												</NextLink>
-											</Stack>											
+											</Stack>
 											<Button
 												type="submit"
 												isLoading={isSubmitting}

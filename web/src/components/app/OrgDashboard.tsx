@@ -14,9 +14,13 @@ import { animal } from "faker";
 
 export default function OrgDashboard() {
 	const router = useRouter();
-	const { data : data, loading : loading, error: error } = useMeOrgQuery({
+	const {
+		data: data,
+		loading: loading,
+		error: error,
+	} = useMeOrgQuery({
 		skip: isServer(),
-	});	
+	});
 	const {
 		data: animalData,
 		error: animalError,
@@ -31,20 +35,29 @@ export default function OrgDashboard() {
 		notifyOnNetworkStatusChange: true,
 	});
 
-  const { data: animalsPerShelter, loading: perShelterLoading, error: perShelterError } = useAnimalsPerShelterQuery({
-    variables: {
-      orgId: data?.meOrg?.id
-    },
-  });
-	const animalIds = !perShelterLoading ? animalsPerShelter?.animalsPerShelter.animals.map(animal => animal.id) : [];
+	const {
+		data: animalsPerShelter,
+		loading: perShelterLoading,
+		error: perShelterError,
+	} = useAnimalsPerShelterQuery({
+		variables: {
+			orgId: data?.meOrg?.id,
+		},
+	});
+	const animalIds = !perShelterLoading ? animalsPerShelter?.animalsPerShelter.animals.map((animal) => animal.id) : [];
 
-	const {data: shelterApps, loading: shelterAppsLoading, error: shelterAppsError} = useApplicationPerShelterQuery({
+	const {
+		data: shelterApps,
+		loading: shelterAppsLoading,
+		error: shelterAppsError,
+	} = useApplicationPerShelterQuery({
 		variables: {
 			limit: 100,
-			animalIds: animalIds
-		}
+			animalIds: animalIds,
+		},
 	});
-	console.log("Thissssss");console.log(new Date().getUTCMonth());
+	console.log("Thissssss");
+	console.log(new Date().getUTCMonth());
 
 	if (loading) {
 		return <HashLoader />;
@@ -78,8 +91,8 @@ export default function OrgDashboard() {
 							<Text fontWeight={"normal"} mb={4} fontSize={"12"}>
 								Pending Approval
 							</Text>
-							<Heading fontWeight={"bold"} display={"inline-flex"} fontColor={"red"}>
-							{!shelterAppsLoading ? shelterApps?.applicationPerShelter.applications.filter(app => app.status == "Waiting").length : "Loading..."}
+							<Heading fontWeight={"bold"} display={"inline-flex"}>
+								{!shelterAppsLoading ? shelterApps?.applicationPerShelter.applications.filter((app) => app.status == "Waiting").length : "Loading..."}
 							</Heading>
 						</Flex>
 						<Flex flexDir={"row"} overflow={"auto"} display={"column"} flex={3}>
@@ -87,7 +100,9 @@ export default function OrgDashboard() {
 								Adoptions This Month
 							</Text>
 							<Heading fontWeight={"bold"} display={"inline-flex"}>
-							{!shelterAppsLoading ? shelterApps?.applicationPerShelter.applications.filter(app => app.status == "Accepted" && new Date(parseInt(app.createdAt)).getMonth() == new Date().getMonth()).length : "Loading..."}
+								{!shelterAppsLoading
+									? shelterApps?.applicationPerShelter.applications.filter((app) => app.status == "Accepted" && new Date(parseInt(app.createdAt)).getMonth() == new Date().getMonth()).length
+									: "Loading..."}
 							</Heading>
 						</Flex>
 						<Flex flexDir={"row"} overflow={"auto"} display={"column"} flex={3}>
@@ -95,7 +110,9 @@ export default function OrgDashboard() {
 								Adoptions Last Month
 							</Text>
 							<Heading fontWeight={"bold"} display={"inline-flex"}>
-							{!shelterAppsLoading ? shelterApps?.applicationPerShelter.applications.filter(app => app.status == "Accepted" && new Date(parseInt(app.createdAt)).getMonth() == (new Date().getMonth()-1)).length : "Loading..."}
+								{!shelterAppsLoading
+									? shelterApps?.applicationPerShelter.applications.filter((app) => app.status == "Accepted" && new Date(parseInt(app.createdAt)).getMonth() == new Date().getMonth() - 1).length
+									: "Loading..."}
 							</Heading>
 						</Flex>
 					</Flex>
@@ -106,10 +123,10 @@ export default function OrgDashboard() {
 						</TabList>
 						<TabPanels>
 							<TabPanel>
-								<ShelterTableApplications applications={!shelterAppsLoading ? shelterApps?.applicationPerShelter.applications.slice(0, 3) : null}/>
+								<ShelterTableApplications applications={!shelterAppsLoading ? shelterApps?.applicationPerShelter.applications.slice(0, 3) : null} />
 							</TabPanel>
 							<TabPanel>
-								<TableAnimals animals={!perShelterLoading ? animalsPerShelter?.animalsPerShelter.animals : null}/>
+								<TableAnimals animals={!perShelterLoading ? animalsPerShelter?.animalsPerShelter.animals : null} />
 							</TabPanel>
 						</TabPanels>
 					</Tabs>
