@@ -174,7 +174,8 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet, showAdopt =
                 if (count == 0) {
                     let values = {
                         animalId: pet.id,
-                        status: "Waiting"
+                        status: "Waiting",
+                        agencyEmail: pet.agencyEmail
                     }
                     const response = await createApplication({
                         variables: {options: values},
