@@ -11,8 +11,12 @@ FROM node:16-alpine AS builder
 WORKDIR /app
 RUN echo $(ls -1 /app)
 COPY web ./
+RUN ls -a
+RUN pwd
 COPY --from=deps /app/node_modules ./node_modules
-RUN cd ../server && yarn tsc && cd ../web
+RUN pwd
+RUN cd server && yarn tsc 
+RUN cd ../app
 RUN yarn build && yarn install --production --ignore-scripts --prefer-offline
 
 # Production image, copy all the files and run next
