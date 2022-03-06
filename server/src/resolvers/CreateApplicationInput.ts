@@ -7,4 +7,7 @@ export class CreateApplicationInput {
 
     @Field()
     status!: string;
+
+    @Field()
+    agencyEmail!: string;
 }
