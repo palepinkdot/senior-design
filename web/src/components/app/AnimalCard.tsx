@@ -91,7 +91,8 @@ export const AnimalCard: React.FC<AnimalDataProps> = ({data}) => {
                                 if (count == 0) {
                                     let values = {
                                         animalId: data.id,
-                                        status: "Waiting"
+                                        status: "Waiting",
+                                        agencyEmail: data.agencyEmail
                                     }
                                     const response = await createApplication({
                                         variables: {options: values},
