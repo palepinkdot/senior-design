@@ -363,8 +363,6 @@ export type UsernamePasswordInput = {
 
 export type AnimalErrorFragment = { __typename?: 'AnimalFieldError', field: string, message: string };
 
-export type ApplicationErrorFragment = { __typename?: 'ApplicationFieldError', field: string, message: string };
-
 export type RegularAnimalFragment = { __typename?: 'Animal', id: string, orgId: string, type: string, name: string, description: string, imageURL: string, breed: string, cost: number, totalLikes: number, createdAt: string, updatedAt: string, size: string, vaccines: string, goodToKnow: string, agencyEmail: string };
 
 export type RegularAnimalResponseFragment = { __typename?: 'AnimalResponse', errors?: Array<{ __typename?: 'AnimalFieldError', field: string, message: string }> | null | undefined, animal?: { __typename?: 'Animal', id: string, orgId: string, type: string, name: string, description: string, imageURL: string, breed: string, cost: number, totalLikes: number, createdAt: string, updatedAt: string, size: string, vaccines: string, goodToKnow: string, agencyEmail: string } | null | undefined };
@@ -575,12 +573,6 @@ export type OrgByIdQueryVariables = Exact<{
 
 export type OrgByIdQuery = { __typename?: 'Query', orgByID: { __typename?: 'Org', id: string, username: string, contactFirstname: string, contactLastname: string, orgName: string, address: string, avatarUrl: string, email: string, attributes: string } };
 
-export const ApplicationErrorFragmentDoc = gql`
-    fragment ApplicationError on ApplicationFieldError {
-  field
-  message
-}
-    `;
 export const AnimalErrorFragmentDoc = gql`
     fragment AnimalError on AnimalFieldError {
   field
