@@ -44,7 +44,6 @@ export default function OrgDashboard() {
 			animalIds: animalIds
 		}
 	});
-	console.log("Thissssss");console.log(new Date().getUTCMonth());
 
 	if (loading) {
 		return <HashLoader />;

@@ -277,7 +277,7 @@ export class OrgResolver {
       };
     }
 
-    req.session.userId = org.id;
+    req.session.orgId = org.id;
 
     return {
       org: org,
