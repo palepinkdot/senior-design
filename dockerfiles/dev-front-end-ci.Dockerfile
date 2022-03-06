@@ -12,6 +12,7 @@ WORKDIR /app
 RUN echo $(ls -1 /app)
 COPY web ./
 COPY --from=deps /app/node_modules ./node_modules
+RUN cd ../server && yarn tsc && cd ../web
 RUN yarn build && yarn install --production --ignore-scripts --prefer-offline
 
 # Production image, copy all the files and run next
