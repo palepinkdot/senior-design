@@ -14,6 +14,7 @@ import { getConnection } from "typeorm";
 import {Application} from "../entities/Application";
 import { CreateApplicationInput } from "./CreateApplicationInput";
 import {Org} from "../entities/Org";
+import { sendAdoptionRequest } from "../utils/sendGrid";
 
 
 @ObjectType()
@@ -93,6 +94,14 @@ export class ApplicationResolver {
                 .returning("*")
                 .execute();
             application = result.raw[0];
+
+            console.log("about to send email")
+
+            sendAdoptionRequest(options.agencyEmail);
+
+            console.log("email sent")
+
+
         } catch (err) {
             if (err.code === "22007") {
                 return {
