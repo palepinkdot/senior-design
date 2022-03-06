@@ -7,7 +7,8 @@ RUN ls -a
 COPY web/package.json web/yarn.lock ./web/
 COPY server/package.json server/yarn.lock ./server/
 RUN cd web && yarn install --frozen-lockfile
-RUN cd ../server && yarn install --frozen-lockfile
+RUN cd ..
+RUN cd server && yarn install --frozen-lockfile
 
 # Rebuild the source code only when needed
 FROM node:16-alpine AS builder
@@ -18,6 +19,7 @@ COPY server ./server
 RUN ls -a
 RUN pwd
 COPY --from=deps /app/web/node_modules ./web/node_modules
+COPY --from=deps /app/server/node_modules ./server/node_modules
 RUN pwd
 RUN cd server && yarn build 
 RUN cd ../app
