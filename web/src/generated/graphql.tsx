@@ -82,6 +82,7 @@ export type CreateAnimalInput = {
 };
 
 export type CreateApplicationInput = {
+  agencyEmail: Scalars['String'];
   animalId: Scalars['String'];
   status: Scalars['String'];
 };

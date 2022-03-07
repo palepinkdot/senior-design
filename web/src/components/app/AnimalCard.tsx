@@ -106,7 +106,6 @@ export const AnimalCard: React.FC<AnimalDataProps> = ({data}) => {
                             _active={{
                                 transform: "scale(0.95)",
                             }}
-
                             onClick={onAdoptOpen}
                         >
                             <Text
