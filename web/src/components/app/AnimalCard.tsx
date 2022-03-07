@@ -1,5 +1,19 @@
 import React, {useState} from "react";
-import {Box, Center, Heading, HStack, Image, Text, VStack,} from "@chakra-ui/react";
+import {
+    AlertDialog,
+    AlertDialogBody,
+    AlertDialogCloseButton,
+    AlertDialogContent, AlertDialogFooter, AlertDialogHeader,
+    AlertDialogOverlay,
+    Box, Button,
+    Center,
+    Heading,
+    HStack,
+    Image,
+    Text,
+    useDisclosure,
+    VStack,
+} from "@chakra-ui/react";
 import {PetDetailModal} from "./PetDetailModal";
 import {useRouter} from "next/router";
 import {useCreateApplicationMutation} from "../../generated/graphql";
@@ -11,6 +25,13 @@ interface AnimalDataProps {
 export const AnimalCard: React.FC<AnimalDataProps> = ({data}) => {
     const [createApplication] = useCreateApplicationMutation();
     const [count, setCount] = useState(0);
+    const {
+        isOpen: isAdoptOpen,
+        onOpen: onAdoptOpen,
+        onClose: onAdoptClose
+    } = useDisclosure();
+
+    const cancelRef = React.useRef()
 
     if (!data) {
         return <>Nothing here.</>;
@@ -86,25 +107,7 @@ export const AnimalCard: React.FC<AnimalDataProps> = ({data}) => {
                                 transform: "scale(0.95)",
                             }}
 
-                            onClick={async () => {
-                                console.log(count);
-                                if (count == 0) {
-                                    let values = {
-                                        animalId: data.id,
-                                        status: "Waiting"
-                                    }
-                                    const response = await createApplication({
-                                        variables: {options: values},
-                                    });
-                                    if (response.data?.createApplication.errors) {
-                                        console.log(response.data?.createApplication.errors)
-                                    } else if (response.data?.createApplication.application) {
-                                        // worked
-                                        setCount(count + 1);
-                                        console.log("AdoptNow: " + count);
-                                    }
-                                }
-                            }}
+                            onClick={onAdoptOpen}
                         >
                             <Text
                                 as="i"
@@ -117,6 +120,63 @@ export const AnimalCard: React.FC<AnimalDataProps> = ({data}) => {
                                 Adopt Now
                             </Text>
                         </Box>
+                        <AlertDialog
+                            motionPreset='slideInBottom'
+                            leastDestructiveRef={cancelRef}
+                            onClose={onAdoptClose}
+                            isOpen={isAdoptOpen}
+                            isCentered
+                        >
+                            <AlertDialogOverlay />
+
+                            <AlertDialogContent>
+                                <AlertDialogHeader>Submit Application?</AlertDialogHeader>
+                                <AlertDialogCloseButton />
+                                <AlertDialogBody>
+                                    Are you sure you want to submit an application for this animal?
+                                </AlertDialogBody>
+                                <AlertDialogFooter>
+                                    <Button
+                                        ref={cancelRef}
+                                        onClick={onAdoptClose}
+                                        fontSize="1.2rem"
+                                        fontWeight="bold"
+                                    >
+                                        No
+                                    </Button>
+                                    <Button
+                                        bgColor="blue.400"
+                                        fontSize="1.2rem"
+                                        fontWeight="bold"
+                                        color={"white"}
+                                        _hover={{
+                                            bgColor: "red.300",
+                                            transform: "scale(1.05)",
+                                        }}
+                                        onClick={async () => {
+                                            if (count == 0) {
+                                                let values = {
+                                                    animalId: data.id,
+                                                    status: "Waiting"
+                                                }
+                                                const response = await createApplication({
+                                                    variables: {options: values},
+                                                });
+                                                if (response.data?.createApplication.errors) {
+                                                    console.log(response.data?.createApplication.errors)
+                                                } else if (response.data?.createApplication.application) {
+                                                    // worked
+                                                    setCount(count + 1);
+                                                }
+                                            }
+                                            onAdoptClose();
+                                        }}
+                                    >
+                                        Yes
+                                    </Button>
+                                </AlertDialogFooter>
+                            </AlertDialogContent>
+                        </AlertDialog>
                     </HStack>
                     &nbsp;
                 </Box>
