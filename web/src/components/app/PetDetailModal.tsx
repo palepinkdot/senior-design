@@ -18,6 +18,12 @@ import {
   ModalBody,
   ModalCloseButton,
   useDisclosure,
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogCloseButton, AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay
 } from "@chakra-ui/react";
 import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 import {useMeOrgQuery } from "../../generated/graphql";
@@ -34,6 +40,14 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet, showAdopt =
   const [size, setSize] = React.useState("full");
   const [createApplication] = useCreateApplicationMutation();
   const [count, setCount] = useState(0);
+
+  const {
+    isOpen: isAdoptOpen,
+    onOpen: onAdoptOpen,
+    onClose: onAdoptClose
+  } = useDisclosure();
+
+  const cancelRef = React.useRef()
 
   return (
     <>
@@ -169,27 +183,7 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet, showAdopt =
             <Box
               as="a"              
               alignItems="center"
-              onClick={async () => {
-                console.log(count);
-                if (count == 0) {
-                    let values = {
-                        animalId: pet.id,
-                        status: "Waiting",
-                        agencyEmail: pet.agencyEmail
-                    }
-                    const response = await createApplication({
-                        variables: {options: values},
-                    });
-                    if (response.data?.createApplication.errors) {
-                        console.log(response.data?.createApplication.errors)
-                    } else if (response.data?.createApplication.application) {
-                        // worked
-                        setCount(count + 1);
-                        console.log("AdoptNow: " + count);
-                    }
-                }
-                onClose();
-            }}
+              onClick={onAdoptOpen}
               py={3}
               borderRadius="full"
               transition="all 0.2s cubic-bezier(.08,.52,.52,1)"
@@ -210,13 +204,71 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet, showAdopt =
                 fontSize="1.2rem"
                 fontWeight="bold"
                 textTransform="uppercase"
+                onClick={onAdoptOpen}
               >
                 Adopt Now
               </Text>
             </Box> : null
             }
+            <AlertDialog
+                motionPreset='slideInBottom'
+                leastDestructiveRef={cancelRef}
+                onClose={onAdoptClose}
+                isOpen={isAdoptOpen}
+                isCentered
+            >
+              <AlertDialogOverlay />
+
+              <AlertDialogContent>
+                <AlertDialogHeader>Submit Application?</AlertDialogHeader>
+                <AlertDialogCloseButton />
+                <AlertDialogBody>
+                  Are you sure you want to submit an application for this animal?
+                </AlertDialogBody>
+                <AlertDialogFooter>
+                  <Button
+                      ref={cancelRef}
+                      onClick={onAdoptClose}
+                      fontSize="1.2rem"
+                      fontWeight="bold"
+                  >
+                    No
+                  </Button>
+                  <Button
+                      bgColor="blue.400"
+                      fontSize="1.2rem"
+                      fontWeight="bold"
+                      color={"white"}
+                      _hover={{
+                        bgColor: "red.300",
+                        transform: "scale(1.05)",
+                      }}
+                      onClick={async () => {
+                        if (count == 0) {
+                          let values = {
+                            animalId: pet?.id,
+                            status: "Waiting",
+                            agencyEmail: pet?.agencyEmail
+                          }
+                          const response = await createApplication({
+                            variables: {options: values},
+                          });
+                          if (response.data?.createApplication.errors) {
+                            console.log(response.data?.createApplication.errors)
+                          } else if (response.data?.createApplication.application) {
+                            // worked
+                            setCount(count + 1);
+                          }
+                        }
+                        onAdoptClose();
+                      }}
+                  >
+                    Yes
+                  </Button>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
             <Button
-              colorScheme="gray"
               mr={6}
               ml={10}
               onClick={onClose}
