@@ -20,15 +20,18 @@ import {
   useDisclosure,
   AlertDialog,
   AlertDialogBody,
-  AlertDialogCloseButton, AlertDialogContent,
+  AlertDialogCloseButton,
+  AlertDialogContent,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogOverlay,
-  textDecoration
+  textDecoration,
+  SimpleGrid,
+  GridItem,
 } from "@chakra-ui/react";
 import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
-import {useMeOrgQuery } from "../../generated/graphql";
-import {useCreateApplicationMutation} from "../../generated/graphql";
+import { useMeOrgQuery } from "../../generated/graphql";
+import { useCreateApplicationMutation } from "../../generated/graphql";
 // import { withApollo } from "../utils/withApollo";
 
 interface PetDetailModalProps {
@@ -36,7 +39,10 @@ interface PetDetailModalProps {
   showAdopt?: boolean;
 }
 
-export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet, showAdopt = true }) => {
+export const PetDetailModal: React.FC<PetDetailModalProps> = ({
+  pet,
+  showAdopt = true,
+}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [size, setSize] = React.useState("full");
   const [createApplication] = useCreateApplicationMutation();
@@ -45,10 +51,10 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet, showAdopt =
   const {
     isOpen: isAdoptOpen,
     onOpen: onAdoptOpen,
-    onClose: onAdoptClose
+    onClose: onAdoptClose,
   } = useDisclosure();
 
-  const cancelRef = React.useRef()
+  const cancelRef = React.useRef();
 
   return (
     <>
@@ -78,7 +84,7 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet, showAdopt =
         </Text>
       </Box>
 
-      <Modal isOpen={isOpen} onClose={onClose} size="full">
+      <Modal isOpen={isOpen} onClose={onClose} size="xl">
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>More Details</ModalHeader>
@@ -88,9 +94,9 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet, showAdopt =
               justify="space-around"
               bg="blue.100"
               borderRadius="20"
-              borderColor="blue.200"
-              borderWidth="3px"
-              w="100%"
+              // borderColor="blue.200"
+              // borderWidth="3px"
+              // w="90%"
               flexDirection="row"
             >
               <VStack p={6} alignItems="left">
@@ -98,11 +104,11 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet, showAdopt =
                   <Image
                     // h="245px"
                     // w="350px"
-                    w="85%"
+                    // w="85%"
                     src={pet?.imageURL}
                     borderRadius="20px"
                   ></Image>
-                  <Box>
+                  {/* <Box>
                     <VStack spacing={20}>
                       <Icon as={ChevronUpIcon} w={12} h={12} color="blue.50" />
                       <Icon
@@ -112,7 +118,7 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet, showAdopt =
                         color="blue.50"
                       />
                     </VStack>
-                  </Box>
+                  </Box> */}
                 </HStack>
                 <VStack alignItems="left">
                   <Text fontSize="md">{pet?.type}</Text>
@@ -130,93 +136,114 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet, showAdopt =
                 justify="space-around"
                 bg="white"
                 borderRadius="20"
-                w="100%"
-                flexDirection="column"
+                // w="100%"
+                flexDirection="row"
               >
-                <VStack p={6} alignItems="left">
-                  <Heading fontSize="2xl" fontWeight="900">
+                <VStack p={6} alignItems="left" w="100%">
+                  <Heading fontSize="2xl" fontWeight="900" textAlign="left">
                     Bio
                   </Heading>
                   <Text fontSize="lg">{pet?.description}</Text>
                   <Heading fontSize="2xl" fontWeight="900">
                     Animal Information
                   </Heading>
-                  <VStack
-                    divider={<StackDivider borderColor="gray.200" />}
-                    alignItems="left"
-                    verticalAlign="top"
-                    spacing={6}
-                    paddingLeft="10px"
-                    paddingRight="25px"
+                  <SimpleGrid
+                    columns={2}
+                    spacing={10}
+                    minChildWidth="100px"
+                    pl="10px"
                   >
-                    <HStack alignItems="center" spacing="205px">
-                      <Heading fontSize="lg" fontWeight="400">
+                    <GridItem colSpan={1}>
+                      <Heading
+                        fontSize="lg"
+                        fontWeight="400"
+                        alignContent="left"
+                      >
                         Size:
                       </Heading>
-                      <Text fontSize="md">{pet?.size}</Text>
-                    </HStack>
-                    <HStack alignItems="center" spacing="112px">
-                      <Heading fontSize="lg" fontWeight="400">
+                    </GridItem>
+                    <GridItem colSpan={1}>
+                      <Text fontSize="md">{pet?.size} </Text>
+                    </GridItem>
+                    <GridItem colSpan={1}>
+                      <Heading
+                        fontSize="lg"
+                        fontWeight="400"
+                        alignContent="left"
+                      >
                         Vaccine Info:
                       </Heading>
-                      <Text fontSize="md">{pet?.vaccines}</Text>
-                    </HStack>
-                    <HStack alignItems="center" spacing="142px">
-                      <Heading fontSize="lg" fontWeight="400">
+                    </GridItem>
+                    <GridItem colSpan={1}>
+                      <Text fontSize="md">{pet?.vaccines} </Text>
+                    </GridItem>
+                    <GridItem colSpan={1}>
+                      <Heading
+                        fontSize="lg"
+                        fontWeight="400"
+                        alignContent="left"
+                      >
                         Good to Know:
                       </Heading>
-                      <Text fontSize="md">{pet?.goodToKnow}</Text>
-                    </HStack>
-                    <HStack alignItems="center" spacing="115px">
-                      <Heading fontSize="lg" fontWeight="550">
+                    </GridItem>
+                    <GridItem colSpan={1}>
+                      <Text fontSize="md">{pet?.goodToKnow} </Text>
+                    </GridItem><GridItem colSpan={2}>
+                      <Heading
+                        fontSize="lg"
+                        fontWeight="400"
+                        alignContent="left"
+                      >
                         Agency Email:
                       </Heading>
-                      <Text fontSize="md">{pet?.agencyEmail}</Text>
-                    </HStack>
-                  </VStack>
+                    </GridItem>
+                    <GridItem colSpan={2}>
+                      <Text fontSize="md">{pet?.agencyEmail} </Text>
+                    </GridItem>
+                  </SimpleGrid>
                 </VStack>
               </Flex>
             </Flex>
           </ModalBody>
 
           <ModalFooter>
-            { showAdopt ?
-            <Box
-              as="a"              
-              alignItems="center"
-              onClick={onAdoptOpen}
-              py={3}
-              borderRadius="full"
-              transition="all 0.2s cubic-bezier(.08,.52,.52,1)"
-              bgColor="blue.400"
-              _hover={{
-                bgColor: "red.300",
-                transform: "scale(1.05)",
-              }}
-              _active={{
-                transform: "scale(0.95)",
-              }}
-              alignSelf="left"
-            >
-              <Text
-                as="i"
-                px="10"
-                color="white"
-                fontSize="1.2rem"
-                fontWeight="bold"
-                textTransform="uppercase"
+            {showAdopt ? (
+              <Box
+                as="a"
+                alignItems="center"
                 onClick={onAdoptOpen}
+                py={3}
+                borderRadius="full"
+                transition="all 0.2s cubic-bezier(.08,.52,.52,1)"
+                bgColor="blue.400"
+                _hover={{
+                  bgColor: "red.300",
+                  transform: "scale(1.05)",
+                }}
+                _active={{
+                  transform: "scale(0.95)",
+                }}
+                alignSelf="left"
               >
-                Adopt Now
-              </Text>
-            </Box> : null
-            }
+                <Text
+                  as="i"
+                  px="10"
+                  color="white"
+                  fontSize="1.2rem"
+                  fontWeight="bold"
+                  textTransform="uppercase"
+                  onClick={onAdoptOpen}
+                >
+                  Adopt Now
+                </Text>
+              </Box>
+            ) : null}
             <AlertDialog
-                motionPreset='slideInBottom'
-                leastDestructiveRef={cancelRef}
-                onClose={onAdoptClose}
-                isOpen={isAdoptOpen}
-                isCentered
+              motionPreset="slideInBottom"
+              leastDestructiveRef={cancelRef}
+              onClose={onAdoptClose}
+              isOpen={isAdoptOpen}
+              isCentered
             >
               <AlertDialogOverlay />
 
@@ -224,45 +251,48 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet, showAdopt =
                 <AlertDialogHeader>Submit Application?</AlertDialogHeader>
                 <AlertDialogCloseButton />
                 <AlertDialogBody>
-                  Are you sure you want to submit an application for this animal?
+                  Are you sure you want to submit an application for this
+                  animal?
                 </AlertDialogBody>
                 <AlertDialogFooter>
                   <Button
-                      ref={cancelRef}
-                      onClick={onAdoptClose}
-                      fontSize="1.2rem"
-                      fontWeight="bold"
+                    ref={cancelRef}
+                    onClick={onAdoptClose}
+                    fontSize="1.2rem"
+                    fontWeight="bold"
                   >
                     No
                   </Button>
                   <Button
-                      bgColor="blue.400"
-                      fontSize="1.2rem"
-                      fontWeight="bold"
-                      color={"white"}
-                      _hover={{
-                        bgColor: "red.300",
-                        transform: "scale(1.05)",
-                      }}
-                      onClick={async () => {
-                        if (count == 0) {
-                          let values = {
-                            animalId: pet?.id,
-                            status: "Waiting",
-                            agencyEmail: pet?.agencyEmail
-                          }
-                          const response = await createApplication({
-                            variables: {options: values},
-                          });
-                          if (response.data?.createApplication.errors) {
-                            console.log(response.data?.createApplication.errors)
-                          } else if (response.data?.createApplication.application) {
-                            // worked
-                            setCount(count + 1);
-                          }
+                    bgColor="blue.400"
+                    fontSize="1.2rem"
+                    fontWeight="bold"
+                    color={"white"}
+                    _hover={{
+                      bgColor: "red.300",
+                      transform: "scale(1.05)",
+                    }}
+                    onClick={async () => {
+                      if (count == 0) {
+                        let values = {
+                          animalId: pet?.id,
+                          status: "Waiting",
+                          agencyEmail: pet?.agencyEmail,
+                        };
+                        const response = await createApplication({
+                          variables: { options: values },
+                        });
+                        if (response.data?.createApplication.errors) {
+                          console.log(response.data?.createApplication.errors);
+                        } else if (
+                          response.data?.createApplication.application
+                        ) {
+                          // worked
+                          setCount(count + 1);
                         }
-                        onAdoptClose();
-                      }}
+                      }
+                      onAdoptClose();
+                    }}
                   >
                     Yes
                   </Button>
