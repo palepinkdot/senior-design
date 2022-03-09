@@ -78,7 +78,7 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet, showAdopt =
         </Text>
       </Box>
 
-      <Modal isOpen={isOpen} onClose={onClose} size="lg">
+      <Modal isOpen={isOpen} onClose={onClose} size="full">
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>More Details</ModalHeader>
@@ -88,8 +88,10 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet, showAdopt =
               justify="space-around"
               bg="blue.100"
               borderRadius="20"
+              borderColor="blue.200"
+              borderWidth="3px"
               w="100%"
-              flexDirection="column"
+              flexDirection="row"
             >
               <VStack p={6} alignItems="left">
                 <HStack>
