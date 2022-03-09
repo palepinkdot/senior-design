@@ -23,7 +23,8 @@ import {
   AlertDialogCloseButton, AlertDialogContent,
   AlertDialogFooter,
   AlertDialogHeader,
-  AlertDialogOverlay
+  AlertDialogOverlay,
+  textDecoration
 } from "@chakra-ui/react";
 import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 import {useMeOrgQuery } from "../../generated/graphql";
@@ -55,23 +56,21 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({ pet, showAdopt =
         cursor="pointer"
         onClick={onOpen}
         as="a"
-        p={4}
+        p={3}
         borderRadius="full"
         transition="all 0.2s cubic-bezier(.08,.52,.52,1)"
-        bgColor="blue.400"
-        _hover={{
-          bgColor: "red.300",
-          transform: "scale(1.05)",
-        }}
+        bgColor=""
         _active={{
           transform: "scale(0.95)",
         }}
       >
         <Text
-          as="i"
-          px="10"
-          color="white"
-          fontSize="1.2rem"
+          _hover={{
+            textDecoration: "underline",
+          }}
+          px="5"
+          color="black"
+          fontSize="1rem"
           fontWeight="bold"
           textTransform="uppercase"
         >
