@@ -83,31 +83,30 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({
         </Text>
       </Box>
 
-      <Modal isOpen={isOpen} onClose={onClose} size="xl">
+      <Modal isOpen={isOpen} onClose={onClose} size="2xl" scrollBehavior="inside">
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>More Details</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Flex
-              justify="space-around"
-              bg="blue.100"
+              // justify="center"
+              // bg="red"
               borderRadius="20"
               // borderColor="blue.200"
               // borderWidth="3px"
               // w="90%"
               flexDirection="row"
             >
-              <VStack p={6} alignItems="left">
-                <HStack>
-                  <Image
-                    // h="245px"
-                    // w="350px"
-                    // w="85%"
-                    src={pet?.imageURL}
-                    borderRadius="20px"
-                  ></Image>
-                  {/* <Box>
+              <VStack p={3} alignItems="left" bg="blue.100" borderRadius="20">
+                <Image
+                  maxH="250px"
+                  maxW="230px"
+                  w={[150, 230, 230]}
+                  src={pet?.imageURL}
+                  borderRadius="20px"
+                ></Image>
+                {/* <Box>
                     <VStack spacing={20}>
                       <Icon as={ChevronUpIcon} w={12} h={12} color="blue.50" />
                       <Icon
@@ -118,38 +117,37 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({
                       />
                     </VStack>
                   </Box> */}
-                </HStack>
-                <VStack alignItems="left">
-                  <Text fontSize="md">{pet?.type}</Text>
-                  <Heading fontSize="5xl" fontWeight="900">
-                    {pet?.name}
-                  </Heading>
-                  <Text fontSize="lg">4 years old</Text>
-                  <Text fontSize="md" as="i">
-                    fee: ${pet?.cost}
-                  </Text>
-                </VStack>
+
+                <Text fontSize="md">{pet?.type}</Text>
+                <Heading fontSize="4xl" fontWeight="900">
+                  {pet?.name}
+                </Heading>
+                <Text fontSize="lg">4 years old</Text>
+                <Text fontSize="md" as="i">
+                  fee: ${pet?.cost}
+                </Text>
               </VStack>
 
               <Flex
-                justify="space-around"
+                // justify="space-around"
                 bg="white"
+                alignSelf="left"
                 borderRadius="20"
                 // w="100%"
                 flexDirection="row"
               >
-                <VStack p={6} alignItems="left" w="100%">
+                <VStack p={3} alignItems="left">
                   <Heading fontSize="2xl" fontWeight="900" textAlign="left">
                     Bio
                   </Heading>
-                  <Text fontSize="lg">{pet?.description}</Text>
+                  <Text fontSize="lg" pl="10px" >{pet?.description}</Text>
                   <Heading fontSize="2xl" fontWeight="900">
                     Animal Information
                   </Heading>
                   <SimpleGrid
-                    columns={2}
-                    spacing={10}
-                    minChildWidth="100px"
+                    columns={3}
+                    spacing={2.5}
+                    // minChildWidth="100px"
                     pl="10px"
                   >
                     <GridItem colSpan={1}>
@@ -161,7 +159,7 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({
                         Size:
                       </Heading>
                     </GridItem>
-                    <GridItem colSpan={1}>
+                    <GridItem colSpan={2}>
                       <Text fontSize="md">{pet?.size} </Text>
                     </GridItem>
                     <GridItem colSpan={1}>
@@ -173,7 +171,7 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({
                         Vaccine Info:
                       </Heading>
                     </GridItem>
-                    <GridItem colSpan={1}>
+                    <GridItem colSpan={2}>
                       <Text fontSize="md">{pet?.vaccines} </Text>
                     </GridItem>
                     <GridItem colSpan={1}>
@@ -185,9 +183,10 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({
                         Good to Know:
                       </Heading>
                     </GridItem>
-                    <GridItem colSpan={1}>
+                    <GridItem colSpan={2}>
                       <Text fontSize="md">{pet?.goodToKnow} </Text>
-                    </GridItem><GridItem colSpan={2}>
+                    </GridItem>
+                    <GridItem colSpan={1}>
                       <Heading
                         fontSize="lg"
                         fontWeight="400"
@@ -222,7 +221,7 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({
                 _active={{
                   transform: "scale(0.95)",
                 }}
-                alignSelf="left"
+                alignSelf="center"
               >
                 <Text
                   as="i"
