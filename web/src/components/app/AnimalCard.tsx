@@ -7,6 +7,7 @@ import {
     AlertDialogOverlay,
     Box, Button,
     Center,
+    Flex,
     Heading,
     HStack,
     Image,
@@ -52,7 +53,7 @@ export const AnimalCard: React.FC<AnimalDataProps> = ({data}) => {
                 // mb="100rem"
                 mt="5%"
             >
-                <Box
+                <Flex
                     key={data.id}
                     display="flex"
                     alignItems="center"
@@ -64,10 +65,11 @@ export const AnimalCard: React.FC<AnimalDataProps> = ({data}) => {
                     borderRadius="20px"
                     bgColor="white"
                     mb="100rem"
+                    // w={[300, 400, 700]}
                     
                 >
-                    <HStack mt="" display={"flex"}>
-                        <VStack alignItems="left" p="6">
+                    <HStack display="flex" >
+                        <VStack alignItems="left" p="8"  >
                             <Text fontSize="md">{data.type}</Text>
                             <Heading fontSize="5xl" fontWeight="900">
                                 {data.name}
@@ -77,22 +79,29 @@ export const AnimalCard: React.FC<AnimalDataProps> = ({data}) => {
                                 fee: ${data.cost}
                             </Text>
                         </VStack>
+                        <Flex alignContent="right" p="8" >
                         <Image
-                            maxW="550px"
-                            w={"70%"}
+                            w={[150, 250, 350]}
+                            // maxW="400"
+                            maxH="350"
+                            maxW="400"
+                            // w={"70%"}
                             src={data.imageURL}
                             borderRadius="20px"
-                            alignItems="center"
+                            alignSelf="right"
                             justifyContent="center"
                             display="flex"
+                            
                         >
                         </Image>
+                        </Flex>
+                        
                     </HStack>
                     &nbsp;
                     <HStack pt="5">
                         <PetDetailModal pet={data}/>
                         &nbsp;
-                        <Box
+                        <Flex
                             cursor={'pointer'}
                             as="a"
                             p={4}
@@ -118,7 +127,7 @@ export const AnimalCard: React.FC<AnimalDataProps> = ({data}) => {
                             >
                                 Adopt Now
                             </Text>
-                        </Box>
+                        </Flex>
                         <AlertDialog
                             motionPreset='slideInBottom'
                             leastDestructiveRef={cancelRef}
@@ -179,7 +188,7 @@ export const AnimalCard: React.FC<AnimalDataProps> = ({data}) => {
                         </AlertDialog>
                     </HStack>
                     &nbsp;
-                </Box>
+                </Flex>
             </Center>
         );
     }
