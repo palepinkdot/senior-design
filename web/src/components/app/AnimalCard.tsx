@@ -83,8 +83,8 @@ export const AnimalCard: React.FC<AnimalDataProps> = ({data}) => {
                         <Image
                             w={[150, 250, 350]}
                             // maxW="400"
-                            maxH="350"
-                            maxW="400"
+                            maxH="18em"
+                            maxW="18em"
                             // w={"70%"}
                             src={data.imageURL}
                             borderRadius="20px"
