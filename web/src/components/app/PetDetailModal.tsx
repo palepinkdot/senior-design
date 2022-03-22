@@ -100,8 +100,8 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({
             >
               <VStack p={3} alignItems="left" bg="blue.100" borderRadius="20">
                 <Image
-                  maxH="250px"
-                  maxW="230px"
+                  maxH="12em"
+                  maxW="12em"
                   w={[150, 230, 230]}
                   src={pet?.imageURL}
                   borderRadius="20px"
