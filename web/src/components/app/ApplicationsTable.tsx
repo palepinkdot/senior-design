@@ -5,6 +5,7 @@ import {
   Td,
   Text,
   HStack,
+  VStack,
 } from "@chakra-ui/react";
 import { useAnimalByIdQuery, useOrgByIdQuery } from "../../generated/graphql";
 import { Image } from "@chakra-ui/react";
@@ -43,15 +44,17 @@ export const ApplicationsTable: React.FC<AnimalDataProps> = ({ data }) => {
                       <Td textAlign="center">
                       <Text fontSize="xl" as="b" textTransform={"capitalize"}>{orgdata !== undefined ? orgdata?.orgByID.orgName : "Can't Load Org Name."} </Text></Td>
                       <Td textAlign="center">
-                        <HStack justify="center" w={"100%"} h={"100%"} mx="10" py="25px">
+                        <HStack justify="center" w={"100%"} h={"100%"} py="20px">
                         <Image
                           boxSize='175px'
                           src={animalData?.animalByID.imageURL}
-                          borderRadius="full"                          
+                          borderRadius="full"
                         ></Image>
-                        <Text fontSize="2xl" as="b" textTransform={"capitalize"}>{animalData?.animalByID.name}</Text>
-                        </HStack>
+                        <VStack>
+                        <Text fontSize="2xl" as="b" textTransform={"capitalize"} mb="2">{animalData?.animalByID.name}</Text>
                         <PetDetailModal pet={animalData?.animalByID} showAdopt={false}/>
+                        </VStack>
+                        </HStack>
                         </Td>
                         <Td textAlign="center"> { e.status == 'Waiting' ? <WarningIcon w={8} h={8} color="yellow.400" /> : null}
                         { e.status == 'Accepted' ? <CheckCircleIcon w={8} h={8} color="green.400" /> : null}

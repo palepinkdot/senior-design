@@ -18,7 +18,7 @@ export const ShelterTableAdoName : React.FC<ApplicationsProps> = ({userId}) => {
             }
           });
         return (
-                <Td><Text fontSize="xl" as="b" textTransform={"capitalize"}>{adopterData !== undefined ? adopterData?.adopterByID.firstname : "Can't Load Adopter Name."}</Text></Td>
+                <Td textAlign="center"><Text fontSize="xl" as="b" textTransform={"capitalize"}>{adopterData !== undefined ? adopterData?.adopterByID.firstname : "Can't Load Adopter Name."}</Text></Td>
         );
       }
 }
