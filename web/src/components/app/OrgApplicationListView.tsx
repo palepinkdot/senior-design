@@ -100,100 +100,96 @@ export default function OrgApplicationListView() {
                                       <Td><Text fontSize="xl" as="b" textTransform={"capitalize"}>{animalData !== undefined ? animalData?.animalByID.name : "Can't Load Pet Name."}</Text></Td>
                                       <Td>{e.status}</Td>
                                       <Td>
-                                          <Td>
-                                              <Box
-                                                  cursor={'pointer'}
-                                                  as="a"
-                                                  p={4}
-                                                  borderRadius="full"
-                                                  transition="all 0.2s cubic-bezier(.08,.52,.52,1)"
-                                                  bgColor="blue.400"
-                                                  _hover={{
-                                                      bgColor: "red.300",
-                                                      transform: "scale(1.05)",
-                                                  }}
-                                                  _active={{
-                                                      transform: "scale(0.95)",
-                                                  }}
+                                        <VStack>
+                                            <Box
+                                                cursor={'pointer'}
+                                                as="a"
+                                                p={4}
+                                                borderRadius="full"
+                                                transition="all 0.2s cubic-bezier(.08,.52,.52,1)"
+                                                bgColor="blue.400"
+                                                _hover={{
+                                                    bgColor: "red.300",
+                                                    transform: "scale(1.05)",
+                                                }}
+                                                _active={{
+                                                    transform: "scale(0.95)",
+                                                }}
 
-                                                  onClick={async () => {
-                                                      let values = {
-                                                          applicationId: e.id,
-                                                          status: "Accepted"
-                                                      }
+                                                onClick={async () => {
+                                                    let values = {
+                                                        applicationId: e.id,
+                                                        status: "Accepted"
+                                                    }
 
-                                                      const response = await updateApplication({
-                                                          variables: {applicationId: values.applicationId, status: values.status},
-                                                      });
-                                                      if (response.data?.updateApplicationStatus.errors) {
-                                                          console.log(response.data?.updateApplicationStatus.errors)
-                                                      } else if (response.data?.updateApplicationStatus.application) {
-                                                          // worked
-                                                          console.log("Updated");
-                                                      }
-                                                  }
-                                                  }
-                                              >
-                                                  <Text
-                                                      as="i"
-                                                      px="10"
-                                                      color="white"
-                                                      fontSize="1.2rem"
-                                                      fontWeight="bold"
-                                                      textTransform="uppercase"
-                                                  >
-                                                      Approve
-                                                  </Text>
-                                              </Box>
-                                              <Td>
-                                                  <VStack>
-                                                  <Box
-                                                      cursor={'pointer'}
-                                                      as="a"
-                                                      p={4}
-                                                      borderRadius="full"
-                                                      transition="all 0.2s cubic-bezier(.08,.52,.52,1)"
-                                                      bgColor="blue.400"
-                                                      _hover={{
-                                                          bgColor: "red.300",
-                                                          transform: "scale(1.05)",
-                                                      }}
-                                                      _active={{
-                                                          transform: "scale(0.95)",
-                                                      }}
+                                                    const response = await updateApplication({
+                                                        variables: {applicationId: values.applicationId, status: values.status},
+                                                    });
+                                                    if (response.data?.updateApplicationStatus.errors) {
+                                                        console.log(response.data?.updateApplicationStatus.errors)
+                                                    } else if (response.data?.updateApplicationStatus.application) {
+                                                        // worked
+                                                        console.log("Updated");
+                                                    }
+                                                }
+                                                }
+                                            >
+                                                <Text
+                                                    as="i"
+                                                    px="10"
+                                                    color="white"
+                                                    fontSize="1.2rem"
+                                                    fontWeight="bold"
+                                                    textTransform="uppercase"
+                                                >
+                                                    Approve
+                                                </Text>
+                                            </Box>
+                                            <Box
+                                                cursor={'pointer'}
+                                                as="a"
+                                                p={4}
+                                                borderRadius="full"
+                                                transition="all 0.2s cubic-bezier(.08,.52,.52,1)"
+                                                bgColor="blue.400"
+                                                _hover={{
+                                                    bgColor: "red.300",
+                                                    transform: "scale(1.05)",
+                                                }}
+                                                _active={{
+                                                    transform: "scale(0.95)",
+                                                }}
 
-                                                      onClick={async () => {
-                                                          let values = {
-                                                              applicationId: e.id,
-                                                              status: "Rejected"
-                                                          }
+                                                onClick={async () => {
+                                                    let values = {
+                                                        applicationId: e.id,
+                                                        status: "Rejected"
+                                                    }
 
-                                                          const response = await updateApplication({
-                                                              variables: {applicationId: values.applicationId, status: values.status},
-                                                          });
-                                                          if (response.data?.updateApplicationStatus.errors) {
-                                                              console.log(response.data?.updateApplicationStatus.errors)
-                                                          } else if (response.data?.updateApplicationStatus.application) {
-                                                              // worked
-                                                              console.log("Updated");
-                                                          }
-                                                      }
-                                                      }
-                                                  >
-                                                      <Text
-                                                          as="i"
-                                                          px="10"
-                                                          color="white"
-                                                          fontSize="1.2rem"
-                                                          fontWeight="bold"
-                                                          textTransform="uppercase"
-                                                      >
-                                                          Reject
-                                                      </Text>
-                                                  </Box>
-                                                  </VStack>
-                                              </Td>
-                                          </Td>
+                                                    const response = await updateApplication({
+                                                        variables: {applicationId: values.applicationId, status: values.status},
+                                                    });
+                                                    if (response.data?.updateApplicationStatus.errors) {
+                                                        console.log(response.data?.updateApplicationStatus.errors)
+                                                    } else if (response.data?.updateApplicationStatus.application) {
+                                                        // worked
+                                                        console.log("Updated");
+                                                    }
+                                                }
+                                                }
+                                            >
+                                                <Text
+                                                    as="i"
+                                                    px="10"
+                                                    color="white"
+                                                    fontSize="1.2rem"
+                                                    fontWeight="bold"
+                                                    textTransform="uppercase"
+                                                >
+                                                    Reject
+                                                </Text>
+                                            </Box>
+                                        </VStack>
                                       </Td>
                                   </Tr>
                               );
