@@ -4,6 +4,7 @@ import {Button} from "@chakra-ui/react";
 import { useAdopterByIdQuery, useAnimalByIdQuery, useUpdateApplicationStatusMutation } from "../../generated/graphql";
 import { ShelterTableAdoName } from "./ShelterTableAdoName";
 import { useRouter } from "next/router";
+import { RowsShelterTableApplications } from "./RowsShelterTableApplications";
 
 interface ApplicationsProps {
     applications;
@@ -13,7 +14,7 @@ export const ShelterTableApplications : React.FC<ApplicationsProps> = ({applicat
     const router = useRouter();
     const [updateApplication] = useUpdateApplicationStatusMutation();
     
-    if (!applications) {
+    if (!applications) {        
         return null;
       } else if (applications) {
         return (
@@ -30,118 +31,10 @@ export const ShelterTableApplications : React.FC<ApplicationsProps> = ({applicat
                 </Thead>
                 <Tbody>
                     {
-                        applications?.map((e) => {
-                            const { data: animalData, error: animalError} = useAnimalByIdQuery({
-                                variables: {
-                                  id: e.animalId,
-                                },
-                              });                              
-                        return (                    
-                            <Tr>
-                                <ShelterTableAdoName userId={e.userId} />
-                                <Td textAlign="center"><Text fontSize="xl" as="b" textTransform={"capitalize"}>{animalData !== undefined ? animalData?.animalByID.name : "Can't Load Pet Name."}</Text></Td>
-                                <Td textAlign="center">{e.status}</Td>
-                                <Td textAlign="center">
-                                        <VStack>
-                                            <Box
-                                                cursor={'pointer'}
-                                                as="a"
-                                                p={1.5}
-                                                borderRadius="full"
-                                                transition="all 0.2s cubic-bezier(.08,.52,.52,1)"
-                                                bgColor="gray.300"
-                                                _hover={{
-                                                    bgColor: "blue.400",
-                                                    transform: "scale(1.05)",
-                                                }}
-                                                _active={{
-                                                    transform: "scale(0.95)",
-                                                }}
-
-                                                onClick={async () => {
-                                                    let values = {
-                                                        applicationId: e.id,
-                                                        status: "Accepted"
-                                                    }
-
-                                                    const response = await updateApplication({
-                                                        variables: {applicationId: values.applicationId, status: values.status},
-                                                    });
-                                                    if (response.data?.updateApplicationStatus.errors) {
-                                                        console.log(response.data?.updateApplicationStatus.errors)
-                                                    } else if (response.data?.updateApplicationStatus.application) {
-                                                        // worked
-                                                        console.log("Updated");
-                                                    }
-                                                }
-                                                }
-                                            >
-                                                <Text
-                                                    as="i"
-                                                    px="10"
-                                                    py="2"
-                                                    color="black"
-                                                    fontSize="1.1rem"
-                                                    fontWeight="bold"
-                                                    textTransform="uppercase"
-                                                    _hover={{
-                                                        color: "white"
-                                                    }}
-                                                >
-                                                    Approve
-                                                </Text>
-                                            </Box>
-                                            <Box
-                                                cursor={'pointer'}
-                                                as="a"
-                                                p={1.5}
-                                                borderRadius="full"
-                                                transition="all 0.2s cubic-bezier(.08,.52,.52,1)"
-                                                bgColor="gray.400"
-                                                _hover={{
-                                                    bgColor: "red.300",
-                                                    transform: "scale(1.05)",
-                                                }}
-                                                _active={{
-                                                    transform: "scale(0.95)",
-                                                }}
-
-                                                onClick={async () => {
-                                                    let values = {
-                                                        applicationId: e.id,
-                                                        status: "Rejected"
-                                                    }
-
-                                                    const response = await updateApplication({
-                                                        variables: {applicationId: values.applicationId, status: values.status},
-                                                    });
-                                                    if (response.data?.updateApplicationStatus.errors) {
-                                                        console.log(response.data?.updateApplicationStatus.errors)
-                                                    } else if (response.data?.updateApplicationStatus.application) {
-                                                        // worked
-                                                        console.log("Updated");
-                                                    }
-                                                }
-                                                }
-                                            >
-                                                <Text
-                                                    as="i"
-                                                    px="10"
-                                                    py="2"
-                                                    color="black"
-                                                    fontSize="1.1rem"
-                                                    fontWeight="bold"
-                                                    textTransform="uppercase"
-                                                    _hover={{
-                                                        color: "white"
-                                                    }}
-                                                >
-                                                    Reject
-                                                </Text>
-                                            </Box>
-                                        </VStack>
-                                      </Td>
-                            </Tr>
+                        applications?.map((e) => {                                                         
+                        return (     
+                            <RowsShelterTableApplications application={e}/>               
+                            
                         );
                         })
                     }
