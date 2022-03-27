@@ -38,7 +38,7 @@ import { Squash as Hamburger } from "hamburger-react";
 
 interface AppNavBarProps {}
 
-const Links = ["Home", "Shelters", "Contact", "Shop", "Applications", "Matches"];
+const Links = ["Home", "Applications", "Matches"];
 
 const NavLink = ({ children }: { children: ReactNode }) => (		
 	<NextLink href={children === "Home" ? `app` :`/${children.toString().toLowerCase()}`}>
