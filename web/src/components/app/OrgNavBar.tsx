@@ -38,7 +38,7 @@ import { Squash as Hamburger } from "hamburger-react";
 
 interface OrgNavBarProps {}
 
-const Links = ["Dashboard", "Upload", "Applications", "Apps"];
+const Links = ["Dashboard", "Upload", "Applications"];
 
 const NavLink = ({ children }: { children: ReactNode }) => (
 	<NextLink href={`/app/org/${children.toString().toLowerCase()}`}>

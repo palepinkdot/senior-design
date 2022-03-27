@@ -6,15 +6,15 @@ import { Layout } from "../../../components/Layout";
 import { useIsUser } from "../../../utils/useIsUser";
 import { withApollo } from "../../../utils/withApollo";
 import OrgDashboard from "../../../components/app/OrgDashboard";
-import OrgApplicationReview from "../../../components/app/OrgApplicationReview";
+import OrgApplicationListView from "../../../components/app/OrgApplicationListView";
 
-const AppIndex: React.FC<{}> = ({}) => {
+const ShelterApplicationsView: React.FC<{}> = ({}) => {
   useIsOrg();
   return (
     <AppLayout>
-      <OrgApplicationReview />
+      <OrgApplicationListView />
     </AppLayout>
   );
 };
 
-export default withApollo({ ssr: false })(AppIndex);
+export default withApollo({ ssr: false })(ShelterApplicationsView);

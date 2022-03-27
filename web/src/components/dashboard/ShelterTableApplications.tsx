@@ -20,7 +20,7 @@ export const ShelterTableApplications : React.FC<ApplicationsProps> = ({applicat
         return (
             <Table variant="striped" colorScheme="red">
                 <TableCaption>
-                    <Button onClick={async () => {router.push("/app/org/apps")}}>Show More</Button>
+                    <Button onClick={async () => {router.push("/app/org/applications")}}>Show More</Button>
                 </TableCaption>
                 <Thead>
                     <Tr>
