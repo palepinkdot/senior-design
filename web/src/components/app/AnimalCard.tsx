@@ -1,23 +1,20 @@
 import React, {useState} from "react";
 import {
-    AlertDialog,
-    AlertDialogBody,
-    AlertDialogCloseButton,
-    AlertDialogContent, AlertDialogFooter, AlertDialogHeader,
-    AlertDialogOverlay,
-    Box, Button,
+    Button,
     Center,
     Flex,
     Heading,
     HStack,
-    Image,
+    Image, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay,
     Text,
     useDisclosure,
     VStack,
+    Modal
 } from "@chakra-ui/react";
 import {PetDetailModal} from "./PetDetailModal";
 import {useRouter} from "next/router";
 import {useCreateApplicationMutation} from "../../generated/graphql";
+import {toast, Toaster} from "react-hot-toast";
 
 interface AnimalDataProps {
     data;
@@ -68,6 +65,7 @@ export const AnimalCard: React.FC<AnimalDataProps> = ({data}) => {
                     // w={[300, 400, 700]}
                     
                 >
+                    <div><Toaster/></div>
                     <HStack display="flex" >
                         <VStack alignItems="left" p="8"  >
                             <Text fontSize="md">{data.type}</Text>
@@ -128,22 +126,20 @@ export const AnimalCard: React.FC<AnimalDataProps> = ({data}) => {
                                 Adopt Now
                             </Text>
                         </Flex>
-                        <AlertDialog
-                            motionPreset='slideInBottom'
-                            leastDestructiveRef={cancelRef}
+                        <Modal
                             onClose={onAdoptClose}
                             isOpen={isAdoptOpen}
                             isCentered
                         >
-                            <AlertDialogOverlay />
+                            <ModalOverlay />
 
-                            <AlertDialogContent>
-                                <AlertDialogHeader>Submit Application?</AlertDialogHeader>
-                                <AlertDialogCloseButton />
-                                <AlertDialogBody>
+                            <ModalContent>
+                                <ModalHeader>Submit Application?</ModalHeader>
+                                <ModalCloseButton />
+                                <ModalBody>
                                     Are you sure you want to submit an application for this animal?
-                                </AlertDialogBody>
-                                <AlertDialogFooter>
+                                </ModalBody>
+                                <ModalFooter>
                                     <Button
                                         ref={cancelRef}
                                         onClick={onAdoptClose}
@@ -162,30 +158,36 @@ export const AnimalCard: React.FC<AnimalDataProps> = ({data}) => {
                                             transform: "scale(1.05)",
                                         }}
                                         onClick={async () => {
-                                            if (count == 0) {
-                                                let values = {
-                                                    animalId: data.id,
-                                                    status: "Waiting",
-                                                    agencyEmail: data.agencyEmail
+                                            try {
+                                                if (count == 0) {
+                                                    let values = {
+                                                        animalId: data.id,
+                                                        status: "Waiting",
+                                                        agencyEmail: data.agencyEmail
+                                                    }
+                                                    const response = await createApplication({
+                                                        variables: {options: values},
+                                                    });
+                                                    if (response.data?.createApplication.errors) {
+                                                        console.log(response.data?.createApplication.errors);
+                                                        toast.error("Error submitting application");
+                                                    } else if (response.data?.createApplication.application) {
+                                                        // worked
+                                                        setCount(count + 1);
+                                                        toast.success('Application for ' + data.name.toString() +
+                                                            ' has been successfully submitted');
+                                                    }
                                                 }
-                                                const response = await createApplication({
-                                                    variables: {options: values},
-                                                });
-                                                if (response.data?.createApplication.errors) {
-                                                    console.log(response.data?.createApplication.errors)
-                                                } else if (response.data?.createApplication.application) {
-                                                    // worked
-                                                    setCount(count + 1);
-                                                }
-                                            }
-                                            onAdoptClose();
-                                        }}
+                                                onAdoptClose();
+                                            }  catch(e: unknown) {
+                                                toast.error("Error submitting application");
+                                        }}}
                                     >
                                         Yes
                                     </Button>
-                                </AlertDialogFooter>
-                            </AlertDialogContent>
-                        </AlertDialog>
+                                </ModalFooter>
+                            </ModalContent>
+                        </Modal>
                     </HStack>
                     &nbsp;
                 </Flex>
