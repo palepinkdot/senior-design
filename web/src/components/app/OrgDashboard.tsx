@@ -121,10 +121,10 @@ export default function OrgDashboard() {
 						</TabList>
 						<TabPanels>
 							<TabPanel>
-								<ShelterTableApplications applications={!shelterAppsLoading ? shelterApps?.applicationPerShelter.applications.slice(0, 3) : null} />
+								<ShelterTableApplications applications={!shelterAppsLoading ? shelterApps?.applicationPerShelter.applications.filter((app) => app.status == "Waiting").slice(0, 3) : null} />
 							</TabPanel>
 							<TabPanel>
-								<TableAnimals animals={!perShelterLoading ? animalsPerShelter?.animalsPerShelter.animals : null} />
+								<TableAnimals animals={!perShelterLoading ? animalsPerShelter?.animalsPerShelter.animals : null} applications={!shelterAppsLoading ? shelterApps?.applicationPerShelter.applications : null}/>
 							</TabPanel>
 						</TabPanels>
 					</Tabs>
