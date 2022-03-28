@@ -3,7 +3,7 @@ import { Text, Button} from "@chakra-ui/react";
 
 interface AnimalsProps {
     animal;
-    applications;
+    applications?;
   }
 
 export const TableAnimalsAppCount : React.FC<AnimalsProps> = ({animal, applications}) => {

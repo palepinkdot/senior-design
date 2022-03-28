@@ -4,7 +4,7 @@ import { TableAnimalsAppCount } from "./TableAnimalsAppCount";
 
 interface AnimalsProps {
     animals;
-    applications;
+    applications?;
   }
 
 export const TableAnimals : React.FC<AnimalsProps> = ({animals, applications}) => {
