@@ -15,9 +15,15 @@ import TinderCard from "react-tinder-card";
 import AdoFirstLoginCard from "./AdoFirstLoginCard";
 import { animal } from "faker";
 
+import * as animationDataL from "../../utils/swipe-l.json";
+import * as animationDataR from "../../utils/swipe-r.json";
+
+import Lottie from "react-lottie";
+
 interface LayoutProps {
 	variant?: WrapperVariant;
 }
+
 export const AppUserHome: React.FC<LayoutProps> = ({ children, variant }) => {
 	const router = useRouter();
 	const [liked, setLiked] = useState(false);
@@ -78,6 +84,24 @@ export const AppUserHome: React.FC<LayoutProps> = ({ children, variant }) => {
 		});
 	}
 
+	const defaultOptionsL = {
+		loop: true,
+		autoplay: true,
+		animationData: animationDataL,
+		rendererSettings: {
+			preserveAspectRatio: "xMidYMid slice",
+		},
+	};
+
+	const defaultOptionsR = {
+		loop: true,
+		autoplay: true,
+		animationData: animationDataR,
+		rendererSettings: {
+			preserveAspectRatio: "xMidYMid slice",
+		},
+	};
+
 	if (meLoading || animalLoading) {
 		return <HashLoader />;
 	} else if (meData && meData.meUser.attributes == "new") {
@@ -89,7 +113,6 @@ export const AppUserHome: React.FC<LayoutProps> = ({ children, variant }) => {
 				{/* buttons + columns */}
 				<Flex justifyContent="space-between" flexDirection="row" alignItems="center">
 					<Flex
-						as={Button}
 						w="12.5vw"
 						h="93vh"
 						bgColor="red.100"
@@ -99,7 +122,7 @@ export const AppUserHome: React.FC<LayoutProps> = ({ children, variant }) => {
 						onClick={() => dislike()}
 						zIndex="10"
 					>
-						{disliked ? <IoClose size="6rem" opacity={0.33} /> : <IoChevronBack size="6rem" opacity={0.33} />}
+						{disliked ? <IoClose size="6rem" opacity={0.33} /> : <Lottie options={defaultOptionsL} width={"6rem"} height={"6rem"} />}
 					</Flex>
 					{/* width: 90vw; max-width: 260px; height: 300px; */}
 					<Box justifyContent="center" alignItems="center" width="80vw" overflow="hidden" h="90vh">
@@ -122,7 +145,6 @@ export const AppUserHome: React.FC<LayoutProps> = ({ children, variant }) => {
 						})}
 					</Box>
 					<Flex
-						as={Button}
 						w="12.5vw"
 						h="93vh"
 						bgColor="blue.100"
@@ -132,7 +154,7 @@ export const AppUserHome: React.FC<LayoutProps> = ({ children, variant }) => {
 						onClick={() => like()}
 						zIndex="10"
 					>
-						{liked ? <IoCheckmark size="6rem" opacity={0.33} /> : <IoChevronForward size="6rem" opacity={0.33} />}
+						{liked ? <IoCheckmark size="6rem" opacity={0.33} /> : <Lottie options={defaultOptionsR} width={"6rem"} height={"6rem"} />}
 					</Flex>
 				</Flex>
 			</>
