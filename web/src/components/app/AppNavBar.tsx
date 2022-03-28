@@ -38,10 +38,10 @@ import { Squash as Hamburger } from "hamburger-react";
 
 interface AppNavBarProps {}
 
-const Links = ["Shelters", "Contact", "Shop", "Applications", "Matches"];
+const Links = ["Home", "Applications", "Matches"];
 
-const NavLink = ({ children }: { children: ReactNode }) => (
-	<NextLink href={`/${children.toString().toLowerCase()}`}>
+const NavLink = ({ children }: { children: ReactNode }) => (		
+	<NextLink href={children === "Home" ? `app` :`/${children.toString().toLowerCase()}`}>
 		<Link
 			fontWeight="semibold"
 			borderBottom="1px solid transparent"
@@ -49,11 +49,11 @@ const NavLink = ({ children }: { children: ReactNode }) => (
 				transitionDuration: "300ms",
 				textDecoration: "none",
 				borderBottom: "1px solid black",
-			}}
-		>
+			}}			
+		>			
 			{children}
 		</Link>
-	</NextLink>
+	</NextLink>	
 );
 
 const Logo = (props: any) => {
@@ -126,7 +126,7 @@ export const AppNavBar: React.FC<AppNavBarProps> = ({}) => {
 					<Logo />
 				</HStack>
 
-				<HStack as={"nav"} spacing={4} fontWeight="normal" display={{ base: "none", md: "flex" }} color="black">
+				<HStack as={"nav"} spacing={4} fontWeight="normal" display={{ base: "none", md: "flex" }} color="black">					
 					{Links.map((link) => (
 						<NavLink key={link}>{link}</NavLink>
 					))}
