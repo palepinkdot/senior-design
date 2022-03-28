@@ -1,11 +1,13 @@
 import {Table, TableCaption, Tbody, Td, Tfoot, Th, Thead, Tr} from "@chakra-ui/table";
-import {Button} from "@chakra-ui/react";
+import { Text, Button} from "@chakra-ui/react";
+import { TableAnimalsAppCount } from "./TableAnimalsAppCount";
 
 interface AnimalsProps {
     animals;
+    applications?;
   }
 
-export const TableAnimals : React.FC<AnimalsProps> = ({animals}) => {
+export const TableAnimals : React.FC<AnimalsProps> = ({animals, applications}) => {
     if (!animals) {
         return null;
       } else if (animals) {
@@ -17,11 +19,8 @@ export const TableAnimals : React.FC<AnimalsProps> = ({animals}) => {
             </TableCaption>
             <Thead>
                 <Tr>
-                    <Th>Pet Name</Th>
-                    <Th>Views</Th>
-                    <Th>Likes</Th>
-                    <Th>Total Applications</Th>
-                    <Th>Edit</Th>
+                    <Th textAlign="center">Pet Name</Th>
+                    <Th textAlign="center">Total Applications</Th>
                 </Tr>
             </Thead>
             <Tbody>
@@ -29,14 +28,9 @@ export const TableAnimals : React.FC<AnimalsProps> = ({animals}) => {
                 animals?.map((e) => {                  
                  return (                    
                     <Tr>
-                    <Td>{e.name}</Td>
-                    <Td>3746</Td>
-                    <Td>742</Td>
-                    <Td>21</Td>
-                    <Td>
-                        <Button>Edit</Button>
-                    </Td>
-                </Tr>
+                      <Td textAlign="center"><Text fontSize="xl" as="b" textTransform={"capitalize"}>{e.name}</Text></Td>
+                      <TableAnimalsAppCount applications={applications} animal={e} />
+                    </Tr>
                   );
                 })
               }
