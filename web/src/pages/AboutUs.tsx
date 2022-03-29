@@ -52,7 +52,7 @@ const AnimalUploadPage: React.FC<{}> = ({}) => {
                   </Box>
                   <Text fontSize="2xl" as="abbr" fontWeight="bold">Kyle Marler</Text>
                   <br />
-                  <Text fontSize="1xl" as="em">- "Great text by Kyle"</Text>
+                  <Text fontSize="1xl" as="em"></Text>
                 </Box>
                 </GridItem>
                 <GridItem colSpan={1} px="5" color="red.500">
@@ -62,7 +62,7 @@ const AnimalUploadPage: React.FC<{}> = ({}) => {
                   </Box>
                   <Text fontSize="2xl" as="abbr" fontWeight="bold">Max Gramman</Text>
                   <br />
-                  <Text fontSize="1xl" as="em">- "Great text by Max"</Text>
+                  <Text fontSize="1xl" as="em"></Text>
                   </Box>
                 </GridItem>
                 <GridItem colSpan={1} px="5" color="red.500">
@@ -72,7 +72,7 @@ const AnimalUploadPage: React.FC<{}> = ({}) => {
                     </Box>
                     <Text fontSize="2xl" as="abbr" fontWeight="bold">Paramjyot Sandhu</Text>
                     <br />
-                    <Text fontSize="1xl" as="em">- "Great text by Paramjyot"</Text>
+                    <Text fontSize="1xl" as="em"></Text>
                   </Box> 
                 </GridItem>
                 <GridItem colSpan={1}  px="5" color="red.500">
@@ -82,7 +82,7 @@ const AnimalUploadPage: React.FC<{}> = ({}) => {
                   </Box>
                   <Text fontSize="2xl" as="abbr" fontWeight="bold">Torcato Vaz</Text>
                   <br />
-                  <Text fontSize="1xl" as="em">- "Great text by Torcato"</Text>
+                  <Text fontSize="1xl" as="em"></Text>
                 </Box>
                 </GridItem>            
               </SimpleGrid>
