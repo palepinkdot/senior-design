@@ -128,20 +128,6 @@ export default function OrgDashboard() {
 							</TabPanel>
 						</TabPanels>
 					</Tabs>
-					<Flex w={"100%"} h={"100%"} display={"inline-flex"} overflow={"auto"}>
-						<Stack w={"100%"} h={"100%"} display={"inline-flex"} overflow={"auto"}>
-							<HStack>
-								<ApplicationCard />
-								<ApplicationCard />
-								<ApplicationCard />
-							</HStack>
-							<HStack>
-								<ApplicationCard />
-								<ApplicationCard />
-								<ApplicationCard />
-							</HStack>
-						</Stack>
-					</Flex>
 				</Flex>
 			</>
 		);
