@@ -34,6 +34,7 @@ import { ShelterTableApplications } from "../dashboard/ShelterTableApplications"
 import { OrgNavBar } from "./OrgNavBar";
 import { ShelterTableAdoName } from "../dashboard/ShelterTableAdoName";
 import { OrgAppListViewRows } from "./OrgAppListViewRows";
+import {Toaster} from "react-hot-toast";
 
 
 export default function OrgApplicationListView() {
@@ -72,6 +73,7 @@ export default function OrgApplicationListView() {
   return (
     <div>
       <OrgNavBar />
+        <Toaster />
       <Flex flexDir="column" overflow="hidden" minH="100vh">
         <HStack align="stretch" margin="20px" spacing={4}>
           <Box color="black" >
