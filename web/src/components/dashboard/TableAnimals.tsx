@@ -14,9 +14,6 @@ export const TableAnimals : React.FC<AnimalsProps> = ({animals, applications}) =
         
         return (
             <Table variant="striped" colorScheme="red">
-            <TableCaption>
-                <Button>Show More</Button>
-            </TableCaption>
             <Thead>
                 <Tr>
                     <Th textAlign="center">Pet Name</Th>
