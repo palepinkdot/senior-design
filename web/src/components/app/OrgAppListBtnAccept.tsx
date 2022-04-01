@@ -10,6 +10,7 @@ import {
     useAnimalByIdQuery, useUpdateApplicationStatusMutation
 } from "../../generated/graphql";
 import { ShelterTableAdoName } from "../dashboard/ShelterTableAdoName";
+import {toast} from "react-hot-toast";
 
 interface ApplicationProps {
   application?;
@@ -46,10 +47,12 @@ interface ApplicationProps {
                   variables: {applicationId: values.applicationId, status: values.status},
               });
               if (response.data?.updateApplicationStatus.errors) {
-                  console.log(response.data?.updateApplicationStatus.errors)
+                  console.log(response.data?.updateApplicationStatus.errors);
+                  toast.success('Application has been successfully updated.');
               } else if (response.data?.updateApplicationStatus.application) {
                   // worked
                   console.log("Updated");
+                  toast.error('Error updating application.')
               }
           }
           }

@@ -8,7 +8,6 @@ import {
   VStack,
   HStack,
   Image,
-  StackDivider,
   Icon,
   Modal,
   ModalOverlay,
@@ -18,19 +17,13 @@ import {
   ModalBody,
   ModalCloseButton,
   useDisclosure,
-  AlertDialog,
-  AlertDialogBody,
-  AlertDialogCloseButton,
-  AlertDialogContent,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogOverlay,
   SimpleGrid,
   GridItem,
 } from "@chakra-ui/react";
 import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 import { useMeOrgQuery } from "../../generated/graphql";
 import { useCreateApplicationMutation } from "../../generated/graphql";
+import {toast} from "react-hot-toast";
 // import { withApollo } from "../utils/withApollo";
 
 interface PetDetailModalProps {
@@ -236,23 +229,21 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({
                 </Text>
               </Box>
             ) : null}
-            <AlertDialog
-              motionPreset="slideInBottom"
-              leastDestructiveRef={cancelRef}
+            <Modal
               onClose={onAdoptClose}
               isOpen={isAdoptOpen}
               isCentered
             >
-              <AlertDialogOverlay />
+              <ModalOverlay />
 
-              <AlertDialogContent>
-                <AlertDialogHeader>Submit Application?</AlertDialogHeader>
-                <AlertDialogCloseButton />
-                <AlertDialogBody>
+              <ModalContent>
+                <ModalHeader>Submit Application?</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody>
                   Are you sure you want to submit an application for this
                   animal?
-                </AlertDialogBody>
-                <AlertDialogFooter>
+                </ModalBody>
+                <ModalFooter>
                   <Button
                     ref={cancelRef}
                     onClick={onAdoptClose}
@@ -271,32 +262,36 @@ export const PetDetailModal: React.FC<PetDetailModalProps> = ({
                       transform: "scale(1.05)",
                     }}
                     onClick={async () => {
-                      if (count == 0) {
-                        let values = {
-                          animalId: pet?.id,
-                          status: "Waiting",
-                          agencyEmail: pet?.agencyEmail,
-                        };
-                        const response = await createApplication({
-                          variables: { options: values },
-                        });
-                        if (response.data?.createApplication.errors) {
-                          console.log(response.data?.createApplication.errors);
-                        } else if (
-                          response.data?.createApplication.application
-                        ) {
-                          // worked
-                          setCount(count + 1);
+                      try {
+                        if (count == 0) {
+                          let values = {
+                            animalId: pet?.id,
+                            status: "Waiting",
+                            agencyEmail: pet?.agencyEmail,
+                          };
+                          const response = await createApplication({
+                            variables: {options: values},
+                          });
+                          if (response.data?.createApplication.errors) {
+                            console.log(response.data?.createApplication.errors);
+                            toast.error("Error submitting application");
+                          } else if (response.data?.createApplication.application) {
+                            // worked
+                            setCount(count + 1);
+                            toast.success('Application for ' + pet?.toString() +
+                                ' has been successfully submitted');
+                          }
                         }
-                      }
-                      onAdoptClose();
-                    }}
+                        onAdoptClose();
+                      } catch(e: unknown) {
+                          toast.error("Error submitting application");
+                        }}}
                   >
                     Yes
                   </Button>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
+                </ModalFooter>
+              </ModalContent>
+            </Modal>
             <Button
               mr={6}
               ml={10}

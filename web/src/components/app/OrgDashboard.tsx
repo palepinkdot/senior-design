@@ -66,7 +66,7 @@ export default function OrgDashboard() {
 			<>
 				<OrgNavBar />
 				{/* Column 2 */}
-				<Flex w="100%" p="3%" flexDir="column" overflow="auto" minH="100vh" height={"100%"}>
+				<Flex w="100%" p="3%" flexDir="column" minH="100vh" height={"100%"}>
 					<Heading fontWeight="bold" display={"inline-flex"}>
 						{data.meOrg.orgName}
 					</Heading>
@@ -76,8 +76,8 @@ export default function OrgDashboard() {
 					<Text fontWeight={"bold"} display={"inline-flex"}>
 						Quick Stats
 					</Text>
-					<Flex w={"100%"} p={"3%"} pr={"1%"} minH={"20vh"} mt={4} display={"inline-flex"} overflow={"auto"}>
-						<Flex flexDir={"row"} overflow={"auto"} display={"column"} flex={3}>
+					<Flex w={"100%"} p={"3%"} pr={"1%"} minH={"20vh"} mt={4} display={"inline-flex"}>
+						<Flex flexDir={"row"} display={"column"} flex={3}>
 							<Text fontWeight={"normal"} mb={4} fontSize={"12"}>
 								Total Applications
 							</Text>
@@ -85,7 +85,7 @@ export default function OrgDashboard() {
 								{!shelterAppsLoading ? shelterApps?.applicationPerShelter.applications.length : "Loading..."}
 							</Heading>
 						</Flex>
-						<Flex flexDir={"row"} overflow={"auto"} display={"column"} flex={3}>
+						<Flex flexDir={"row"} display={"column"} flex={3}>
 							<Text fontWeight={"normal"} mb={4} fontSize={"12"}>
 								Pending Approval
 							</Text>
@@ -93,7 +93,7 @@ export default function OrgDashboard() {
 								{!shelterAppsLoading ? shelterApps?.applicationPerShelter.applications.filter((app) => app.status == "Waiting").length : "Loading..."}
 							</Heading>
 						</Flex>
-						<Flex flexDir={"row"} overflow={"auto"} display={"column"} flex={3}>
+						<Flex flexDir={"row"} display={"column"} flex={3}>
 							<Text fontWeight={"normal"} mb={4} fontSize={"12"}>
 								Adoptions This Month
 							</Text>
@@ -103,7 +103,7 @@ export default function OrgDashboard() {
 									: "Loading..."}
 							</Heading>
 						</Flex>
-						<Flex flexDir={"row"} overflow={"auto"} display={"column"} flex={3}>
+						<Flex flexDir={"row"} display={"column"} flex={3}>
 							<Text fontWeight={"normal"} mb={4} fontSize={"12"}>
 								Adoptions Last Month
 							</Text>
